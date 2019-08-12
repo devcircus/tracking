@@ -39,6 +39,6 @@ class StoreUserService
     {
         $this->validator->validate($user->toArray());
 
-        return $this->users->createUser($user);
+        return $this->users->createUser($user->only(['name', 'email', 'password', 'is_admin']));
     }
 }

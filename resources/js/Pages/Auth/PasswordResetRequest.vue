@@ -5,12 +5,12 @@
                 <logo class="block mx-auto w-full max-w-xs fill-white" height="50" />
                 <form class="mt-8 bg-white rounded-lg shadow-lg overflow-hidden" @submit.prevent="submit">
                     <div class="px-10 py-12">
-                        <h1 class="text-center font-bold text-2xl">Password Reset Request</h1>
+                        <h1 class="text-center text-gray-800 font-bold text-2xl">Password Reset Request</h1>
                         <div class="mx-auto mt-6 w-24 border-b-2" />
                         <text-input v-model="form.email" class="mt-10" label="Email" :errors="errors.email" type="email" autofocus autocapitalize="off" />
                     </div>
                     <div class="px-10 py-4 bg-gray-100 border-t border-gray-200 flex justify-between items-center">
-                        <loading-button :loading="sending" class="btn-blue" type="submit">Email Password Reset Instructions</loading-button>
+                        <loading-button :loading="sending" class="btn btn-blue" type="submit">Email Password Reset Instructions</loading-button>
                     </div>
                 </form>
             </div>

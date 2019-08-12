@@ -52,16 +52,18 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'date' => \App\Http\Middleware\ConvertDate::class,
+        'is_admin' => \App\Http\Middleware\IsAdmin::class,
+        'remember' => \Reinink\RememberQueryStrings::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        'remember' => \Reinink\RememberQueryStrings::class,
+        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
     ];
 
     /**
