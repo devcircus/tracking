@@ -52,7 +52,7 @@ if (mix.inProduction()) {
                     path.join(__dirname, 'resources/views/**/*.blade.php'),
                     path.join(__dirname, 'resources/js/**/*.vue')
                 ]),
-                whitelistPatterns: [/^attachment/, /^v--/, /^nprogress/, /^spinner/, /^peg/, /^bar/, /^vdp/, /^report/],
+                whitelistPatterns: [/^attachment/, /^v--/, /^nprogress/, /^spinner/, /^peg/, /^bar/, /^vdp/, /^report/, /^v-/],
                 extractors: [
                     {
                         extractor: TailwindExtractor,
