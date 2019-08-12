@@ -10,6 +10,17 @@
       'Debugbar' => 'Barryvdh\\Debugbar\\Facade',
     ),
   ),
+  'barryvdh/laravel-dompdf' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Barryvdh\\DomPDF\\ServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'PDF' => 'Barryvdh\\DomPDF\\Facade',
+    ),
+  ),
   'beyondcode/laravel-dump-server' => 
   array (
     'providers' => 
@@ -58,6 +69,17 @@
     'providers' => 
     array (
       0 => 'Laravel\\Tinker\\TinkerServiceProvider',
+    ),
+  ),
+  'maatwebsite/excel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Excel' => 'Maatwebsite\\Excel\\Facades\\Excel',
     ),
   ),
   'nesbot/carbon' => 
@@ -121,6 +143,13 @@
     'providers' => 
     array (
       0 => 'PerfectOblivion\\Valid\\ValidServiceProvider',
+    ),
+  ),
+  'reinink/advanced-eloquent' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'AdvancedEloquent\\ServiceProvider',
     ),
   ),
   'tightenco/ziggy' => 

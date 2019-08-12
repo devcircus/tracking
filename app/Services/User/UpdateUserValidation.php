@@ -18,6 +18,7 @@ class UpdateUserValidation extends ValidationService
             'id' => ['required', 'numeric'],
             'name' => ['required', 'max:50'],
             'email' => ['required', 'max:50', 'email', Rule::unique('users')->ignore($this->validationData()['id'])],
+            'is_admin' => ['required', 'boolean'],
             'password' => ['nullable'],
         ];
     }

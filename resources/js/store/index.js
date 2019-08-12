@@ -1,2 +1,105 @@
 export default {
+    tagColumns: [
+        {
+            field: 'package_number',
+            label: 'Package Number',
+            type: 'number',
+            tdClass: 'column-left',
+            thClass: 'column-left',
+            width: '100px',
+            sortable: true,
+        },
+        {
+            field: 'item.name',
+            label: 'Item',
+            type: 'text',
+            sortable: true,
+        },
+        {
+            field: 'received_at',
+            label: 'Received',
+            type: 'date',
+            dateInputFormat: 'yyyy-LL-dd',
+            dateOutputFormat: 'yyyy-LL-dd',
+            hidden: false,
+            sortable: true,
+        },
+        {
+            field: 'finished_at',
+            label: 'Finished',
+            type: 'date',
+            dateInputFormat: 'yyyy-LL-dd',
+            dateOutputFormat: 'yyyy-LL-dd',
+            hidden: false,
+            sortable: true,
+        },
+        {
+            field: 'actions',
+            label: 'Actions',
+        },
+    ],
+    tagSortOptions: {
+        enabled: true,
+        initialSortBy: [
+            { field: 'received_at', type: 'desc' },
+            { field: 'package_number', type: 'desc' },
+        ],
+    },
+    tagPaginationOptions: {
+        enabled: true,
+        mode: 'pages',
+        perPage: 8,
+        dropdownAllowAll: true,
+        nextLabel: 'next',
+        prevLabel: 'prev',
+        rowsPerPageLabel: 'Records per page',
+        ofLabel: 'of',
+        pageLabel: 'page',
+        allLabel: 'All',
+    },
+    tagSearchOptions: {
+        enabled: true,
+        placeholder: 'Search tags...',
+    },
+    itemColumns: [
+        {
+            field: 'name',
+            label: 'Item',
+            type: 'text',
+            sortable: true,
+        },
+        {
+            field: 'tags_count',
+            label: 'In Stock',
+            type: 'number',
+            sortable: true,
+        },
+        {
+            field: 'actions',
+            label: 'Actions',
+            sortable: false,
+        },
+    ],
+    itemSearchOptions: {
+        enabled: true,
+        placeholder: 'Search items...',
+    },
+    itemSortOptions: {
+        enabled: true,
+        initialSortBy: [
+            { field: 'name', type: 'asc' },
+        ],
+    },
+    itemPaginationOptions: {
+        enabled: true,
+        mode: 'pages',
+        perPage: 8,
+        dropdownAllowAll: true,
+        nextLabel: 'next',
+        prevLabel: 'prev',
+        rowsPerPageLabel: 'Records per page',
+        ofLabel: 'of',
+        pageLabel: 'page',
+        allLabel: 'All',
+    },
 }

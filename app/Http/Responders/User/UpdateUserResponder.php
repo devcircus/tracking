@@ -2,6 +2,7 @@
 
 namespace App\Http\Responders\User;
 
+use Illuminate\Http\RedirectResponse;
 use PerfectOblivion\Responder\Responder;
 
 class UpdateUserResponder extends Responder
@@ -11,8 +12,10 @@ class UpdateUserResponder extends Responder
      *
      * @return mixed
      */
-    public function respond()
+    public function respond(): RedirectResponse
     {
-        return redirect()->back()->with(['success' => 'User information updated!']);
+        $this->request->session()->flash('success', 'User information updated!');
+
+        return redirect()->back(303);
     }
 }

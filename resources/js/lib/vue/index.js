@@ -1,30 +1,53 @@
 import Vue from 'vue';
-import store from 'JS/store';
+import store from '@/store';
+import VueHead from 'vue-head';
+import { config } from 'Config';
 import Dates from 'Mixins/Dates';
 import VueStash from 'vue-stash';
 import Inertia from 'inertia-vue';
 import VModal from 'vue-js-modal';
 import PortalVue from 'portal-vue';
+import Objects from '@/plugins/Objects';
+import Dialogs from '@/plugins/Dialogs';
+import GetsErrors from 'Mixins/GetsErrors';
 import ParsesUrls from 'Mixins/ParsesUrls';
-import Dispatchable from 'Mixins/Dispatchable';
+import VueWindowSize from 'vue-window-size';
+import Dispatcher from '@/plugins/Dispatcher';
+import ObjectMethods from 'Mixins/ObjectMethods';
 import Snotify, { SnotifyPosition } from 'vue-snotify';
+import HandlesDropdowns from 'Mixins/HandlesDropdowns';
+import ScreenChanges from 'Mixins/HandlesScreenSizeChanges';
 
 // Use mixins
+Vue.mixin(Dates);
+Vue.mixin(ParsesUrls);
+Vue.mixin(GetsErrors);
+Vue.mixin(ScreenChanges);
+Vue.mixin(ObjectMethods);
+Vue.mixin(HandlesDropdowns);
+
 Vue.mixin({
     methods: {
-         route: (...args) => window.route(...args).url(),
-         isObjectEmpty: (obj) => ! Object.values(obj).length >= 1,
-         objectContains: (obj, needle) => {
-            if (typeof obj === 'object' && obj !== null) {
-                return obj.hasOwnProperty(needle);
-            }
-            return false;
-         },
+        route (...args) {
+            return window.route(...args).url();
+        },
     },
 });
-Vue.mixin(Dispatchable);
-Vue.mixin(ParsesUrls);
-Vue.mixin(Dates);
+
+// Use Dispatcher
+Vue.use(Dispatcher);
+
+// Use Dialogs
+Vue.use(Dialogs);
+
+// Use Objects
+Vue.use(Objects);
+
+// Use VueHead
+Vue.use(VueHead, {
+    separator: '|',
+    complement: config.appName,
+  });
 
 // Use PortalVue
 Vue.use(PortalVue);
@@ -33,7 +56,9 @@ Vue.use(PortalVue);
 Vue.use(VueStash);
 
 // Use Vue-Modal
-Vue.use(VModal, { componentName: 'modal-component' });
+Vue.use(VModal, {
+    componentName: 'modal-component',
+});
 
 // Use Snotify for notifications
 Vue.use(Snotify, {
@@ -43,11 +68,15 @@ Vue.use(Snotify, {
         showProgressBar: true,
         closeOnClick: false,
         pauseOnHover: true,
+        backdrop: 0.7,
     }
 });
 
 // Use Inertia
 Vue.use(Inertia);
+
+// Use vue-window-size
+Vue.use(VueWindowSize);
 
 // Filters
 Vue.filter('ucase', function (value) {
@@ -70,6 +99,18 @@ let app = document.getElementById('app');
 
 new Vue({
     data: { store },
+    mounted () {
+        this.listenForEvents();
+    },
+    methods: {
+        listenForEvents () {
+            /* global Echo */
+            // Echo.channel('channel')
+            //     .listen('.event', e => {
+            //         //
+            //     });
+        },
+    },
     render: h => h(Inertia, {
         props: {
             initialPage: JSON.parse(app.dataset.page),

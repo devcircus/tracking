@@ -18,6 +18,7 @@ class StoreUserValidation extends ValidationService
             'name' => ['required'],
             'email' => ['required', Rule::unique('users', 'email')],
             'password' => ['required', 'min:8'],
+            'is_admin' => ['required', 'boolean'],
         ];
     }
 

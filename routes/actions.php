@@ -1,43 +1,99 @@
 <?php
 
 // Home
-Route::redirect('/', '/home');
-Route::get('/home', Home\Index::class)->name('home');
+Route::redirect('/', '/dashboard');
+Route::get('/dashboard', Dashboard\Index::class)->middleware(['auth'])->name('dashboard');
 
-// About
-Route::get('about', About\Index::class)->name('about');
+// Login
+Route::group(['middleware' => ['guest'], 'as' => 'login.', 'prefix' => 'login'], function ($router) {
+    $router->get('/', Auth\Login\ShowForm::class)->name('form');
+    $router->post('/', Auth\Login\ProcessLogin::class)->name('attempt');
+});
 
-// Authentication and Registration
-// Auth - Login
-Route::get('/login', Auth\Login\ShowForm::class)->middleware('guest')->name('login.form');
-Route::post('/login', Auth\Login\ProcessLogin::class)->middleware('guest')->name('login.attempt');
+// Logout
 Route::post('/logout', Auth\Logout\ProcessLogout::class)->middleware('auth')->name('logout');
 
-// Auth - Register
-Route::get('/register', Auth\Register\ShowForm::class)->middleware('guest')->name('register.form');
-Route::post('/register', Auth\Register\ProcessRegistration::class)->middleware('guest')->name('register.attempt');
-
 // Password Reset
-Route::get('/password/reset', Auth\PasswordResetRequest\ShowForm::class)->middleware('guest')->name('password.request.form');
-Route::post('/password/email', Auth\PasswordResetRequest\SendEmail::class)->middleware('guest')->name('password.request.email');
-Route::get('/password/reset/{token}', Auth\PasswordReset\ShowForm::class)->middleware('guest')->name('password.reset');
-Route::post('/password/reset', Auth\PasswordReset\UpdatePassword::class)->middleware('guest')->name('password.update');
+Route::group(['middleware' => ['guest'], 'as' => 'password.', 'prefix' => 'password'], function ($router) {
+    $router->get('/reset', Auth\PasswordResetRequest\ShowForm::class)->name('request.form');
+    $router->post('/email', Auth\PasswordResetRequest\SendEmail::class)->name('request.email');
+    $router->get('/reset/{token}', Auth\PasswordReset\ShowForm::class)->name('reset');
+    $router->post('/reset', Auth\PasswordReset\UpdatePassword::class)->name('update');
+});
 
-/*
- * Email Verification
- *
- * Middleware is defined inside the constructor of each Action.
- * ['auth', 'signed', 'throttle']
- */
-Route::get('email/verify', Auth\EmailVerification\ShowVerification::class)->name('verification.notice');
-Route::get('email/verify/{id}', Auth\EmailVerification\Verify::class)->name('verification.verify');
-Route::get('email/resend ', Auth\EmailVerification\ResendVerify::class)->name('verification.resend');
 
 // Users
-Route::get('users', User\ListUsers::class)->middleware('auth')->name('users');
-Route::get('users/create', User\CreateUser::class)->middleware('auth')->name('users.create');
-Route::post('users', User\StoreUser::class)->middleware('auth')->name('users.store');
-Route::delete('users/{user}', User\DeleteUser::class)->middleware('auth', 'selfdelete.prevent')->name('users.destroy');
-Route::get('users/{user}/edit', User\EditUser::class)->middleware('auth')->name('users.edit');
-Route::put('users/{user}', User\UpdateUser::class)->middleware('auth')->name('users.update');
-Route::put('users/{user}/restore', User\RestoreUser::class)->middleware('auth')->name('users.restore');
+Route::group(['middleware' => ['auth'], 'as' => 'users.', 'prefix' => 'users'], function ($router) {
+    $router->get('/', User\ListUsers::class)->middleware(['auth'])->name('list');
+    $router->get('/create', User\CreateUser::class)->middleware(['auth', 'is_admin'])->name('create');
+    $router->post('/', User\StoreUser::class)->middleware(['auth', 'is_admin'])->name('store');
+    $router->delete('/{user}', User\DeleteUser::class)->middleware(['auth', 'is_admin'], 'selfdelete.prevent')->name('destroy');
+    $router->get('/{user}/edit', User\EditUser::class)->middleware(['auth'])->name('edit');
+    $router->put('/{user}', User\UpdateUser::class)->middleware(['auth'])->name('update');
+    $router->put('/{user}/restore', User\RestoreUser::class)->middleware(['auth'])->name('restore');
+});
+
+/***************************************************************
+ *# # # # # # # # # # # INVENTORY ROUTES # # # # # # # # # # # #*
+ ***************************************************************/
+
+ // Main
+Route::get('/inventory', Inventory\Index::class)->middleware(['auth'])->name('inventory');
+
+// Tags
+Route::group(['middleware' => ['auth'], 'as' => 'tags.', 'prefix' => 'tags'], function ($router) {
+    $router->post('/multiple', Tag\StoreMultipleTags::class)->name('store.multiple');
+    $router->delete('/{tag}/delete', Tag\DeleteTag::class)->middleware(['is_admin'])->name('destroy');
+    $router->put('/{tag}/restore', Tag\RestoreTag::class)->middleware(['is_admin'])->name('restore');
+    $router->put('/{tag}/finish', Tag\FinishTag::class)->name('finish');
+    $router->put('/finish/multiple', Tag\FinishMultipleTags::class)->name('finish.multiple');
+    $router->put('/{tag}/reactivate', Tag\ReactivateTag::class)->name('reactivate');
+    $router->post('/', Tag\StoreTag::class)->name('store');
+});
+
+// Items
+Route::group(['middleware' => ['auth', 'is_admin'], 'as' => 'items.', 'prefix' => 'items'], function ($router) {
+    $router->get('/create', Item\CreateItem::class)->name('create');
+    $router->delete('/{item}/delete', Item\DeleteItem::class)->name('destroy');
+    $router->put('/{item}/restore', Item\RestoreItem::class)->name('restore');
+    $router->put('/{item}', Item\UpdateItem::class)->name('update');
+    $router->post('/', Item\StoreItem::class)->name('store');
+    $router->get('/{item}', Item\ShowItem::class)->name('show');
+});
+
+/***************************************************************
+ *# # # # # # # # # # # # ORDER ROUTES # # # # # # # # # # # # #*
+ ***************************************************************/
+
+// Main
+Route::get('/orders', Order\Index::class)->middleware(['auth'])->name('orders');
+
+// Reports
+Route::group(['middleware' => ['auth'], 'as' => 'reports.', 'prefix' => 'reports'], function ($router) {
+    $router->get('/{type}/{date}', Report\ShowIndividualReport::class)->middleware(['date'])->name('individual.show');
+    $router->get('/{date}', Report\ShowComprehensiveReport::class)->middleware(['date'])->name('comprehensive.show');
+    $router->get('/create', Report\CreateReport::class)->name('create');
+});
+
+// Uploads
+Route::post('uploads', Upload\StoreUpload::class)->middleware(['auth', 'is_admin'])->name('uploads.store');
+
+// PDF
+Route::get('pdf/{type}/{date}', Pdf\ShowPdf::class)->middleware(['auth', 'date'])->name('pdf.show');
+
+// Orders
+Route::group(['middleware' => ['auth', 'is_admin'], 'as' => 'orders.', 'prefix' => 'orders'], function ($router) {
+    $router->post('/', Order\AddOrder::class)->name('add');
+    $router->delete('/{order}', Order\DeleteOrder::class)->name('delete');
+    $router->post('/{order}/complete', Order\CompleteOrder::class)->name('complete');
+    $router->patch('/{order}', Order\UpdateOrder::class)->name('update');
+});
+
+// Summary
+Route::group(['middleware' => ['auth', 'date'], 'as' => 'summary.', 'prefix' => 'summary'], function ($router) {
+    $router->get('/{date}', Summary\ShowSummary::class)->name('show');
+    $router->get('/pdf/{date}', Summary\Pdf\ShowSummaryPdf::class)->name('pdf.show');
+});
+
+// Info
+Route::post('orders/batch/info', Info\UpdateInfo::class)->middleware(['auth'])->name('info.batch.update');

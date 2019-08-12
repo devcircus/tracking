@@ -5,7 +5,7 @@
                 <logo class="block mx-auto w-full max-w-xs fill-white" height="50" />
                 <form class="mt-8 bg-white rounded-lg shadow-lg overflow-hidden" @submit.prevent="submit">
                     <div class="px-10 py-12">
-                        <h1 class="text-center font-bold text-3xl">Register</h1>
+                        <h1 class="text-center text-gray-800 font-bold text-2xl">Register</h1>
                         <div class="mx-auto mt-6 w-24 border-b-2" />
                         <text-input v-model="form.name" :errors="errors.name" class="mt-10" label="Name" type="name" autofocus />
                         <text-input v-model="form.email" :errors="errors.email" class="mt-10" label="Email" type="email" autocapitalize="off" />
@@ -14,7 +14,7 @@
                     </div>
                     <div class="px-10 py-4 bg-gray-100 border-t border-gray-200 flex justify-between items-center">
                         <inertia-link class="hover:underline" tabindex="-1" href="#">Already Registered?</inertia-link>
-                        <loading-button :loading="sending" class="btn-blue" type="submit">Register</loading-button>
+                        <loading-button :loading="sending" class="btn btn-blue" type="submit">Register</loading-button>
                     </div>
                 </form>
             </div>

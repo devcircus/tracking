@@ -2,17 +2,18 @@
 
 namespace App\Http\Responders\User;
 
+use Illuminate\Http\RedirectResponse;
 use PerfectOblivion\Responder\Responder;
 
 class StoreUserResponder extends Responder
 {
     /**
      * Send a response.
-     *
-     * @return \Illuminate\View\View
      */
-    public function respond()
+    public function respond(): RedirectResponse
     {
-        return redirect()->route('users')->with(['success' => 'User Created!']);
+        $this->request->session()->flash('success', 'User successfully created!');
+
+        return redirect()->route('users.list');
     }
 }
