@@ -88,12 +88,12 @@ Vue.filter('capitalize', value => {
     return value.charAt(0).toUpperCase() + value.slice(1)
 });
 
-if (process.env.MIX_APP_ENV === 'production') {
-    Vue.config.devtools = false;
-    Vue.config.debug = false;
-    Vue.config.silent = true;
-    Vue.config.productionTip = false;
-}
+// if (process.env.MIX_APP_ENV === 'production') {
+//     Vue.config.devtools = false;
+//     Vue.config.debug = false;
+//     Vue.config.silent = true;
+//     Vue.config.productionTip = false;
+// }
 
 let app = document.getElementById('app');
 
