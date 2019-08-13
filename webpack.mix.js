@@ -21,7 +21,7 @@ mix.js('resources/js/main.js', 'public/js')
                 path.join(__dirname, 'resources/js/**/*.vue'),
             ],
             whitelist: ['html', 'body'],
-            whitelistPatterns: [/^attachment/, /^v-/, /^nprogress/, /^spinner/, /^peg/, /^bar/, /^vdp/, /^report/],
+            whitelistPatterns: [/^attachment/, /^v-/, /^nprogress/, /^spinner/, /^peg/, /^bar/, /^vdp/, /^report/, /^vgt/],
             extractors: [
                 {
                     extractor: TailwindExtractor,
