@@ -67,7 +67,7 @@ class Item extends Model
         $items = $this->withCount('activeTags')->get();
 
         return $items->filter(function($item) {
-            return $item->minimum >= $item->active_tags_count;
+            return $item->minimum !== 0 && $item->minimum >= $item->active_tags_count;
         })->values()->toArray();
     }
 
