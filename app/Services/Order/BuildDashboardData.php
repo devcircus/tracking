@@ -3,6 +3,7 @@
 namespace App\Services\Order;
 
 use App\Models\Order;
+use App\Models\Upload;
 use App\Services\CachedService;
 use Illuminate\Support\Facades\DB;
 use PerfectOblivion\Services\Traits\SelfCallingService;
@@ -14,14 +15,19 @@ class BuildDashboardData extends CachedService
     /** @var \App\Models\Order */
     private $orders;
 
+    /** @var \App\Models\Upload */
+    private $uploads;
+
     /**
      * Construct a new BuildDashboardData Service.
      *
      * @param  \App\Models\Order  $orders
+     * @param  \App\Models\Upload  $uploads
      */
-    public function __construct(Order $orders)
+    public function __construct(Order $orders, Upload $uploads)
     {
         $this->orders = $orders;
+        $this->uploads = $uploads;
     }
 
     /**
@@ -43,7 +49,9 @@ class BuildDashboardData extends CachedService
     {
         $dates = key_by_values($this->orders->reportDates()->toArray());
 
-        return collect($dates)->map(function ($date) {
+        return collect($dates)->reject(function ($date) {
+            return $this->uploads->uploadInProgressForDate($date);
+        })->map(function ($date) {
             return [
                 'quantities' => DB::table('orders')
                     ->where('report_created', $date)

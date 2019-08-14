@@ -15,7 +15,7 @@
 <script>
 import moment from 'moment-timezone';
 import Layout from '@/Shared/Layout';
-import { InertiaLink } from 'inertia-vue';
+import { InertiaLink } from '@inertiajs/inertia-vue';
 import IndividualReport from '@/Partials/IndividualReport';
 
 export default {

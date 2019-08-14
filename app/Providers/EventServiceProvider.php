@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use App\Events\SpreadsheetUploaded;
-use App\Listeners\SetTypesForOrders;
 use Illuminate\Auth\Events\Registered;
+use App\Listeners\ProcessNewSpreadsheet;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -20,19 +20,15 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         SpreadsheetUploaded::class => [
-            SetTypesForOrders::class,
+            ProcessNewSpreadsheet::class,
         ],
     ];
 
     /**
      * Register any events for your application.
-     *
-     * @return void
      */
     public function boot()
     {
         parent::boot();
-
-        //
     }
 }

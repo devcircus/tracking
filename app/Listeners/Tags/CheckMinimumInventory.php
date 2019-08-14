@@ -13,7 +13,7 @@ class CheckMinimumInventory implements ShouldQueue
     use InteractsWithQueue;
 
     /** @var string */
-    public $queue = 'notification-inventory';
+    public $queue = 'inventory-notification';
 
     /**
      * Handle the event.

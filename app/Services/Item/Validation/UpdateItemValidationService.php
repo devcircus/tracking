@@ -7,11 +7,7 @@ use PerfectOblivion\Valid\ValidationService\ValidationService;
 
 class UpdateItemValidationService extends ValidationService
 {
-    /**
-     * The key to be used for the view error bag.
-     *
-     * @var string
-     */
+    /** @var string */
     protected $errorBag = 'item';
 
     /**

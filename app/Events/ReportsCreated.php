@@ -8,12 +8,11 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class OrderTypesSet implements ShouldBroadcast
+class ReportsCreated implements ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
-
-    /** @var string */
-    public $date;
+    use Dispatchable;
+    use InteractsWithSockets;
+    use SerializesModels;
 
     /**
      * The name of the queue on which to place the event.
@@ -23,23 +22,13 @@ class OrderTypesSet implements ShouldBroadcast
     public $broadcastQueue = 'orders-broadcast';
 
     /**
-     * Create a new event instance.
-     *
-     * @param  string  $date
-     */
-    public function __construct(string $date)
-    {
-        $this->date = $date;
-    }
-
-    /**
      * Get the channels the event should broadcast on.
      *
      * @return \Illuminate\Broadcasting\Channel|array
      */
     public function broadcastOn()
     {
-        return new Channel('types');
+        return new Channel('reports');
     }
 
     /**
@@ -49,7 +38,7 @@ class OrderTypesSet implements ShouldBroadcast
      */
     public function broadcastAs()
     {
-        return 'typesSet';
+        return 'reportsCreated';
     }
 
     /**
@@ -59,6 +48,6 @@ class OrderTypesSet implements ShouldBroadcast
      */
     public function tags()
     {
-        return ['orders', 'types'];
+        return ['orders', 'reports'];
     }
 }

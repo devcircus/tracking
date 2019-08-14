@@ -21,7 +21,6 @@ Route::group(['middleware' => ['guest'], 'as' => 'password.', 'prefix' => 'passw
     $router->post('/reset', Auth\PasswordReset\UpdatePassword::class)->name('update');
 });
 
-
 // Users
 Route::group(['middleware' => ['auth'], 'as' => 'users.', 'prefix' => 'users'], function ($router) {
     $router->get('/', User\ListUsers::class)->middleware(['auth'])->name('list');
@@ -76,7 +75,8 @@ Route::group(['middleware' => ['auth'], 'as' => 'reports.', 'prefix' => 'reports
 });
 
 // Uploads
-Route::post('uploads', Upload\StoreUpload::class)->middleware(['auth', 'is_admin'])->name('uploads.store');
+Route::post('/uploads', Upload\StoreUpload::class)->middleware(['auth', 'is_admin'])->name('uploads.store');
+Route::get('/uploads/check', Upload\CheckUpload::class)->middleware(['auth', 'is_admin'])->name('uploads.check');
 
 // PDF
 Route::get('pdf/{type}/{date}', Pdf\ShowPdf::class)->middleware(['auth', 'date'])->name('pdf.show');

@@ -29,6 +29,6 @@ class StoreUpload extends Action
     {
         StoreUploadService::call($request->file('upload'));
 
-        return response()->json(['message' => 'ok what now'], 200);
+        return $this->responder->respond();
     }
 }
