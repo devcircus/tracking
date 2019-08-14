@@ -53,6 +53,10 @@ class Upload extends Model
     {
         $upload = Upload::where('uploaded_at', $date)->first();
 
+        if (! $upload) {
+            return false;
+        }
+
         return ! $upload->reports_created;
     }
 
