@@ -8,9 +8,9 @@
                 <h1 class="mb-4 font-semibold text-lg text-gray-800 uppercase">Upload Report</h1>
                 <div v-if="$page.auth.user.is_admin" class="mb-6 flex items-center">
                     <file-upload v-model="file" class="mr-8" prompt="Select" button-classes="btn-sm" />
-                    <div v-if="file" class="btn btn-sm btn-muted" :class="file ? 'cursor-pointer' : 'cursor-not-allowed'" @click="uploadFile()">
-                        <span>Upload</span>
-                    </div>
+                    <loading-button v-if="file" :loading="loading" type="button" class="btn btn-blue btn-sm" :class="file ? 'cursor-pointer' : 'cursor-not-allowed btn-muted'" @clicked="uploadFile()">
+                        Upload
+                    </loading-button>
                 </div>
                 <div v-else class="mb-8 flex items-center">
                     <span class="btn btn-muted cursor-not-allowed">Choose a file</span>
@@ -103,7 +103,7 @@
                     </div>
                 </div>
                 <div v-else>
-                    <span class="text-base text-gray-800 font-semibold uppercase py-4 w-full">No reports found.</span>
+                    <span class="text-base text-gray-800 font-semibold uppercase p-4 w-full">No reports found.</span>
                 </div>
                 <pagination v-if="reports" :links="results.links" :full-width="false" />
             </div>
@@ -117,19 +117,26 @@ import moment from 'moment';
 import Icon from '@/Shared/Icon';
 import Pagination from '@/Shared/Pagination';
 import FileUpload from '@/Shared/FileUpload';
+import LoadingButton from '@/Shared/LoadingButton';
+import WatchesForErrors from 'Mixins/WatchesForErrors';
 
 export default {
     components: {
         FileUpload,
         Icon,
         Pagination,
+        LoadingButton,
     },
+    mixins: [ WatchesForErrors ],
     props: ['results'],
     data () {
         return {
             file: null,
             reports: null,
             currentDate: null,
+            loading: false,
+            errorBag: 'upload',
+            errorField: 'upload',
         }
     },
     created () {
@@ -142,16 +149,14 @@ export default {
         uploadFile () {
             if (! this.file) return;
 
-            this.$modal.show('fetching');
-            this.$modal.show('uploading');
+            this.loading = true;
 
             let formData = new FormData();
             formData.append('upload', this.file);
 
-            axios.post(this.route('uploads.store'), formData)
-            .then((response) => {
+            this.$inertia.post(this.route('uploads.store'), formData).then(() => {
                 this.file = null;
-                this.$modal.hide('uploading');
+                this.loading = false;
             });
         },
         to_timestamp (date) {

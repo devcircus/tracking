@@ -2,6 +2,7 @@
 
 namespace App\Services\Report;
 
+use App\Models\Upload;
 use App\Services\Summary\FetchSummaryByDate;
 use App\Services\Report\FetchAllOrdersByDate;
 use PerfectOblivion\Services\Traits\SelfCallingService;

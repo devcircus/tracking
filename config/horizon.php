@@ -131,14 +131,14 @@ return [
         'production' => [
             'supervisor-1' => [
                 'connection' => 'redis',
-                'queue' => ['orders', 'broadcast-orders'],
+                'queue' => ['orders', 'orders-broadcast'],
                 'balance' => 'simple',
                 'processes' => 10,
                 'tries' => 3,
             ],
             'supervisor-2' => [
                 'connection' => 'redis',
-                'queue' => ['inventory', 'broadcast-inventory', 'notification-inventory'],
+                'queue' => ['inventory', 'inventory-broadcast', 'inventory-notification'],
                 'balance' => 'simple',
                 'processes' => 10,
                 'tries' => 3,
@@ -147,14 +147,14 @@ return [
         'local' => [
             'supervisor-1' => [
                 'connection' => 'redis',
-                'queue' => ['orders', 'broadcast-orders'],
+                'queue' => ['orders', 'orders-broadcast'],
                 'balance' => 'simple',
                 'processes' => 3,
                 'tries' => 3,
             ],
             'supervisor-2' => [
                 'connection' => 'redis',
-                'queue' => ['inventory', 'broadcast-inventory', 'notification-inventory'],
+                'queue' => ['inventory', 'inventory-broadcast', 'inventory-notification'],
                 'balance' => 'simple',
                 'processes' => 3,
                 'tries' => 3,

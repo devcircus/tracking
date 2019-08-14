@@ -4,7 +4,6 @@ import VueHead from 'vue-head';
 import { config } from 'Config';
 import Dates from 'Mixins/Dates';
 import VueStash from 'vue-stash';
-import Inertia from 'inertia-vue';
 import VModal from 'vue-js-modal';
 import PortalVue from 'portal-vue';
 import Objects from '@/plugins/Objects';
@@ -14,6 +13,7 @@ import ParsesUrls from 'Mixins/ParsesUrls';
 import VueWindowSize from 'vue-window-size';
 import Dispatcher from '@/plugins/Dispatcher';
 import ObjectMethods from 'Mixins/ObjectMethods';
+import { InertiaApp } from '@inertiajs/inertia-vue';
 import Snotify, { SnotifyPosition } from 'vue-snotify';
 import HandlesDropdowns from 'Mixins/HandlesDropdowns';
 import ScreenChanges from 'Mixins/HandlesScreenSizeChanges';
@@ -72,8 +72,8 @@ Vue.use(Snotify, {
     }
 });
 
-// Use Inertia
-Vue.use(Inertia);
+// Use InertiaApp
+Vue.use(InertiaApp);
 
 // Use vue-window-size
 Vue.use(VueWindowSize);
@@ -90,7 +90,7 @@ Vue.filter('capitalize', value => {
 
 if (process.env.MIX_APP_ENV === 'production') {
     Vue.config.devtools = false;
-    Vue.config.debug = true;
+    Vue.config.debug = false;
     Vue.config.silent = false;
     Vue.config.productionTip = false;
 }
@@ -105,13 +105,17 @@ new Vue({
     methods: {
         listenForEvents () {
             /* global Echo */
-            // Echo.channel('channel')
-            //     .listen('.event', e => {
-            //         //
-            //     });
+            Echo.channel('upload')
+                .listen('.uploadComplete', e => {
+                    this.$inertia.replace(this.route('orders'), { method: 'get', data: {}, preserveScroll: false, preserveState: false });
+                });
+            Echo.channel('reports')
+                .listen('.reportsCreated', e => {
+                    this.$dispatch('reportsCreated');
+                });
         },
     },
-    render: h => h(Inertia, {
+    render: h => h(InertiaApp, {
         props: {
             initialPage: JSON.parse(app.dataset.page),
             resolveComponent: name => import (`@/Pages/${name}`).then(module => module.default),

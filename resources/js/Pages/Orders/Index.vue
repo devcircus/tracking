@@ -1,17 +1,6 @@
 <template>
     <layout title="Home">
-        <h1 class="mb-4 font-semibold text-2xl text-gray-800 uppercase">Upload Report</h1>
-        <div v-if="$page.auth.user.is_admin" class="mb-6 flex items-center">
-            <file-upload v-model="file" class="mr-8" />
-            <div v-if="file" class="btn btn-muted" :class="file ? 'cursor-pointer' : 'cursor-not-allowed'" @click="uploadFile()">
-                <span>Upload</span>
-                <span class="hidden md:inline">Report</span>
-            </div>
-        </div>
-        <div v-else class="mb-8 flex items-center">
-            <span class="btn btn-muted cursor-not-allowed">Choose a file</span>
-        </div>
-        <h1 class="mb-4 font-semibold text-2xl text-gray-800 uppercase">Previous Reports</h1>
+        <h1 class="mb-4 font-semibold text-2xl text-gray-800 uppercase">Reports</h1>
         <div v-if="reports">
             <div class="rounded shadow overflow-x-auto hidden md:block">
                 <table class="w-full whitespace-no-wrap">
@@ -25,6 +14,12 @@
                         <th class="text-white font-bold px-6 pt-6 pb-4">Bags</th>
                         <th class="text-white font-bold px-6 pt-6 pb-4">Total</th>
                         <th class="text-white font-bold px-6 pt-6 pb-4">&nbsp;</th>
+                    </tr>
+                    <tr v-if="inProgress" class="bg-white hover:bg-gray-100 focus-within:bg-gray-100">
+                        <td class="border-t" colspan="9">
+                            <span class="px-6 py-4 text-green-600 font-semibold">Uploading New Report. Data will refresh shortly...</span>
+                            <img class="inline-block py-4" src="images/loader-on-white.gif" />
+                        </td>
                     </tr>
                     <tr v-for="report in reports" :key="report.timestamp" class="bg-white hover:bg-gray-100 focus-within:bg-gray-100">
                         <td class="border-t">
@@ -98,7 +93,11 @@
             </div>
         </div>
         <div v-else>
-            <span class="border-t px-6 py-4 w-full">No reports found.</span>
+            <div v-if="inProgress">
+                <span class="border-t px-6 py-4 w-full">Uploading New Report. Data will refresh shortly...</span>
+                <img class="inline-block py-4" src="images/loader-on-gray.gif" />
+            </div>
+            <span v-else class="border-t px-6 py-4 w-full">No reports found.</span>
         </div>
         <pagination :links="results.links" :full-width="false" />
     </layout>
@@ -110,12 +109,10 @@ import moment from 'moment';
 import Icon from '@/Shared/Icon';
 import Layout from '@/Shared/Layout';
 import Pagination from '@/Shared/Pagination';
-import FileUpload from '@/Shared/FileUpload';
 
 export default {
     components: {
         Layout,
-        FileUpload,
         Icon,
         Pagination,
     },
@@ -125,6 +122,10 @@ export default {
             file: null,
             reports: null,
             currentDate: null,
+            loading: false,
+            errorBag: 'upload',
+            errorField: 'upload',
+            inProgress: false,
         }
     },
     created () {
@@ -132,21 +133,27 @@ export default {
             this.reports = this.results.data;
             this.currentDate = this.results.data[Object.keys(this.results.data)[0]].date;
         }
+        axios.get(this.route('uploads.check')).then(response => {
+            this.inProgress = response.data.uploading;
+        });
+        this.$listen('reportsCreated', () => {
+            this.$inertia.replace(this.route('orders'), { method: 'get', data: {}, preserveScroll: false, preserveState: false }).then(() => {
+                this.inProgress = false;
+            });
+        });
     },
     methods: {
         uploadFile () {
             if (! this.file) return;
 
-            this.$modal.show('fetching');
-            this.$modal.show('uploading');
+            this.loading = true;
 
             let formData = new FormData();
             formData.append('upload', this.file);
 
-            axios.post(this.route('uploads.store'), formData)
-            .then((response) => {
+            this.$inertia.post(this.route('uploads.store'), formData).then(() => {
                 this.file = null;
-                this.$modal.hide('uploading');
+                this.loading = false;
             });
         },
         to_timestamp (date) {

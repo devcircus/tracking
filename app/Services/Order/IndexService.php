@@ -2,6 +2,7 @@
 
 namespace App\Services\Order;
 
+use App\Models\Upload;
 use App\Services\Order\BuildDashboardData;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
