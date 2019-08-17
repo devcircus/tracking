@@ -13,6 +13,8 @@ class UpdateInfoResponder extends Responder
      */
     public function respond()
     {
-        return redirect()->back()->with(['status' => 'Batch update successful!']);
+        $this->request->session()->flash('success', 'Batch update successful.');
+
+        return redirect()->back();
     }
 }
