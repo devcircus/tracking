@@ -37,11 +37,11 @@ export default {
         SelectInput,
         LoadingButton,
     },
-    mixins: [ WatchesForErrors ],
     remember: {
         data: ['form'],
         key: () => 'Tags-Activate',
     },
+    mixins: [ WatchesForErrors ],
     data () {
         return {
             sending: false,

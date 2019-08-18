@@ -15,6 +15,6 @@ class DeleteUserResponder extends Responder
     {
         $this->request->session()->flash('success', 'User deleted!');
 
-        return redirect()->route('users.list', [], 303);
+        return redirect()->back(303);
     }
 }
