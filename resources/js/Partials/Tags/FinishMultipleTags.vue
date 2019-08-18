@@ -27,14 +27,15 @@ export default {
         TextInput,
         LoadingButton,
     },
-    mixins: [ WatchesForErrors ],
     remember: {
         data: ['form'],
         key: () => 'Tags-Finish',
     },
+    mixins: [ WatchesForErrors ],
     data () {
         return {
             sending: false,
+            submitted: false,
             errorBag: 'tags_finish',
             form: {
                 starting_package_number: null,

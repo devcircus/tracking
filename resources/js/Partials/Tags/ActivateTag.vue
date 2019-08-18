@@ -26,8 +26,8 @@ import moment from 'moment-timezone';
 import TextInput from '@/Shared/TextInput';
 import Datepicker from '@/Shared/Datepicker';
 import SelectInput from '@/Shared/SelectInput';
-import WatchesForErrors from 'Mixins/WatchesForErrors';
 import LoadingButton from '@/Shared/LoadingButton';
+import WatchesForErrors from 'Mixins/WatchesForErrors';
 
 export default {
     components: {
@@ -36,14 +36,15 @@ export default {
         SelectInput,
         LoadingButton,
     },
-    mixins: [ WatchesForErrors ],
     remember: {
         data: ['form'],
         key: () => 'Tag-Activate',
     },
+    mixins: [ WatchesForErrors ],
     data () {
         return {
             sending: false,
+            submitted: false,
             errorBag: 'tag',
             form: {
                 package_number: null,

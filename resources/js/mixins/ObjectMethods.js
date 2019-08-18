@@ -1,14 +1,10 @@
 export default {
     methods: {
         isObjectEmpty (obj) {
-            return ! Object.values(obj).length >= 1;
+            return this.$collection(obj).isEmpty();
         },
         objectContains (obj, needle) {
-            if (typeof obj === 'object' && obj !== null) {
-                return obj.hasOwnProperty(needle);
-            }
-
-            return false;
+            return this.$collection(obj).has(needle);
         },
     },
 }

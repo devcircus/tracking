@@ -1,7 +1,9 @@
-import Sugar from 'sugar';
+import collect from 'collect.js';
 
 export default {
     install (Vue, options) {
-        Vue.prototype.$obj = Sugar.Object;
+        Vue.prototype.$collection = input => {
+            return collect(input);
+          }
     },
 }
