@@ -6,9 +6,9 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Tag\ListTagsService;
 use Illuminate\Support\Facades\Config;
+use App\Services\Item\ListItemsService;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
-use App\Services\Item\ListItemsService;
 
 class InertiaServiceProvider extends ServiceProvider
 {
@@ -25,13 +25,38 @@ class InertiaServiceProvider extends ServiceProvider
      */
     protected function shareWithInertia()
     {
+        $this->shareAssetVersion();
+
+        $this->shareAuthenticatedUser();
+
+        $this->shareAppData();
+
+        $this->shareFlashMessages();
+
+        $this->shareFormErrors();
+
+        $this->shareDomainData();
+    }
+
+    /**
+     * Share current asset version.
+     */
+    private function shareAssetVersion(): void
+    {
         Inertia::version(static function () {
             return md5_file(public_path('mix-manifest.json'));
         });
+    }
 
+    /**
+     * Share the currently authenticated user.
+     */
+    private function shareAuthenticatedUser(): void
+    {
         Inertia::share([
-            'auth' => function () {
+            'auth' => static function () {
                 $user = Auth::user();
+
                 return [
                     'user' => $user ? [
                         'id' => $user->id,
@@ -42,26 +67,33 @@ class InertiaServiceProvider extends ServiceProvider
                     ] : null,
                 ];
             },
+        ]);
+    }
+
+    /**
+     * Share relevant application data.
+     */
+    private function shareAppData(): void
+    {
+        Inertia::share([
             'app' => static function () {
                 return [
                     'name' => Config::get('app.name'),
                 ];
             },
-            'flash' => function () {
+        ]);
+    }
+
+    /**
+     * Share session flash messages.
+     */
+    private function shareFlashMessages(): void
+    {
+        Inertia::share([
+            'flash' => static function () {
                 return [
                     'success' => Session::get('success'),
                 ];
-            },
-            'errors' => function () {
-                if ($errors = Session::get('errors')) {
-                    $bags = $errors->getBags();
-
-                    return collect($bags)->map(function ($bag, $key) {
-                        return $bag->getMessages();
-                    });
-                }
-
-                return (object) [];
             },
             'success' => static function () {
                 return [
@@ -83,6 +115,35 @@ class InertiaServiceProvider extends ServiceProvider
                     'session' => Session::get('session'),
                 ];
             },
+        ]);
+    }
+
+    /**
+     * Share form errors.
+     */
+    private function shareFormErrors(): void
+    {
+        Inertia::share([
+            'errors' => static function () {
+                if ($errors = Session::get('errors')) {
+                    $bags = $errors->getBags();
+
+                    return collect($bags)->map(static function ($bag, $key) {
+                        return $bag->getMessages();
+                    });
+                }
+
+                return (object) [];
+            },
+        ]);
+    }
+
+    /**
+     * Share regularly needed domain data.
+     */
+    private function shareDomainData(): void
+    {
+        Inertia::share([
             'items' => static function () {
                 if (Auth::user()) {
                     return ListItemsService::call();
