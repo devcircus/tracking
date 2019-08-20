@@ -9,7 +9,7 @@
 
 <script>
 import Layout from '@/Shared/Layout';
-import OrdersPreview from '@/Pages/Orders/OrdersPreview';
+import OrdersPreview from '@/Pages/Reports/ReportsPreview';
 import InventoryPreview from '@/Pages/Inventory/InventoryPreview';
 
 export default {

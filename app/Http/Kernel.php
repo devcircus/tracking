@@ -54,6 +54,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'date' => \App\Http\Middleware\ConvertDate::class,
         'is_admin' => \App\Http\Middleware\IsAdmin::class,
+        'is_artist' => \App\Http\Middleware\IsArtist::class,
         'remember' => \Reinink\RememberQueryStrings::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,

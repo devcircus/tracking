@@ -63,6 +63,7 @@ class InertiaServiceProvider extends ServiceProvider
                         'name' => $user->name,
                         'email' => $user->email,
                         'is_admin' => $user->is_admin,
+                        'is_artist' => $user->is_artist,
                         'deleted_at' => $user->deleted_at,
                     ] : null,
                 ];

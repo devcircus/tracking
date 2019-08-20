@@ -23,9 +23,15 @@ class Order extends Model
         'order_types',
     ];
 
+    /** @var bool */
+    protected $casts = [
+        'complete' => 'boolean',
+    ];
+
     /** @var array */
     protected $dates = [
         'print_complete',
+        'art_complete',
     ];
 
     /**
@@ -69,11 +75,39 @@ class Order extends Model
     }
 
     /**
+     * Scope to return only orders that are complete.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     */
+    public function scopeComplete($query): Builder
+    {
+        return $query->whereNotNull('print_complete');
+    }
+
+    /**
+     * Scope to return only orders that are NOT complete.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     */
+    public function scopeNotComplete($query): Builder
+    {
+        return $query->whereNull('print_complete');
+    }
+
+    /**
      * Fetch all dates on which orders were created.
      */
     public function reportDates(): Collection
     {
         return $this->query()->orderBy('report_created', 'desc')->groupBy('report_created')->pluck('report_created');
+    }
+
+    /**
+     * Fetch the most recent date for which reports were created.
+     */
+    public function mostRecentReportCreatedDate(): string
+    {
+        return $this->reportDates()->first();
     }
 
     /**
@@ -143,6 +177,20 @@ class Order extends Model
             $instance->setCutHouseForCompletedOrder($instance);
             $instance->save();
         })->fresh();
+    }
+
+    /**
+     * Toggle the complete status of the order art.
+     *
+     * @return string|null
+     */
+    public function toggleArtComplete()
+    {
+        $current = $this->art_complete;
+        $this->art_complete = $current ? null : now();
+        $this->save();
+
+        return $this->art_complete;
     }
 
     /**

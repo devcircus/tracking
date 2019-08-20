@@ -64,11 +64,11 @@ Vue.use(VModal, {
 Vue.use(Snotify, {
     toast: {
         position: SnotifyPosition.rightTop,
-        timeout: 3000,
+        timeout: 1500,
         showProgressBar: true,
         closeOnClick: false,
         pauseOnHover: true,
-        backdrop: 0.7,
+        backdrop: 1,
     }
 });
 
@@ -107,7 +107,7 @@ new Vue({
             /* global Echo */
             Echo.channel('upload')
                 .listen('.uploadComplete', e => {
-                    this.$inertia.replace(this.route('orders'), { method: 'get', data: {}, preserveScroll: false, preserveState: false });
+                    this.$inertia.replace(this.route('reports.list'), { method: 'get', data: {}, preserveScroll: false, preserveState: false });
                 });
             Echo.channel('reports')
                 .listen('.reportsCreated', e => {

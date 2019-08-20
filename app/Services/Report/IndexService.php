@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Services\Order;
+namespace App\Services\Report;
 
-use App\Models\Upload;
 use App\Services\Order\BuildDashboardData;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 

@@ -21,6 +21,9 @@ class UserData extends Data
     /** @var bool */
     public $is_admin;
 
+    /** @var bool */
+    public $is_artist;
+
     /**
      * Construct a new UserData object.
      *
@@ -38,7 +41,7 @@ class UserData extends Data
      */
     public static function fromRequest(Request $request): UserData
     {
-        return static::fromArray($request->only(['id', 'name', 'email', 'password', 'is_admin']));
+        return static::fromArray($request->only(['id', 'name', 'email', 'password', 'is_admin', 'is_artist']));
     }
 
     /**
@@ -53,6 +56,7 @@ class UserData extends Data
             'name' => $data['name'] ?? null,
             'email' => $data['email'] ?? null,
             'is_admin' => $data['is_admin'] ?? false,
+            'is_artist' => $data['is_artist'] ?? false,
             'password' => $data['password'] ?? null,
         ]);
     }
@@ -68,12 +72,14 @@ class UserData extends Data
         $name = isset($parameters['name']) ? (string) $parameters['name'] : null;
         $email = isset($parameters['email']) ? (string) $parameters['email'] : null;
         $isAdmin = isset($parameters['is_admin']) ? (bool) $parameters['is_admin'] : false;
+        $isArtist = isset($parameters['is_artist']) ? (bool) $parameters['is_artist'] : false;
         $password = isset($parameters['password']) ? (string) $parameters['password'] : null;
 
         $parameters['id'] = $id;
         $parameters['name'] = $name;
         $parameters['email'] = $email;
         $parameters['is_admin'] = $isAdmin;
+        $parameters['is_artist'] = $isArtist;
         $parameters['password'] = $password;
 
         return $parameters;
