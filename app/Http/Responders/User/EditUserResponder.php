@@ -20,6 +20,7 @@ class EditUserResponder extends Responder
                 'name' => $this->payload->name,
                 'email' => $this->payload->email,
                 'is_admin' => $this->payload->is_admin,
+                'is_artist' => $this->payload->is_artist,
                 'deleted_at' => $this->payload->deleted_at,
             ],
         ]);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Responders\Order;
+namespace App\Http\Responders\Report;
 
 use Inertia\Inertia;
 use Inertia\Response;
@@ -13,6 +13,6 @@ class IndexResponder extends Responder
      */
     public function respond(): Response
     {
-        return Inertia::render('Orders/Index', ['results' => $this->payload]);
+        return Inertia::render('Reports/Index', ['results' => $this->payload]);
     }
 }

@@ -15,6 +15,9 @@
                         <checkbox v-model="form.is_admin" :errors="getErrors('is_admin')" class="pb-8 text-lg w-full lg:w-1/2" label="Administrator? " :width="4" :height="4" :checked="form.is_admin" />
                         <text-input v-model="form.password" :errors="getErrors('password')" class="pb-8 w-full lg:w-1/2" type="password" autocomplete="new-password" label="Password" />
                     </div>
+                    <div class="flex flex-wrap">
+                        <checkbox v-model="form.is_artist" :errors="getErrors('is_artist')" class="pb-8 text-lg w-full lg:w-1/2" label="Artist? " :width="4" :height="4" :checked="form.is_artist" />
+                    </div>
                 </div>
                 <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex justify-end items-center">
                     <loading-button :loading="sending" class="btn btn-blue" type="submit">Create User</loading-button>

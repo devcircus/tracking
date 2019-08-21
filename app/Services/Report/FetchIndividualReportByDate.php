@@ -33,6 +33,6 @@ class FetchIndividualReportByDate extends CachedService
      */
     public function run(string $type, string $date)
     {
-        return $this->orders->with('types')->type($type)->forDate($date)->get();
+        return $this->orders->with('types')->type($type)->notComplete()->forDate($date)->get();
     }
 }

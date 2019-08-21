@@ -8,17 +8,17 @@
 
 .btn-green {
     @apply bg-green-700 text-white;
-    &:hover, &:focus { @apply bg-orange-500 }
+    &:hover { @apply bg-orange-500 }
 }
 
 .btn-blue {
     @apply bg-blue-700 text-white;
-    &:hover, &:focus { @apply bg-orange-500 }
+    &:hover { @apply bg-orange-500 }
 }
 
 .btn-red {
     @apply bg-red-700 text-white;
-    &:hover, &:focus { @apply bg-gray-300 text-red-700 }
+    &:hover { @apply bg-orange-500 }
 }
 
 .btn-muted {
@@ -29,4 +29,17 @@
 .btn-text {
     @apply px-6 py-3 text-gray-800 text-sm font-bold whitespace-no-wrap;
     &:hover, &:focus { @apply text-gray-600 underline }
+}
+
+.btn-outline-red {
+    @apply border border-red-500 bg-white text-red-500;
+    &:hover, &:focus {
+        @apply border-transparent bg-red-500 text-white;
+    }
+}
+.btn-outline-green {
+    @apply border border-green-500 bg-white text-green-500;
+    &:hover {
+        @apply border-transparent bg-green-500 text-white;
+    }
 }

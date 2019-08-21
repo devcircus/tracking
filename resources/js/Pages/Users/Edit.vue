@@ -13,6 +13,7 @@
                 <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
                     <text-input v-model="form.name" :errors="getErrors('name')" class="pr-6 pb-8 w-full lg:w-1/2" label="Name" />
                     <text-input v-model="form.email" :errors="getErrors('email')" class="pr-6 pb-8 w-full lg:w-1/2" label="Email" />
+                    <checkbox v-if="$page.auth.user.is_admin" v-model="form.is_artist" :errors="getErrors('is_artist')" class="pb-8 text-lg w-full lg:w-1/2" label="Artist? " :width="4" :height="4" :checked="form.is_artist" />
                     <checkbox v-if="$page.auth.user.is_admin" v-model="form.is_admin" :errors="getErrors('is_admin')" class="pb-8 text-lg w-full lg:w-1/2" label="Administrator? " :width="4" :height="4" :checked="form.is_admin" />
                     <text-input v-model="form.password" :errors="getErrors('password')" class="pr-6 pb-8 w-full lg:w-1/2" type="password" autocomplete="new-password" label="Password" />
                 </div>
@@ -52,6 +53,7 @@ export default {
                 name: this.user.name,
                 email: this.user.email,
                 is_admin: this.user.is_admin,
+                is_artist: this.user.is_artist,
                 password: this.user.password,
             },
         }

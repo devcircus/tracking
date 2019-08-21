@@ -35,6 +35,6 @@ class UpdateUserService
     {
         $this->validator->validate($data->toArray());
 
-        return $user->updateUserData($data->only(['name', 'email', 'is_admin']));
+        return $user->updateUserData($data->only(['name', 'email', 'is_admin', 'is_artist']));
     }
 }

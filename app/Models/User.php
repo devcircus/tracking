@@ -22,7 +22,10 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
     protected $perPage = 10;
 
     /** @var array */
-    protected $casts = ['is_admin' => 'boolean'];
+    protected $casts = [
+        'is_admin' => 'boolean',
+        'is_artist' => 'boolean',
+    ];
 
     /**
      * A user has many posts.
@@ -98,6 +101,7 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
             'email' => $user['email'],
             'password' => bcrypt($user['password']),
             'is_admin' => $user['is_admin'],
+            'is_artist' => $user['is_artist'],
         ]);
     }
 

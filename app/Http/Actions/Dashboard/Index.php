@@ -4,7 +4,7 @@ namespace App\Http\Actions\Dashboard;
 
 use PerfectOblivion\Actions\Action;
 use App\Http\Responders\Dashboard\IndexResponder;
-use App\Services\Order\IndexService as OrderIndexService;
+use App\Services\Report\IndexService as ReportIndexService;
 use App\Services\Inventory\IndexService as InventoryIndexService;
 
 class Index extends Action
@@ -30,7 +30,7 @@ class Index extends Action
     public function __invoke()
     {
         return $this->responder->withPayload([
-            'orders' => OrderIndexService::call(),
+            'orders' => ReportIndexService::call(),
             'inventory' => InventoryIndexService::call(),
         ])->respond();
     }
