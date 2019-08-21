@@ -22,49 +22,46 @@
                 </dropdown>
             </div>
         </div>
-        <div class="flex flex-col">
+        <div v-if="windowWidth >= 768" class="flex flex-col">
             <div class="flex justify-between bg-gray-400 border-l border-r border-b border-blue-300 p-4">
-                <span class="w-120 md:w-200p text-lg text-gray-800 font-semibold">
+                <span class="block w-200p text-lg text-gray-800 font-semibold">
                     Date
                 </span>
-                <span class="w-140 md:w-200p text-lg text-gray-800 font-semibold">
+                <span class="block w-200p text-lg text-gray-800 font-semibold">
                     Order
                 </span>
-                <span class="hidden md:block w-200p text-lg text-gray-800 font-semibold">
-                    Voucher
-                </span>
-                <span class="hidden md:block w-300p text-lg text-gray-800 font-semibold">
+                <span class="block w-300p text-lg text-gray-800 font-semibold">
                     Customer
                 </span>
-                <span class="hidden md:block flex-1 text-lg text-gray-800 font-semibold">
+                <span class="block flex-1 text-lg text-gray-800 font-semibold">
                     Style
                 </span>
-                <span v-if="type === 'prototype'" class="hidden md:block flex-1 text-lg text-gray-800 font-semibold">
+                <span class="block flex-1 text-lg text-gray-800 font-semibold">
+                    Art Ready
+                </span>
+                <span v-if="type === 'prototype'" class="block flex-1 text-lg text-gray-800 font-semibold">
                     Actions
                 </span>
             </div>
             <template v-if="notEmpty">
                 <div v-for="voucher in vouchers" :key="voucher.id" class="flex flex-wrap justify-between border-l border-r border-b border-blue-300 p-4 hover:bg-gray-300 cursor-pointer">
-                    <span class="w-120 md:w-200p text-base text-gray-800 font-normal">
+                    <span class="w-200p text-base text-gray-800 font-semibold md:font-normal mb-2 md:mb-0">
                         {{ shortDate(voucher.schedule_date) }}
                     </span>
-                    <span class="hidden md:block w-200p text-base text-gray-800 font-normal">
-                        {{ voucher.order_number }}
-                    </span>
-                    <span class="block md:hidden w-140 text-base text-gray-800 font-normal">
+                    <span class="w-200p text-base text-gray-800 font-normal mb-2 md:mb-0">
                         {{ voucher.order_number }} - {{ voucher.voucher }}
                     </span>
-                    <span class="hidden md:block w-200p text-base text-gray-800 font-normal">
-                        {{ voucher.voucher }}
-                    </span>
-                    <span class="hidden md:block w-300p text-base text-gray-800 font-normal">
+                    <span class="w-300p text-base text-gray-800 font-normal">
                         {{ voucher.customer }}
                     </span>
-                    <span class="hidden md:block flex-1 text-base text-gray-800 font-normal">
+                    <span class="flex-1 text-base text-gray-800 font-normal">
                         {{ voucher.style }}
                     </span>
-                    <div v-if="$page.auth.user.is_artist || $page.auth.user.is_admin" class="hidden md:block flex-1 text-base text-gray-800 font-normal">
-                        <loading-button v-if="! voucher.art_complete" :loading="isSending(voucher.id)" class="btn" :class="buttonClasses(voucher)" type="button" @clicked="toggleArtComplete(voucher)">{{ buttonText(voucher.id) }}</loading-button>
+                    <span class="flex-1 text-base text-gray-800 font-normal">
+                        {{ shortDate(voucher.art_complete) }}
+                    </span>
+                    <div v-if="$page.auth.user.is_artist || $page.auth.user.is_admin" class="flex-1 text-base text-gray-800 font-normal">
+                        <toggle-art-complete :voucher="voucher" />
                     </div>
                 </div>
             </template>
@@ -76,22 +73,36 @@
                 </div>
             </template>
         </div>
+        <template v-else>
+            <div class="border border-gray-400 mb-8">
+                <div class="flex flex-col">
+                    <div v-for="voucher in vouchers" :key="voucher.id" class="flex flex-col bg-white px-3 py-3 border-b">
+                        <span class="font-semibold text-gray-700 mb-2 mt-4">Schedule Date: <span class="font-normal">{{ shortDate(voucher.schedule_date) }}</span></span>
+                        <span class="font-semibold text-gray-700 mb-2">Order: <span class="font-normal">{{ voucher.order_number }} - {{ voucher.voucher }}</span></span>
+                        <span class="font-semibold text-gray-700 mb-2">Customer: <span class="font-normal">{{ voucher.customer }}</span></span>
+                        <span class="font-semibold text-gray-700 mb-2">Style: <span class="font-normal">{{ voucher.style }}</span></span>
+                        <span class="font-semibold text-gray-700 mb-3">Art Complete: <span class="font-normal">{{ shortDate(voucher.art_complete) }}</span></span>
+                        <span v-if="$page.auth.user.is_artist || $page.auth.user.is_admin" class="w-full">
+                            <toggle-art-complete class="ml-auto" :voucher="voucher" />
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </template>
     </div>
 </template>
 
 <script>
 import moment from 'moment-timezone';
 import Dropdown from '@/Shared/Dropdown.vue';
-import LoadingButton from '@/Shared/LoadingButton.vue';
+import ToggleArtComplete from '@/Partials/Orders/ToggleArtComplete';
 
 export default {
-    components: { Dropdown, LoadingButton },
-    props: ['vouchers', 'type', 'date', 'timestamp', 'group'],
-    data () {
-        return {
-            sending: false,
-        }
+    components: {
+        Dropdown,
+        ToggleArtComplete,
     },
+    props: ['vouchers', 'type', 'date', 'timestamp', 'group'],
     computed: {
         notEmpty () {
             return this.vouchers.length > 0;
@@ -100,27 +111,9 @@ export default {
             return ! this.notEmpty;
         },
     },
-    mounted () {
-        this.vouchers.forEach(voucher => {
-            this[`sending${voucher.id}`] = false;
-        });
-    },
     methods: {
-        buttonText (voucher) {
-            return voucher.art_complete ? 'Mark not complete' : 'Mark complete';
-        },
-        buttonClasses (voucher) {
-            return voucher.art_complete ? 'btn-muted' : 'btn-green';
-        },
         shortDate (date) {
-            return moment.utc(date).format('MM-DD');
-        },
-        toggleArtComplete (id) {
-            this.sending = true;
-            this.$inertia.put(this.route('vouchers.art', id)).then(() => this.sending = false);
-        },
-        isSending (id) {
-            return this[`sending${id}`];
+            return date ? moment.utc(date).format('MM-DD') : '';
         },
     },
 }

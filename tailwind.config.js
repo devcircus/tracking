@@ -99,6 +99,7 @@ module.exports = {
     },
     variants: {
         textColor: ['responsive', 'hover', 'focus', 'group-hover'],
+        textWeight: ['responsive'],
         fill: ['hover', 'focus', 'group-hover'],
         width: ['responsive'],
         margin: ['last-child', 'responsive'],

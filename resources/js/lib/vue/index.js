@@ -68,7 +68,7 @@ Vue.use(Snotify, {
         showProgressBar: true,
         closeOnClick: false,
         pauseOnHover: true,
-        backdrop: 1,
+        backdrop: 0.2,
     }
 });
 

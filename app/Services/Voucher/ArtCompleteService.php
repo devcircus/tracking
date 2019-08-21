@@ -13,8 +13,10 @@ class ArtCompleteService
      * Handle the call to the service.
      *
      * @param  \App\Models\Order  $order
+     *
+     * @return mixed
      */
-    public function run(Order $order): bool
+    public function run(Order $order)
     {
         return $order->toggleArtComplete();
     }
