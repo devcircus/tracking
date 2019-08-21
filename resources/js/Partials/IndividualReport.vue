@@ -66,10 +66,10 @@
                     </span>
                     <div v-if="type === 'prototype' && $page.auth.user.is_admin" class="hidden md:block flex-1 text-base text-gray-800 font-normal" @click.stop>
                         <input :id="`${item.id}`"
+                               v-model="info[item.id]"
                                class="border border-blue text-sm p-1 w-full"
                                type="text"
                                name="info"
-                               :value="item.info"
                                @focus="prepareToRecordInfo"
                                @blur="setNewInfo"
                         >
@@ -150,7 +150,8 @@ export default {
 
             this.hideDropdown();
         },
-        prepareToRecordInfo () {
+        prepareToRecordInfo (event) {
+            this.updatedInfo[parseInt(event.target.id)] = this.info[event.target.id];
             if (! this.showUpdateInfoButton) {
                 this.showUpdateInfoButton = true;
             }
@@ -165,23 +166,22 @@ export default {
         },
         setNewInfo (event) {
             const key = parseInt(event.target.id);
+            const voucher = this.$collection(this.data).where('id', key).first();
+            let currentValue = this.updatedInfo[key];
+            let newValue = event.target.value;
 
-            if (this.objectContains(this.updatedInfo, key)) {
-                if (this.info[key] === event.target.value) {
-                    delete this.updatedInfo[key];
-                } else if (this.updatedInfo[key] !== event.target.value) {
-                    this.updatedInfo[key] = event.target.value;
-                }
-            } else if (this.info[key] !== event.target.value) {
-                this.updatedInfo[key] = event.target.value;
+            if (newValue === voucher.info && this.$collection(this.updatedInfo).has(key)) {
+                delete this.updatedInfo[key];
+            } else if (newValue != voucher.info && newValue != currentValue) {
+                this.updatedInfo[key] = newValue;
             }
 
-            if (this.isObjectEmpty(this.updatedInfo)) {
+            if (this.$collection(this.updatedInfo).count() === 0) {
                 this.showUpdateInfoButton = false;
             }
         },
         batchUpdateInfo () {
-            if (! this.isObjectEmpty(this.updatedInfo)) {
+            if (this.$collection(this.updatedInfo).count() > 0) {
                 this.sendingInfoUpdate = true;
                 this.$inertia.post(this.route('info.batch.update'), { info: this.updatedInfo }).then( () => {
                     this.sendingInfoUpdate = false;
