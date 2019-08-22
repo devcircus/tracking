@@ -21,7 +21,7 @@
         <div v-if="$page.auth.user.is_admin || $page.auth.user.is_artist" :class="margin">
             <inertia-link class="flex items-center group py-3" :href="route('vouchers.list')">
                 <icon name="posts" class="w-4 h-4 mr-2" :class="isPath('vouchers') ? 'fill-blue-300' : 'fill-white group-hover:fill-blue-300'" />
-                <div :class="isPath('vouchers') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-xl">Artists</div>
+                <div :class="isPath('vouchers') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-xl">Artwork</div>
             </inertia-link>
         </div>
         <div v-if="$page.auth.user.is_admin">
