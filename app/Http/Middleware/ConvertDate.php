@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use DateTime;
 use App\Models\Order;
+use Carbon\CarbonImmutable;
 
 class ConvertDate
 {
@@ -34,7 +35,7 @@ class ConvertDate
         $formattedDate = null;
 
         if ($date = $request->date) {
-            $d = DateTime::createFromFormat('U', $date);
+            $d = CarbonImmutable::createFromFormat('U', $date)->tz('America/Chicago');
             abort_unless($d && $d->format('U') == $date, 500, 'The given date is invalid.');
             if ($this->orders->hasDate($formatted = $d->format('Y-m-d H:i:s'))) {
                 $formattedDate = $formatted;
