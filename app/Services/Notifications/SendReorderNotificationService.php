@@ -3,7 +3,7 @@
 namespace App\Services\Notifications;
 
 use App\Models\User;
-use App\Models\Item;
+use App\Models\InventoryItem;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\MinimumInventoryReached;
 use PerfectOblivion\Services\Traits\SelfCallingService;
@@ -28,11 +28,11 @@ class SendReorderNotificationService
     /**
      * Handle the call to the service.
      *
-     * @param  \App\Models\Item  $item
+     * @param  \App\Models\InventoryItem  $item
      *
      * @return mixed
      */
-    public function run(Item $item)
+    public function run(InventoryItem $item)
     {
         Notification::send($this->users->getAdmins(), new MinimumInventoryReached($item));
     }

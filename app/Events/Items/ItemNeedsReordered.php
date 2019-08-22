@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Events\Items;
+namespace App\Events\InventoryItems;
 
-use App\Models\Item;
+use App\Models\InventoryItem;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -16,17 +16,17 @@ class ItemNeedsReordered implements ShouldBroadcast
     /** @var string */
     public $broadcastQueue = 'inventory-broadcast';
 
-    /** @var \App\Models\Item */
+    /** @var \App\Models\InventoryItem */
     public $item;
 
     /**
      * Create a new event instance.
      *
-     * @param  \App\Models\Item  $item
+     * @param  \App\Models\InventoryItem  $item
      *
      * @return void
      */
-    public function __construct(Item $item)
+    public function __construct(InventoryItem $item)
     {
         $this->item = $item;
     }

@@ -2,13 +2,13 @@
     <layout title="Dashboard">
         <div class="flex w-full flex-wrap md:-mx-2">
             <div class="flex flex-col w-full md:w-1/3 md:px-2">
-                <activate-tag class="w-full mb-4" />
-                <activate-multiple-tags class="w-full mb-4" />
+                <activate-tag :items="items" :tags="tags" class="w-full mb-4" />
+                <activate-multiple-tags :items="items" :tags="tags" class="w-full mb-4" />
             </div>
             <div class="flex flex-col w-full md:w-2/3 md:px-2">
-                <tag-list class="w-full mb-4" />
+                <tag-list :tags="tags" class="w-full mb-4" />
                 <div class="flex flex-wrap w-full md:-mx-2">
-                    <item-list class="w-full md:w-1/2 md:px-2 mb-4" />
+                    <item-list :items="items" class="w-full md:w-1/2 md:px-2 mb-4" />
                     <finish-multiple-tags class="w-full md:w-1/2 md:px-2 mb-4" />
                 </div>
             </div>
@@ -33,5 +33,6 @@ export default {
         FinishMultipleTags,
         ActivateMultipleTags,
     },
+    props: ['items', 'tags'],
 }
 </script>

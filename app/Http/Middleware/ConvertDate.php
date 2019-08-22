@@ -36,8 +36,10 @@ class ConvertDate
         if ($date = $request->date) {
             $d = DateTime::createFromFormat('U', $date);
             abort_unless($d && $d->format('U') == $date, 500, 'The given date is invalid.');
+            dump($d->format('Y-m-d H:i:s'));
             if ($this->orders->hasDate($formatted = $d->format('Y-m-d H:i:s'))) {
                 $formattedDate = $formatted;
+                dump($formattedDate);
             }
         }
 

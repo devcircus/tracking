@@ -61,7 +61,7 @@ class OrderData extends Data
     public $info;
 
     /**
-     * Construct a new ItemData object.
+     * Construct a new InventoryItemData object.
      *
      * @param  array  $parameters
      */

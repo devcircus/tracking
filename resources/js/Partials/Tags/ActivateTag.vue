@@ -8,7 +8,7 @@
                 <div class="flex flex-col">
                     <text-input v-model="form.package_number" :errors="getErrors('package_number')" class="mb-6 w-full md:w-1/2" label="Package Number" />
                     <select-input v-model="form.item_id" class="mb-6 w-full md:w-1/2" :errors="getErrors('item_id')" label="Item">
-                        <option v-for="item in $page.items" :key="item.id" :value="item.id" :selected="item.name">{{ item.name|capitalize }}</option>
+                        <option v-for="item in items" :key="item.id" :value="item.id" :selected="item.name">{{ item.name|capitalize }}</option>
                     </select-input>
                     <datepicker id="receivedDatepicker" v-model="form.received_at" class="mb-6 w-full md:w-1/2" :errors="getErrors('received_at')" label="Received Date" position="datepicker-top" @input="setDate($event, 'received_at')" />
                     <datepicker id="finishedDatepicker" v-model="form.finished_at" class="mb-6 w-full md:w-1/2" :errors="getErrors('finished_at')" label="Finished Date" position="datepicker-top" @input="setDate($event, 'finished_at')" />
@@ -36,11 +36,12 @@ export default {
         SelectInput,
         LoadingButton,
     },
+    mixins: [ WatchesForErrors ],
+    props: ['items'],
     remember: {
         data: ['form'],
         key: () => 'Tag-Activate',
     },
-    mixins: [ WatchesForErrors ],
     data () {
         return {
             sending: false,

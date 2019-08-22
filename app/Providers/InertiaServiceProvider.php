@@ -6,7 +6,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Services\Tag\ListTagsService;
 use Illuminate\Support\Facades\Config;
-use App\Services\Item\ListItemsService;
+use App\Services\Item\ListInventoryItemsService;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,8 +34,6 @@ class InertiaServiceProvider extends ServiceProvider
         $this->shareFlashMessages();
 
         $this->shareFormErrors();
-
-        $this->shareDomainData();
     }
 
     /**
@@ -135,25 +133,6 @@ class InertiaServiceProvider extends ServiceProvider
                 }
 
                 return (object) [];
-            },
-        ]);
-    }
-
-    /**
-     * Share regularly needed domain data.
-     */
-    private function shareDomainData(): void
-    {
-        Inertia::share([
-            'items' => static function () {
-                if (Auth::user()) {
-                    return ListItemsService::call();
-                }
-            },
-            'tags' => static function () {
-                if (Auth::user()) {
-                    return ListTagsService::call();
-                }
             },
         ]);
     }

@@ -13,6 +13,6 @@ class IndexResponder extends Responder
      */
     public function respond(): Response
     {
-        return Inertia::render('Inventory/Index');
+        return Inertia::render('Inventory/Index', $this->payload);
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\Inventory;
+namespace App\Services\Item;
 
 use App\Models\InventoryItem;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
-class IndexService
+class ListInventoryItemsService
 {
     use SelfCallingService;
 
@@ -13,7 +13,7 @@ class IndexService
     private $items;
 
     /**
-     * Construct a new IndexService.
+     * Construct a new ListInventoryItemsService.
      *
      * @param  \App\Models\InventoryItem  $items
      */
@@ -24,9 +24,11 @@ class IndexService
 
     /**
      * Handle the call to the service.
+     *
+     * @return \Illuminate\Support\Collection
      */
-    public function run(): array
+    public function run()
     {
-        return $this->items->needsReordering();
+        return $this->items->retrieveAllItems($withTrashed = true);
     }
 }

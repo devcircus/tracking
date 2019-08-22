@@ -52,12 +52,12 @@ Route::group(['middleware' => ['auth'], 'as' => 'tags.', 'prefix' => 'tags'], fu
 
 // Items
 Route::group(['middleware' => ['auth', 'is_admin'], 'as' => 'items.', 'prefix' => 'items'], function ($router) {
-    $router->get('/create', Item\CreateItem::class)->name('create');
-    $router->delete('/{item}/delete', Item\DeleteItem::class)->name('destroy');
-    $router->put('/{item}/restore', Item\RestoreItem::class)->name('restore');
-    $router->put('/{item}', Item\UpdateItem::class)->name('update');
-    $router->post('/', Item\StoreItem::class)->name('store');
-    $router->get('/{item}', Item\ShowItem::class)->name('show');
+    $router->get('/create', InventoryItem\CreateInventoryItem::class)->name('create');
+    $router->delete('/{item}/delete', InventoryItem\DeleteInventoryItem::class)->name('destroy');
+    $router->put('/{item}/restore', InventoryItem\RestoreInventoryItem::class)->name('restore');
+    $router->put('/{item}', InventoryItem\UpdateInventoryItem::class)->name('update');
+    $router->post('/', InventoryItem\StoreInventoryItem::class)->name('store');
+    $router->get('/{item}', InventoryItem\ShowInventoryItem::class)->name('show');
 });
 
 /***************************************************************
@@ -67,9 +67,9 @@ Route::group(['middleware' => ['auth', 'is_admin'], 'as' => 'items.', 'prefix' =
 // Reports
 Route::group(['middleware' => ['auth'], 'as' => 'reports.', 'prefix' => 'reports'], function ($router) {
     $router->get('/', Report\Index::class)->middleware(['auth'])->name('list');
+    $router->get('/create', Report\CreateReport::class)->name('create');
     $router->get('/{type}/{date}', Report\ShowIndividualReport::class)->middleware(['date'])->name('individual.show');
     $router->get('/{date}', Report\ShowComprehensiveReport::class)->middleware(['date'])->name('comprehensive.show');
-    $router->get('/create', Report\CreateReport::class)->name('create');
 });
 
 // Uploads
@@ -85,6 +85,7 @@ Route::group(['middleware' => ['auth', 'is_admin'], 'as' => 'orders.', 'prefix' 
     $router->delete('/{order}', Order\DeleteOrder::class)->name('delete');
     $router->post('/{order}/complete', Order\CompleteOrder::class)->name('complete');
     $router->patch('/{order}', Order\UpdateOrder::class)->name('update');
+    $router->post('/batch/info', Order\BatchUpdateInfo::class)->name('info.batch.update');
 });
 
 // Summary
@@ -93,14 +94,8 @@ Route::group(['middleware' => ['auth', 'date'], 'as' => 'summary.', 'prefix' => 
     $router->get('/pdf/{date}', Summary\Pdf\ShowSummaryPdf::class)->name('pdf.show');
 });
 
-// Info
-Route::post('orders/batch/info', Info\UpdateInfo::class)->middleware(['auth'])->name('info.batch.update');
-
-
-// Art Complete
-Route::put('vouchers/{order}/art', Voucher\ArtComplete::class)->middleware(['auth', 'is_artist'])->name('vouchers.art');
-
 // Voucher tracking for artists
 Route::group(['middleware' => ['auth', 'is_artist'], 'as' => 'vouchers.', 'prefix' => 'vouchers'], function ($router) {
+    $router->put('/{order}/art', Voucher\ArtComplete::class)->name('art');
     $router->get('/', Voucher\ListVouchersForArtists::class)->name('list');
 });

@@ -116,9 +116,6 @@ export default {
         },
     },
     methods: {
-        shortDate (date) {
-            return moment.utc(date).local().format('MM-DD');
-        },
         showActionModal (index, item) {
             if (! this.$page.auth.user.is_admin) return;
             switch (index) {
@@ -183,7 +180,7 @@ export default {
         batchUpdateInfo () {
             if (this.$collection(this.updatedInfo).count() > 0) {
                 this.sendingInfoUpdate = true;
-                this.$inertia.post(this.route('info.batch.update'), { info: this.updatedInfo }).then( () => {
+                this.$inertia.post(this.route('orders.info.batch.update'), { info: this.updatedInfo }).then( () => {
                     this.sendingInfoUpdate = false;
                     this.showUpdateInfoButton = false;
                 });

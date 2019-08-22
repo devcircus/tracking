@@ -169,7 +169,7 @@ export default {
             this.currentDate = date;
         },
         displayDate (date) {
-            return moment.utc(date).local().format('MM-DD-YYYY h:mm A');
+            return moment(date).format('MM-DD-YYYY h:mm A');
         },
         accentDate (date) {
             return date === this.currentDate ? 'font-bold text-blue-800 text-2xl' : 'font-semibold text-blue-500 text-lg';
