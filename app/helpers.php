@@ -82,7 +82,7 @@ if (! function_exists('to_date_string')) {
      */
     function to_date_string($date, string $from = 'Y-m-d H:i:s')
     {
-        return Carbon::createFromFormat($from, $date)->toDateString();
+        return Carbon::createFromFormat($from, $date)->timezone('America/Chicago')->toDateString();
     }
 }
 

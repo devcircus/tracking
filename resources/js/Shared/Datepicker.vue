@@ -51,7 +51,7 @@ export default {
     },
     methods: {
         customFormatter (date) {
-            return moment.utc(date).format('YYYY-MM-DD');
+            return moment.utc(date).local().format('YYYY-MM-DD');
         },
     },
 }

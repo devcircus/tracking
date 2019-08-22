@@ -113,7 +113,7 @@ export default {
     },
     methods: {
         shortDate (date) {
-            return date ? moment.utc(date).format('MM-DD') : '';
+            return date ?moment.utc(date).local().format('MM-DD') : '';
         },
     },
 }
