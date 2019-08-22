@@ -46,7 +46,7 @@
             <template v-if="notEmpty">
                 <div v-for="voucher in vouchers" :key="voucher.id" class="flex flex-wrap justify-between border-l border-r border-b border-blue-300 p-4 hover:bg-gray-300 cursor-pointer">
                     <span class="w-200p text-base text-gray-800 font-semibold md:font-normal mb-2 md:mb-0">
-                        {{ shortDate(voucher.schedule_date) }}
+                        {{ voucher.schedule_date }}
                     </span>
                     <span class="w-200p text-base text-gray-800 font-normal mb-2 md:mb-0">
                         {{ voucher.order_number }} - {{ voucher.voucher }}
@@ -77,7 +77,7 @@
             <div class="border border-gray-400 mb-8">
                 <div class="flex flex-col">
                     <div v-for="voucher in vouchers" :key="voucher.id" class="flex flex-col bg-white px-3 py-3 border-b">
-                        <span class="font-semibold text-gray-700 mb-2 mt-4">Schedule Date: <span class="font-normal">{{ shortDate(voucher.schedule_date) }}</span></span>
+                        <span class="font-semibold text-gray-700 mb-2 mt-4">Schedule Date: <span class="font-normal">{{ voucher.schedule_date }}</span></span>
                         <span class="font-semibold text-gray-700 mb-2">Order: <span class="font-normal">{{ voucher.order_number }} - {{ voucher.voucher }}</span></span>
                         <span class="font-semibold text-gray-700 mb-2">Customer: <span class="font-normal">{{ voucher.customer }}</span></span>
                         <span class="font-semibold text-gray-700 mb-2">Style: <span class="font-normal">{{ voucher.style }}</span></span>

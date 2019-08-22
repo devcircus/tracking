@@ -47,7 +47,7 @@
             <template v-if="notEmpty">
                 <div v-for="item in data" :key="item.id" class="flex flex-wrap justify-between border-l border-r border-b border-blue-300 p-4 hover:bg-gray-300 cursor-pointer" @click.prevent.stop="showActionModal(type, item)">
                     <span class="w-120 md:w-200p text-base font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
-                        {{ shortDate(item.schedule_date) }}
+                        {{ item.schedule_date }}
                     </span>
                     <span class="hidden md:block w-200p text-base font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
                         {{ item.order_number }}
