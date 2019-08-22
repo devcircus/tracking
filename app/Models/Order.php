@@ -30,7 +30,6 @@ class Order extends Model
 
     /** @var array */
     protected $dates = [
-        'print_complete',
         'art_complete',
     ];
 
