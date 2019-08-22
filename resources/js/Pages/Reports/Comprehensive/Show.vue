@@ -45,7 +45,7 @@ export default {
     },
     methods: {
         displayDate (date) {
-            return moment.utc(date).format('MM-DD-YYYY h:mm a');
+            return moment.utc(date).local().format('MM-DD-YYYY h:mm a');
         },
     },
 }

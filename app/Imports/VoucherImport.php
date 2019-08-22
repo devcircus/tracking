@@ -34,6 +34,8 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
         if ($this->rowShouldNotBeIgnored($row['ditem'])) {
             $print_complete = $row['cmpdte'];
             $print_complete_display = (new Carbon($print_complete))->format('m/d');
+            $existing = Order::where('order_number', $row['ordnr'])->where('voucher', $row['orvch'])->first();
+            $art_complete = optional($existing)->art_complete;
 
             return new Order([
                 'order_number' => $row['ordnr'],
@@ -54,6 +56,7 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
                 'rush_date' => $row['rshdt'],
                 'schedule_date' => $row['schdt'],
                 'report_created' => $this::$reportCreated,
+                'art_complete' => $art_complete,
                 'info' => $print_complete ? "COMPLETE - {$print_complete_display}" : '',
             ]);
         }
@@ -66,7 +69,7 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
      */
     public static function beforeImport(BeforeImport $event)
     {
-        static::$reportCreated = now('America/Chicago')->toDateTimeString();
+        static::$reportCreated = now()->toDateTimeString();
     }
 
     /**
@@ -86,7 +89,7 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
      */
     public function batchSize(): int
     {
-        return 200;
+        return 100;
     }
 
     /**

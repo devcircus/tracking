@@ -24,7 +24,7 @@
                     <tr v-for="report in reports" :key="report.timestamp" class="bg-white hover:bg-gray-100 focus-within:bg-gray-100">
                         <td class="border-t">
                             <inertia-link class="px-6 py-4 flex items-center focus:text-blue-500 font-semibold" :href="route('reports.comprehensive.show', report.timestamp)">
-                                {{ report.date_string }}
+                                {{ displayDate(report.date) }}
                                 <icon v-if="report.deleted_at" name="trash" class="flex-no-shrink w-3 h-3 fill-gray-500 ml-2" />
                             </inertia-link>
                         </td>
@@ -137,7 +137,7 @@ export default {
             this.inProgress = response.data.uploading;
         });
         this.$listen('reportsCreated', () => {
-            this.$inertia.replace(this.route('reports'), { method: 'get', data: {}, preserveScroll: false, preserveState: false }).then(() => {
+            this.$inertia.replace(this.route('reports.list'), { method: 'get', data: {}, preserveScroll: false, preserveState: false }).then(() => {
                 this.inProgress = false;
             });
         });
@@ -160,13 +160,16 @@ export default {
             return  moment.utc(date).unix();
         },
         getDayOfWeek (date) {
-            return moment.utc(date).format('ddd');
+            return moment.utc(date).local().format('ddd');
         },
         getDay (date) {
-            return moment.utc(date).format('D');
+            return moment.utc(date).local().format('D');
         },
         setCurrentDate (date) {
             this.currentDate = date;
+        },
+        displayDate (date) {
+            return moment.utc(date).local().format('MM-DD-YYYY h:mm A');
         },
         accentDate (date) {
             return date === this.currentDate ? 'font-bold text-blue-800 text-2xl' : 'font-semibold text-blue-500 text-lg';

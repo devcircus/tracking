@@ -117,7 +117,7 @@ export default {
     },
     methods: {
         shortDate (date) {
-            return moment.utc(date).format('MM-DD');
+            return moment.utc(date).local().format('MM-DD');
         },
         showActionModal (index, item) {
             if (! this.$page.auth.user.is_admin) return;
