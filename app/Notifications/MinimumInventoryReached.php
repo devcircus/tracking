@@ -2,21 +2,21 @@
 
 namespace App\Notifications;
 
-use App\Models\Item;
+use App\Models\InventoryItem;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;
 
 class MinimumInventoryReached extends Notification
 {
-    /** @var \App\Models\Item */
+    /** @var \App\Models\InventoryItem */
     public $item;
 
     /**
      * Create a new notification instance.
      *
-     * @param  \App\Models\Item  $item
+     * @param  \App\Models\InventoryItem  $item
      */
-    public function __construct(Item $item)
+    public function __construct(InventoryItem $item)
     {
         $this->item = $item;
     }

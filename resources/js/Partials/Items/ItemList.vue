@@ -57,6 +57,7 @@ export default {
         VueGoodTable,
     },
     mixins: [ WatchesForErrors ],
+    props: ['items'],
     remember: 'form',
     store: ['itemColumns', 'itemPaginationOptions', 'itemSortOptions', 'itemSearchOptions'],
     data () {
@@ -95,10 +96,10 @@ export default {
         },
         calculateRows () {
             if (! this.showTrashed) {
-                return filter(this.$page.items, item => item.deleted_at === null);
+                return filter(this.items, item => item.deleted_at === null);
             }
 
-            return this.$page.items;
+            return this.items;
         },
     },
 }

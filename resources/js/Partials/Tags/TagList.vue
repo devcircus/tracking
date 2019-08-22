@@ -12,6 +12,7 @@ export default {
         Checkbox,
         VueGoodTable,
     },
+    props: ['tags'],
     remember: 'form',
     store: ['tagColumns', 'tagSortOptions', 'tagPaginationOptions', 'tagSearchOptions'],
     data () {
@@ -129,13 +130,13 @@ export default {
             this.$refs['table'].globalSearchTerm = '';
         },
         calculateRows () {
-            const active = filter(this.$page.tags, tag => {
+            const active = filter(this.tags, tag => {
                 return tag.deleted_at === null && tag.finished_at === null;
             });
-            const trashed = filter(this.$page.tags, tag => {
+            const trashed = filter(this.tags, tag => {
                 return tag.deleted_at != null;
             });
-            const finished = filter(this.$page.tags, tag => {
+            const finished = filter(this.tags, tag => {
                 return tag.finished_at != null && tag.deleted_at === null;
             });
 

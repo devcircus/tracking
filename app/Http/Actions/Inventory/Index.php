@@ -4,7 +4,9 @@ namespace App\Http\Actions\Inventory;
 
 use Inertia\Response;
 use PerfectOblivion\Actions\Action;
+use App\Services\Tag\ListTagsService;
 use App\Http\Responders\Inventory\IndexResponder;
+use App\Services\Item\ListInventoryItemsService;
 
 class Index extends Action
 {
@@ -26,6 +28,12 @@ class Index extends Action
      */
     public function __invoke(): Response
     {
-        return $this->responder->respond();
+        $items = ListInventoryItemsService::call();
+        $tags = ListTagsService::call();
+
+        return $this->responder->withPayload([
+            'items' => $items,
+            'tags' => $tags,
+        ])->respond();
     }
 }

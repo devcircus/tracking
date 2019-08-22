@@ -2,7 +2,7 @@
 
 namespace App\Rules;
 
-use App\Models\Item;
+use App\Models\InventoryItem;
 use PerfectOblivion\Valid\CustomRule;
 
 class ItemHasNoTagsRule extends CustomRule
@@ -17,7 +17,7 @@ class ItemHasNoTagsRule extends CustomRule
      */
     public function passes($attribute, $value)
     {
-        $item = Item::find($value);
+        $item = InventoryItem::find($value);
 
         return ! $item->hasTags();
     }
