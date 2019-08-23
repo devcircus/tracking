@@ -23,7 +23,7 @@ class ProcessNewSpreadsheet implements ShouldQueue
      */
     public function handle(SpreadsheetUploaded $event): void
     {
-        StoreUploadInDatabaseService::call($event->date);
+        StoreUploadInDatabaseService::call($event->date, $event->user);
         SetTypesForOrdersService::call($event->date);
         MarkReportsReadyService::call($event->date);
     }

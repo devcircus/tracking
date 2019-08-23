@@ -4,19 +4,20 @@ namespace App\Services\User;
 
 use App\Models\User;
 use App\Http\DTO\UserData;
+use App\Services\User\Validation\UpdateUserValidation;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class UpdateUserService
 {
     use SelfCallingService;
 
-    /** @var \App\Services\User\UpdateUserValidation */
+    /** @var \App\Services\User\Validation\UpdateUserValidation */
     private $validator;
 
     /**
      * Construct a new UpdateUserService.
      *
-     * @param  \App\Services\User\UpdateUserValidation  $validator
+     * @param  \App\Services\User\Validation\UpdateUserValidation  $validator
      */
     public function __construct(UpdateUserValidation $validator)
     {
@@ -35,6 +36,14 @@ class UpdateUserService
     {
         $this->validator->validate($data->toArray());
 
-        return $user->updateUserData($data->only(['name', 'email', 'is_admin', 'is_artist']));
+        $updated = $user->updateUserData($data->only(['name', 'email', 'is_admin', 'is_artist']));
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($updated)
+            ->withProperties(['target' => $updated->name])
+            ->log('updated user data');
+
+        return $updated;
     }
 }

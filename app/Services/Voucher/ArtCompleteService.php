@@ -18,6 +18,14 @@ class ArtCompleteService
      */
     public function run(Order $order)
     {
-        return $order->toggleArtComplete();
+        $complete = $order->toggleArtComplete();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($order)
+            ->withProperties(['target' => "{$order->order_number}-{$order->voucher}"])
+            ->log($complete ? 'art complete' : 'art not complete');
+
+        return $complete;
     }
 }

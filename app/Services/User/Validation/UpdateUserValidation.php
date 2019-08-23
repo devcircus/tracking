@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Services\User;
+namespace App\Services\User\Validation;
 
 use Illuminate\Validation\Rule;
 use PerfectOblivion\Valid\ValidationService\ValidationService;
 
-class StoreUserValidation extends ValidationService
+class UpdateUserValidation extends ValidationService
 {
     /**
      * Get the validation rules that apply to the data.
@@ -15,10 +15,11 @@ class StoreUserValidation extends ValidationService
     public function rules()
     {
         return [
-            'name' => ['required'],
-            'email' => ['required', Rule::unique('users', 'email')],
-            'password' => ['required', 'min:8'],
+            'id' => ['required', 'numeric'],
+            'name' => ['required', 'max:50'],
+            'email' => ['required', 'max:50', 'email', Rule::unique('users')->ignore($this->validationData()['id'])],
             'is_admin' => ['required', 'boolean'],
+            'password' => ['nullable'],
         ];
     }
 
@@ -30,8 +31,6 @@ class StoreUserValidation extends ValidationService
     public function filters()
     {
         return [
-            'name' => ['strip_tags', 'trim'],
-            'email' => ['strip_tags', 'trim'],
         ];
     }
 }

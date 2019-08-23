@@ -16,6 +16,14 @@ class FinishTagService
      */
     public function run(Tag $tag): Tag
     {
-        return $tag->finishTag();
+        $finished = $tag->finishTag();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($finished)
+            ->withProperties(['target' => $finished->package_number])
+            ->log('tag finished');
+
+        return $tag;
     }
 }

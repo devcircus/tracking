@@ -16,6 +16,14 @@ class ReactivateTagService
      */
     public function run(Tag $tag): Tag
     {
-        return $tag->reactivateTag();
+        $reactivated = $tag->reactivateTag();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($reactivated)
+            ->withProperties(['target' => $reactivated->package_number])
+            ->log('tag reactivated');
+
+        return $reactivated;
     }
 }

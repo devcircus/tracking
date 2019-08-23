@@ -16,6 +16,14 @@ class RestoreUserService
      */
     public function run(User $user)
     {
-        return $user->restoreUser();
+        $restored = $user->restoreUser();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($restored)
+            ->withProperties(['target' => $restored->name])
+            ->log('user restored');
+
+        return $restored;
     }
 }

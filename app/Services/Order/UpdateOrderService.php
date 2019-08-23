@@ -36,6 +36,14 @@ class UpdateOrderService
     {
         $this->validator->validate($info);
 
-        return $order->updateOrder($info);
+        $updated = $order->updateOrder($info);
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($updated)
+            ->withProperties(['target' => "{$updated->order_number}-{$updated->voucher}"])
+            ->log('voucher updated');
+
+        return $updated;
     }
 }

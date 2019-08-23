@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -15,6 +16,9 @@ class SpreadsheetUploaded implements ShouldBroadcast
     /** @var string */
     public $date;
 
+    /** @var \App\Models\User */
+    public $user;
+
     /**
      * The name of the queue on which to place the event.
      *
@@ -26,10 +30,12 @@ class SpreadsheetUploaded implements ShouldBroadcast
      * Create a new event instance.
      *
      * @param  string  $date
+     * @param  \App\Models\User  $user
      */
-    public function __construct(string $date)
+    public function __construct(string $date, User $user)
     {
         $this->date = $date;
+        $this->user = $user;
     }
 
     /**

@@ -18,6 +18,14 @@ class DeleteUserService
      */
     public function run(User $user)
     {
-        return $user->deleteUser();
+        $deleted = $user->deleteUser();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($deleted)
+            ->withProperties(['target' => $deleted->name])
+            ->log('deleted user');
+
+        return $deleted;
     }
 }

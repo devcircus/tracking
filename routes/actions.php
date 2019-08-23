@@ -32,6 +32,9 @@ Route::group(['middleware' => ['auth'], 'as' => 'users.', 'prefix' => 'users'], 
     $router->put('/{user}/restore', User\RestoreUser::class)->middleware(['auth'])->name('restore');
 });
 
+// Activities
+Route::get('/activities', Activity\ListActivities::class)->middleware(['auth', 'is_admin'])->name('activities.list');
+
 /***************************************************************
  *# # # # # # # # # # # INVENTORY ROUTES # # # # # # # # # # # #*
  ***************************************************************/

@@ -3,6 +3,7 @@
 namespace App\Services\Order;
 
 use App\Models\Order;
+use Illuminate\Support\Collection;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class BatchUpdateInfoService
@@ -26,10 +27,8 @@ class BatchUpdateInfoService
      * Handle the call to the service.
      *
      * @param  array  $info
-     *
-     * @return mixed
      */
-    public function run(array $info)
+    public function run(array $info): Collection
     {
         return $this->orders->batchUpdateInfo($info);
     }

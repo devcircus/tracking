@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
 use App\Models\Traits\QueriesOrders;
-use Illuminate\Database\Eloquent\Builder;
 use App\Models\Traits\FormatsOrderDates;
+use Illuminate\Database\Eloquent\Builder;
 use App\Services\OrderTypes\SetOrderTypes;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Order extends Model
 {
+    use LogsActivity;
     use QueriesOrders;
     use FormatsOrderDates;
 
@@ -32,6 +34,9 @@ class Order extends Model
     protected $dates = [
         'art_complete',
     ];
+
+    /** @var array */
+    protected static $recordEvents = [];
 
     /**
      * An Order belongs to many Types.
@@ -222,15 +227,11 @@ class Order extends Model
      * Update info for the given vouchers.
      *
      * @param  array  $info
-     *
-     * @return array
      */
-    public function batchUpdateInfo(array $info)
+    public function batchUpdateInfo(array $info): Collection
     {
-        $all = collect($info)->each(function ($item, $key) {
+        return collect($info)->each(function ($item, $key) {
             $this->find($key)->update(['info' => $item]);
         });
-
-        return $all;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Macros;
 
 use Illuminate\Support\Arr;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection as IlluminateCollection;
 
 class Collection
 {
@@ -58,6 +59,22 @@ class Collection
             ]);
 
             return $result->toArray();
+        };
+    }
+
+    /**
+     * Create a new collection with a range of elements, with optional step.
+     *
+     * @param  mixed  $start
+     * @param  mixed  $end
+     * @param  float|int  $step
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function range()
+    {
+        return function($start, $end, $step = 1) {
+            return new IlluminateCollection(range($start, $end, $step));
         };
     }
 }

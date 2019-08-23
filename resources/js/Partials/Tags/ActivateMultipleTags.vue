@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import moment from 'moment-timezone';
+import moment from 'moment';
 import TextInput from '@/Shared/TextInput';
 import Datepicker from '@/Shared/Datepicker';
 import SelectInput from '@/Shared/SelectInput';
@@ -65,7 +65,7 @@ export default {
             })
         },
         setDate (event, field) {
-            this.form[field] = moment.utc(event).format('YYYY-MM-DD');
+            this.form[field] = moment(event).format('YYYY-MM-DD');
         },
         resetForm () {
             this.form.starting_package_number = null;

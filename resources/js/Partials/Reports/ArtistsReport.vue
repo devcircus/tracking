@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import moment from 'moment-timezone';
+import moment from 'moment';
 import Dropdown from '@/Shared/Dropdown.vue';
 import ToggleArtComplete from '@/Partials/Orders/ToggleArtComplete';
 
@@ -113,7 +113,7 @@ export default {
     },
     methods: {
         shortDate (date) {
-            return date ?moment.utc(date).local().format('MM-DD') : '';
+            return date ?moment(date).format('MM-DD') : '';
         },
     },
 }

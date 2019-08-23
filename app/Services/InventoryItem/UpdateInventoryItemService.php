@@ -36,6 +36,14 @@ class UpdateInventoryItemService
     {
         $this->validator->validate($data->toArray());
 
-        return $item->UpdateInventoryItem($data->only(['name', 'minimum']));
+        $updated = $item->UpdateInventoryItem($data->only(['name', 'minimum']));
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($updated)
+            ->withProperties(['target' => $updated->name])
+            ->log('item updated');
+
+        return $updated;
     }
 }

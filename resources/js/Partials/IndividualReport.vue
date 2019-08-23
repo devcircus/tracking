@@ -92,7 +92,7 @@
 
 <script>
 import { map } from 'lodash';
-import moment from 'moment-timezone';
+import moment from 'moment';
 import Dropdown from '@/Shared/Dropdown.vue';
 import LoadingButton from '@/Shared/LoadingButton.vue';
 
@@ -180,10 +180,13 @@ export default {
         batchUpdateInfo () {
             if (this.$collection(this.updatedInfo).count() > 0) {
                 this.sendingInfoUpdate = true;
-                this.$inertia.post(this.route('orders.info.batch.update'), { info: this.updatedInfo }).then( () => {
-                    this.sendingInfoUpdate = false;
-                    this.showUpdateInfoButton = false;
-                });
+                this.$inertia.post(
+                    this.route('orders.info.batch.update'),
+                    { info: this.updatedInfo },
+                    { replace: false, preserveScroll: true, preserveState: true }).then( () => {
+                        this.sendingInfoUpdate = false;
+                        this.showUpdateInfoButton = false;
+                    });
             }
         },
         fontColor (type, item) {

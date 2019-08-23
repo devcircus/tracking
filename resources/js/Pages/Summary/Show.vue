@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import moment from 'moment-timezone';
+import moment from 'moment';
 import Layout from '@/Shared/Layout.vue';
 import ReportSummary from '@/Partials/ReportSummary.vue';
 

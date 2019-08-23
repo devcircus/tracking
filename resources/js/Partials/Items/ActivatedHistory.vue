@@ -30,8 +30,8 @@ export default {
                     field: 'package_number',
                     label: 'Package Number',
                     type: 'number',
-                    tdClass: 'column-left',
-                    thClass: 'column-left',
+                    tdClass: 'text-left',
+                    thClass: 'text-left',
                 },
                 {
                     field: 'item.name',

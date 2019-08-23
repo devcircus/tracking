@@ -18,6 +18,14 @@ class CompleteOrderService
      */
     public function run(Order $order)
     {
-        return $order->markAsComplete();
+        $completed = $order->markAsComplete();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($completed)
+            ->withProperties(['target' => "{$completed->order_number}-{$completed->voucher}"])
+            ->log('voucher marked complete');
+
+        return $completed;
     }
 }

@@ -18,6 +18,14 @@ class DeleteOrderService
      */
     public function run(Order $order)
     {
-        return $order->deleteOrder();
+        $deleted = $order->deleteOrder();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($deleted)
+            ->withProperties(['target' => "{$deleted->order_number}-{$deleted->voucher}"])
+            ->log('voucher deleted');
+
+        return $deleted;
     }
 }

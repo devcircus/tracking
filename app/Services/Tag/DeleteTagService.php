@@ -16,6 +16,14 @@ class DeleteTagService
      */
     public function run(Tag $tag): Tag
     {
-        return $tag->deleteTag();
+        $deleted = $tag->deleteTag();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($deleted)
+            ->withProperties(['target' => $deleted->package_number])
+            ->log('tag deleted');
+
+        return $deleted;
     }
 }
