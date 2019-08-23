@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-col w-full md:w-2/3">
+    <div class="flex flex-col w-full lg:w-2/3">
         <div class="w-full bg-blue-800 p-4">
-            <h1 class="text-white text-lg md:text-xl font-semibold uppercase">Sublimation Reports</h1>
+            <h1 class="text-white text-lg lg:text-xl font-semibold uppercase">Sublimation Reports</h1>
         </div>
         <div class="bg-white rounded shadow overflow-hidden w-full py-4">
             <div class="px-4">
@@ -18,7 +18,7 @@
             </div>
             <div class="pt-4">
                 <div v-if="reports">
-                    <div class="shadow overflow-x-auto hidden md:block">
+                    <div class="shadow overflow-x-auto hidden lg:block">
                         <table class="w-full whitespace-no-wrap">
                             <tr class="bg-blue-300 text-left uppercase">
                                 <th class="text-blue-900 font-bold px-6 pt-6 pb-4">Report Created</th>
@@ -81,7 +81,7 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="flex flex-col md:hidden -px-6">
+                    <div class="flex flex-col lg:hidden -px-6">
                         <div class="flex mb-4 bg-gray-400 border-b-4 border-blue-500 px-4 py-4">
                             <div v-for="date in results.data" :key="date.date" class="flex flex-col mr-2 cursor-pointer items-center" :class="accentDate(date.date)" @click="setCurrentDate(date.date)">
                                 <span class="text-xs uppercase mb-1">

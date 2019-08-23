@@ -1,21 +1,21 @@
 <template>
     <layout title="Dashboard">
-        <div class="flex w-full flex-wrap md:-mx-2">
+        <div class="flex w-full flex-wrap lg:-mx-2">
             <inventory-preview :results="inventory" />
-            <orders-preview :results="orders" />
+            <reports-preview :results="orders" />
         </div>
     </layout>
 </template>
 
 <script>
 import Layout from '@/Shared/Layout';
-import OrdersPreview from '@/Pages/Reports/ReportsPreview';
+import ReportsPreview from '@/Pages/Reports/ReportsPreview';
 import InventoryPreview from '@/Pages/Inventory/InventoryPreview';
 
 export default {
     components: {
         Layout,
-        OrdersPreview,
+        ReportsPreview,
         InventoryPreview,
     },
     props: ['orders', 'inventory'],

@@ -25,46 +25,59 @@
         </div>
         <div class="flex flex-col">
             <div class="flex justify-between bg-gray-400 border-l border-r border-b border-blue-300 p-4">
-                <span class="w-120 md:w-200p text-lg text-gray-800 font-semibold">
+                <span class="hidden lg:block lg:flex-1 lg:w-120p text-lg text-gray-800 font-semibold">
                     Date
                 </span>
-                <span class="w-140 md:w-200p text-lg text-gray-800 font-semibold">
+                <span class="hidden lg:block lg:flex-1 lg:w-200p text-lg text-gray-800 font-semibold">
                     Order
                 </span>
-                <span class="hidden md:block w-200p text-lg text-gray-800 font-semibold">
-                    Voucher
+                <span v-if="type === 'prototype'" class="block w-120p md:w-300p lg:hidden text-lg text-gray-800 font-semibold">
+                    Order
                 </span>
-                <span class="hidden md:block w-300p text-lg text-gray-800 font-semibold">
+                <span v-else class="block w-300p lg:hidden text-lg text-gray-800 font-semibold">
+                    Order
+                </span>
+                <span class="hidden lg:block w-400p text-lg text-gray-800 font-semibold">
                     Customer
                 </span>
-                <span class="hidden md:block flex-1 text-lg text-gray-800 font-semibold">
+                <span v-if="type != 'prototype'" class="hidden md:block flex-1 text-lg text-gray-800 font-semibold">
                     Style
                 </span>
-                <span v-if="type === 'prototype'" class="hidden md:block flex-1 text-lg text-gray-800 font-semibold">
+                <span v-else class="hidden lg:block lg:flex-1 text-lg text-gray-800 font-semibold">
+                    Style
+                </span>
+                <span v-if="type === 'prototype'" class="flex-1 text-lg text-gray-800 font-semibold w-300p">
                     Info
                 </span>
             </div>
             <template v-if="notEmpty">
                 <div v-for="item in data" :key="item.id" class="flex flex-wrap justify-between border-l border-r border-b border-blue-300 p-4 hover:bg-gray-300 cursor-pointer" @click.prevent.stop="showActionModal(type, item)">
-                    <span class="w-120 md:w-200p text-base font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
-                        {{ item.schedule_date }}
+                    <span class="hidden lg:block lg:flex-1 lg:w-120p text-base font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
+                        {{ shortDate(item.schedule_date) }}
                     </span>
-                    <span class="hidden md:block w-200p text-base font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
-                        {{ item.order_number }}
-                    </span>
-                    <span class="block md:hidden w-140 text-base font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
+                    <span class="hidden lg:block lg:flex-1 lg:w-200p text-base font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
                         {{ item.order_number }} - {{ item.voucher }}
                     </span>
-                    <span class="hidden md:block w-200p text-base font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
-                        {{ item.voucher }}
-                    </span>
-                    <span class="hidden md:block w-300p text-base font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
+                    <div v-if="type === 'prototype'" class="block w-120p md:w-300p lg:hidden text-base font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
+                        <span class="block mb-2 font-semibold">{{ shortDate(item.schedule_date) }}</span>
+                        <span class="block mb-2 text-gray-600">{{ item.order_number }} - {{ item.voucher }}</span>
+                        <span class="block lg:hidden">{{ item.customer }}</span>
+                    </div>
+                    <div v-else class="block w-300p lg:hidden text-base font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
+                        <span class="block mb-2 font-semibold">{{ shortDate(item.schedule_date) }}</span>
+                        <span class="block mb-2 text-gray-600">{{ item.order_number }} - {{ item.voucher }}</span>
+                        <span class="block lg:hidden">{{ item.customer }}</span>
+                    </div>
+                    <span class="hidden lg:block w-400p text-base font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
                         {{ item.customer }}
                     </span>
-                    <span class="hidden md:block flex-1 text-base font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
+                    <span v-if="type != 'prototype'" class="hidden md:block flex-1 text-base font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
                         {{ item.style }}
                     </span>
-                    <div v-if="type === 'prototype' && $page.auth.user.is_admin" class="hidden md:block flex-1 text-base text-gray-800 font-normal" @click.stop>
+                    <span v-else class="hidden lg:block lg:flex-1 text-base font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
+                        {{ item.style }}
+                    </span>
+                    <div v-if="type === 'prototype' && $page.auth.user.is_admin" class="flex-1 text-base text-gray-800 font-normal w-300p" @click.stop>
                         <input :id="`${item.id}`"
                                v-model="info[item.id]"
                                class="border border-blue text-sm p-1 w-full"
@@ -74,7 +87,7 @@
                                @blur="setNewInfo"
                         >
                     </div>
-                    <span v-else-if="type === 'prototype'" class="flex-1 text-sm text-gray-800 font-normal" :class="item.info === 'COMPLETE' ? 'text-blue-500' : 'text-red-500'">
+                    <span v-else-if="type === 'prototype'" class="flex-1 text-sm text-gray-800 font-normal w-300p" :class="item.info === 'COMPLETE' ? 'text-blue-500' : 'text-red-500'">
                         {{ item.info }}
                     </span>
                 </div>
@@ -195,6 +208,9 @@ export default {
             }
 
             return 'text-gray-800';
+        },
+        shortDate (date) {
+            return moment(date).format('MM-DD');
         },
     },
 }

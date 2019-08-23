@@ -2,8 +2,8 @@
     <div>
         <div class="flex bg-blue-900">
             <div class="p-4 flex flex-col">
-                <h1 class="text-lg md:text-2xl text-white font-semibold mb-2">Undelivered {{ type | capitalize }} vouchers</h1>
-                <h2 class="text-base md:text:sm text-white font-semibold">By week</h2>
+                <h1 class="text-lg lg:text-2xl text-white font-semibold mb-2">Undelivered {{ type | capitalize }} vouchers</h1>
+                <h2 class="text-base lg:text:sm text-white font-semibold">By week</h2>
             </div>
             <div class="ml-auto p-4 whitespace-no-wrap">
                 <portal-target :name="`dropdown-summary-${type}`" slim />
