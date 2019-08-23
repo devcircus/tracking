@@ -16,6 +16,14 @@ class RestoreInventoryItemService
      */
     public function run(InventoryItem $item): InventoryItem
     {
-        return $item->RestoreInventoryItem();
+        $restored = $item->restoreInventoryItem();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($restored)
+            ->withProperties(['target' => $restored->name])
+            ->log('item restored');
+
+        return $restored;
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Services\Tag;
 
 use App\Models\Tag;
+use App\Http\DTO\TagData;
+use Illuminate\Support\Collection;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 use App\Services\Tag\Validation\StoreMultipleTagsValidationService;
 
@@ -39,6 +41,13 @@ class StoreMultipleTagsService
     {
         $this->validator->validate($data);
 
-        return $this->tags->storeMultipleTags($data);
+        return Collection::range($data['starting_package_number'], $data['ending_package_number'])->map(function ($packageNumber) use ($data) {
+            return StoreTagService::call(TagData::fromArray([
+                'item_id' => $data['item_id'],
+                'package_number' => $packageNumber,
+                'received_at' => $data['received_at'],
+                'finished_at' => $data['finished_at'],
+            ]));
+        });
     }
 }

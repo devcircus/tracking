@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import moment from 'moment-timezone';
+import moment from 'moment';
 import Layout from '@/Shared/Layout';
 import { InertiaLink } from '@inertiajs/inertia-vue';
 import ReportSummary from '@/Partials/ReportSummary';
@@ -45,7 +45,7 @@ export default {
     },
     methods: {
         displayDate (date) {
-            return moment.utc(date).local().format('MM-DD-YYYY h:mm a');
+            return moment(date).format('MM-DD-YYYY h:mm a');
         },
     },
 }

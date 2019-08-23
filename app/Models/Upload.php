@@ -3,14 +3,20 @@
 namespace App\Models;
 
 use App\Events\ReportsCreated;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Upload extends Model
 {
+    use LogsActivity;
+
     /** @var array */
     protected $casts = [
         'upload_complete' => 'boolean',
         'reports_created' => 'boolean',
     ];
+
+    /** @var array */
+    protected static $recordEvents = [];
 
     /**
      * Store a new upload.

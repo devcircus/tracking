@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -10,9 +11,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class InventoryItem extends Model
 {
     use SoftDeletes;
+    use LogsActivity;
 
     /** @var string */
     protected $table = 'items';
+
+    /** @var array */
+    protected static $recordEvents = [];
 
     /**
      * Get the in_stock attribute for an Item.

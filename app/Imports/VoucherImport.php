@@ -79,7 +79,7 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
      */
     public static function afterImport(AfterImport $event)
     {
-        SpreadsheetUploaded::broadcast(static::$reportCreated);
+        SpreadsheetUploaded::broadcast(static::$reportCreated, auth()->user());
     }
 
     /**

@@ -3,14 +3,15 @@
 namespace App\Models;
 
 use App\Events\Tags\TagFinished;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Collection as BaseCollection;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Tag extends Model
 {
     use SoftDeletes;
+    use LogsActivity;
 
     /** @var array */
     protected $with = [
@@ -21,6 +22,9 @@ class Tag extends Model
         'finished_at' => 'date:Y-m-d',
         'received_at' => 'date:Y-m-d',
     ];
+
+    /** @var array */
+    protected static $recordEvents = [];
 
     /**
      * A Tag belongs to an Item.
@@ -43,26 +47,6 @@ class Tag extends Model
             'received_at' => $data['received_at'],
             'finished_at' => $data['finished_at'],
         ]);
-    }
-
-    /**
-     * Store multiple sequential tags.
-     *
-     * @param  array  $data
-     */
-    public function storeMultipleTags(array $data): array
-    {
-        $created = [];
-        foreach (range($data['starting_package_number'], $data['ending_package_number']) as $packageNumber) {
-            $created[] = $this->create([
-                'item_id' => $data['item_id'],
-                'package_number' => $packageNumber,
-                'received_at' => $data['received_at'],
-                'finished_at' => $data['finished_at'],
-            ]);
-        }
-
-        return $created;
     }
 
     /**
@@ -105,20 +89,6 @@ class Tag extends Model
             $instance->save();
             TagFinished::dispatch($instance);
         })->fresh();
-    }
-
-    /**
-     * Finish Multiple Tags.
-     *
-     * @param  array  $data
-     */
-    public function finishMultipleTags(array $data): BaseCollection
-    {
-        return collect(range($data['starting_package_number'], $data['ending_package_number']))->map(function ($packageNumber) {
-            $tag = $this->where('package_number', $packageNumber)->first();
-
-            return $tag->finishTag();
-        });
     }
 
     /**

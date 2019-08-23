@@ -40,6 +40,14 @@ class AddOrderService
     {
         $this->validator->validate($order->toArray());
 
-        return $this->order->saveOrder($order->toArray());
+        $order = $this->order->saveOrder($order->toArray());
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($order)
+            ->withProperties(['target' => "{$order->order_number}-{$order->voucher}"])
+            ->log('added voucher');
+
+        return $order;
     }
 }

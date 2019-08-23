@@ -32,6 +32,14 @@ class DeleteInventoryItemService
     {
         $this->validator->validate(['id' => $item->id]);
 
-        return $item->DeleteInventoryItem();
+        $deleted = $item->DeleteInventoryItem();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($deleted)
+            ->withProperties(['target' => $deleted->name])
+            ->log('item deleted');
+
+        return $deleted;
     }
 }

@@ -16,6 +16,14 @@ class RestoreTagService
      */
     public function run(Tag $tag): Tag
     {
-        return $tag->restoreTag();
+        $restored = $tag->restoreTag();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($restored)
+            ->withProperties(['target' => $restored->package_number])
+            ->log('tag restored');
+
+        return $restored;
     }
 }

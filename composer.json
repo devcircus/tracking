@@ -38,6 +38,7 @@
         "reinink/advanced-eloquent": "^0.2.0",
         "reinink/remember-query-strings": "^0.1.0",
         "spatie/data-transfer-object": "^1.8",
+        "spatie/laravel-activitylog": "^3.7",
         "tightenco/ziggy": "^0.6.9"
     },
     "require-dev": {

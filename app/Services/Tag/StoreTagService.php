@@ -40,6 +40,14 @@ class StoreTagService
     {
         $this->validator->validate($data->toArray());
 
-        return $this->tags->storeTag($data->only(['item_id', 'package_number', 'received_at', 'finished_at']));
+        $activated = $this->tags->storeTag($data->only(['item_id', 'package_number', 'received_at', 'finished_at']));
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($activated)
+            ->withProperties(['target' => $activated->package_number])
+            ->log('tag activated');
+
+        return $activated;
     }
 }

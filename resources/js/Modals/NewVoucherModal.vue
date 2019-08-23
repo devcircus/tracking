@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import moment from 'moment-timezone';
+import moment from 'moment';
 import TextInput from '@/Shared/TextInput.vue';
 import Datepicker from '@/Shared/Datepicker.vue';
 import SelectInput from '@/Shared/SelectInput.vue';
@@ -109,7 +109,7 @@ export default {
             });
         },
         setDate (event, field) {
-            this.form[field] = moment.utc(event).format('YYYY-MM-DD');
+            this.form[field] = moment(event).format('YYYY-MM-DD');
         },
     },
 }

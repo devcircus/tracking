@@ -4,6 +4,7 @@ namespace App\Services\Upload;
 
 use App\Models\Upload;
 use App\Events\ReportsCreated;
+use App\Models\User;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class StoreUploadInDatabaseService
@@ -27,9 +28,16 @@ class StoreUploadInDatabaseService
      * Handle the call to the service.
      *
      * @param  string  $date
+     * @param  \App\Models\User  $user
      */
-    public function run(string $date): void
+    public function run(string $date, User $user): void
     {
-        $this->uploads->storeUpload($date);
+        $uploaded = $this->uploads->storeUpload($date);
+
+        activity()
+            ->causedBy($user)
+            ->performedOn($uploaded)
+            ->withProperties(['target' => $uploaded->uploaded_at])
+            ->log('report uploaded');
     }
 }

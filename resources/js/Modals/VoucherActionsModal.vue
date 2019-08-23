@@ -46,10 +46,13 @@ export default {
     methods: {
         submit () {
             this.sendingInfo = true;
-            this.$inertia.patch(this.route('orders.update', { id: this.voucher.id }), this.form).then(() => {
-                this.sendingInfo = false;
-                this.$modal.hide('voucherActions');
-            });
+            this.$inertia.patch(
+                this.route('orders.update', { id: this.voucher.id }),
+                this.form,
+                { replace: true, preserveScroll: true, preserveState: false }).then(() => {
+                    this.sendingInfo = false;
+                    this.$modal.hide('voucherActions');
+                });
         },
         closeModal () {
             this.$modal.hide('voucherActions');

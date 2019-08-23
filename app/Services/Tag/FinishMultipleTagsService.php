@@ -4,6 +4,7 @@ namespace App\Services\Tag;
 
 use App\Models\Tag;
 use Illuminate\Support\Collection;
+use App\Services\Tag\FinishTagService;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 use App\Services\Tag\Validation\FinishMultipleTagsValidationService;
 
@@ -38,6 +39,10 @@ class FinishMultipleTagsService
     {
         $this->validator->validate($data);
 
-        return $this->tags->finishMultipleTags($data);
+        return collect(range($data['starting_package_number'], $data['ending_package_number']))->map(function ($packageNumber) {
+            $tag = $this->tags->where('package_number', $packageNumber)->first();
+
+            return FinishTagService::call($tag);
+        });
     }
 }

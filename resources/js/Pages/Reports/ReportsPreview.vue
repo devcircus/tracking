@@ -158,14 +158,11 @@ export default {
                 this.loading = false;
             });
         },
-        to_timestamp (date) {
-            return  moment.utc(date).unix();
-        },
         getDayOfWeek (date) {
-            return moment.utc(date).local().format('ddd');
+            return moment(date).format('ddd');
         },
         getDay (date) {
-            return moment.utc(date).local().format('D');
+            return moment(date).format('D');
         },
         displayDate (date) {
             return moment(date).format('MM-DD-YYYY h:mm A');

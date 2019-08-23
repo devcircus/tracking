@@ -33,13 +33,19 @@ class StoreInventoryItemService
      * Handle the call to the service.
      *
      * @param  \App\Http\DTO\InventoryItemData  $data
-     *
-     * @return \App\Models\InventoryItem
      */
-    public function run(InventoryItemData $data)
+    public function run(InventoryItemData $data): InventoryItem
     {
         $this->validator->validate($data->toArray());
 
-        return $this->items->createItem($data->only(['name', 'minimum']));
+        $created = $this->items->createItem($data->only(['name', 'minimum']));
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($created)
+            ->withProperties(['target' => $created->name])
+            ->log('item created');
+
+        return $created;
     }
 }

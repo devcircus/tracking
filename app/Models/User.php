@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\CausesActivity;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -14,6 +16,8 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
     use Notifiable;
     use SoftDeletes;
     use Authorizable;
+    use LogsActivity;
+    use CausesActivity;
 
     /** @var array */
     protected $guarded = [];
@@ -26,6 +30,9 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
         'is_admin' => 'boolean',
         'is_artist' => 'boolean',
     ];
+
+    /** @var array */
+    protected static $recordEvents = [];
 
     /**
      * A user has many posts.
@@ -133,10 +140,8 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
      * Update user data.
      *
      * @param  array  $data
-     *
-     * @return \App\Models\User
      */
-    public function updateUserData(array $data)
+    public function updateUserData(array $data): User
     {
         return tap($this, function ($user) use ($data) {
             return $user->update($data);
@@ -147,10 +152,8 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
      * Update user password.
      *
      * @param  array  $data
-     *
-     * @return \App\Models\User
      */
-    public function updateUserPassword(array $data)
+    public function updateUserPassword(array $data): User
     {
         return tap($this, function ($user) use ($data) {
             return $user->update([
