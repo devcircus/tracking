@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col w-full md:w-1/3 md:px-2">
+    <div class="flex flex-col w-full lg:w-1/3 lg:px-2">
         <div class="w-full bg-blue-800 p-4">
             <h1 class="text-white text-lg md:text-xl font-semibold uppercase">Low Inventory</h1>
         </div>
