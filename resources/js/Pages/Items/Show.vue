@@ -9,7 +9,7 @@
             This item has been deleted.
         </trashed-message>
         <div class="flex flex-wrap w-full -mx-2">
-            <div class="flex flex-col w-full md:w-1/3">
+            <div class="flex flex-col w-full lg:w-1/3">
                 <div class="bg-white rounded shadow overflow-hidden w-full px-2 mb-4">
                     <form @submit.prevent="submit">
                         <div class="p-8 -mr-6 -mb-8 flex flex-wrap">
@@ -24,7 +24,7 @@
                 </div>
                 <active-tags :item="item" />
             </div>
-            <div class="overflow-hidden w-2/3 px-2">
+            <div class="overflow-hidden w-full lg:w-2/3 px-2">
                 <activated-history :item="item" class="mb-4" />
                 <finished-history :item="item" />
             </div>
