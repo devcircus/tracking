@@ -15,7 +15,7 @@ mix.js('resources/js/main.js', 'public/js')
         cssImport(),
         cssNesting(),
         tailwindcss('tailwind.config.js'),
-        require('@fullhuman/postcss-purgecss')({
+        ...process.env.NODE_ENV === 'production' ? require('@fullhuman/postcss-purgecss')({
             content: [
                 path.join(__dirname, 'resources/views/**/*.blade.php'),
                 path.join(__dirname, 'resources/js/**/*.vue'),
@@ -28,7 +28,7 @@ mix.js('resources/js/main.js', 'public/js')
                     extensions: ['html', 'js', 'php', 'vue'],
                 },
             ],
-        }),
+        }) : [],
     ])
     .webpackConfig({
         output: { chunkFilename: 'js/[name].js?id=[chunkhash]' },
