@@ -10,25 +10,27 @@ class TailwindExtractor {
     }
 }
 
+const purgecss = require('@fullhuman/postcss-purgecss')({
+    content: [
+        path.join(__dirname, 'resources/views/**/*.blade.php'),
+        path.join(__dirname, 'resources/js/**/*.vue'),
+    ],
+    whitelist: ['html', 'body'],
+    whitelistPatterns: [/^attachment/, /^v-/, /^nprogress/, /^spinner/, /^peg/, /^bar/, /^vdp/, /^report/, /^vgt/, /^footer/, /^form-/, /^text-/, /^column/],
+    extractors: [
+        {
+            extractor: TailwindExtractor,
+            extensions: ['html', 'js', 'php', 'vue'],
+        },
+    ],
+});
+
 mix.js('resources/js/main.js', 'public/js')
     .postCss('resources/css/main.css', 'public/css', [
         cssImport(),
         cssNesting(),
         tailwindcss('tailwind.config.js'),
-        ...process.env.NODE_ENV === 'production' ? require('@fullhuman/postcss-purgecss')({
-            content: [
-                path.join(__dirname, 'resources/views/**/*.blade.php'),
-                path.join(__dirname, 'resources/js/**/*.vue'),
-            ],
-            whitelist: ['html', 'body'],
-            whitelistPatterns: [/^attachment/, /^v-/, /^nprogress/, /^spinner/, /^peg/, /^bar/, /^vdp/, /^report/, /^vgt/, /^footer/, /^form-/, /^text-/, /^column/],
-            extractors: [
-                {
-                    extractor: TailwindExtractor,
-                    extensions: ['html', 'js', 'php', 'vue'],
-                },
-            ],
-        }) : [],
+        ...process.env.NODE_ENV === 'production' ? [purgecss]: [],
     ])
     .webpackConfig({
         output: { chunkFilename: 'js/[name].js?id=[chunkhash]' },
