@@ -52,8 +52,7 @@ export default {
             })
         },
         resetForm () {
-            this.form.starting_package_number = null;
-            this.form.ending_package_number = null;
+            this.form = _.mapValues(this.form, () => null);
         },
     },
 }
