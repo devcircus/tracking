@@ -67,8 +67,7 @@ export default {
             this.form[field] = moment(event).format('YYYY-MM-DD');
         },
         resetForm () {
-            this.form.package_number = null;
-            this.form.item_id = null;
+            this.form = _.mapValues(this.form, () => null);
             this.$dispatch('clearDateField');
         },
     },
