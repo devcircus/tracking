@@ -43,87 +43,27 @@ export default {
     },
     methods: {
         restoreTag (id) {
-            this.$modal.show('dialogModal', {
-                title: 'Caution!',
-                text: 'Are you sure you want to restore this tag?',
-                buttons: [
-                    {
-                        title: 'Restore Tag',
-                        type: 'restore',
-                        handler: () => {
-                            this.$inertia.put(this.route('tags.restore', id), null, { replace: false, preserveScroll: true, preserveState: true });
-                            this.$modal.hide('dialogModal');
-                         },
-                    },
-                    {
-                        title: 'Close',
-                        type: 'close',
-                        handler: () => this.$modal.hide('dialogModal'),
-                    },
-                ],
+            this.$showDialog('warning', 'tag', 'restore', () => {
+                this.$inertia.put(this.route('tags.restore', id), null, { replace: false, preserveScroll: true, preserveState: true });
+                this.$modal.hide('dialogModal');
             });
         },
         destroyTag (id) {
-            this.$modal.show('dialogModal', {
-                title: 'Caution!',
-                text: 'Are you sure you want to delete this tag?',
-                buttons: [
-                    {
-                        title: 'Delete Tag',
-                        type: 'delete',
-                        handler: () => {
-                            this.$inertia.delete(this.route('tags.destroy', id), { replace: false, preserveScroll: true, preserveState: true });
-                            this.$modal.hide('dialogModal');
-                         },
-                    },
-                    {
-                        title: 'Close',
-                        type: 'close',
-                        handler: () => this.$modal.hide('dialogModal'),
-                    },
-                ],
+            this.$showDialog('warning', 'tag', 'delete', () => {
+                this.$inertia.delete(this.route('tags.destroy', id), { replace: false, preserveScroll: true, preserveState: true });
+                this.$modal.hide('dialogModal');
             });
         },
         reactivateTag (id) {
-            this.$modal.show('dialogModal', {
-                title: 'Caution!',
-                text: 'Are you sure you want to reactivate this tag?',
-                buttons: [
-                    {
-                        title: 'Reactivate Tag',
-                        type: 'restore',
-                        handler: () => {
-                            this.$inertia.put(this.route('tags.reactivate', id), null, { replace: false, preserveScroll: true, preserveState: true });
-                            this.$modal.hide('dialogModal');
-                         },
-                    },
-                    {
-                        title: 'Close',
-                        type: 'close',
-                        handler: () => this.$modal.hide('dialogModal'),
-                    },
-                ],
+            this.$showDialog('warning', 'tag', 'reactivate', () => {
+                this.$inertia.put(this.route('tags.reactivate', id), null, { replace: false, preserveScroll: true, preserveState: true });
+                this.$modal.hide('dialogModal');
             });
         },
         finishTag (id) {
-            this.$modal.show('dialogModal', {
-                title: 'Caution!',
-                text: 'Are you sure you want to finish this tag?',
-                buttons: [
-                    {
-                        title: 'Finish Tag',
-                        type: 'delete',
-                        handler: () => {
-                            this.$inertia.put(this.route('tags.finish', id), null, { replace: false, preserveScroll: true, preserveState: true });
-                            this.$modal.hide('dialogModal');
-                         },
-                    },
-                    {
-                        title: 'Close',
-                        type: 'close',
-                        handler: () => this.$modal.hide('dialogModal'),
-                    },
-                ],
+            this.$showDialog('warning', 'tag', 'finish', () => {
+                this.$inertia.put(this.route('tags.finish', id), null, { replace: false, preserveScroll: true, preserveState: true });
+                this.$modal.hide('dialogModal');
             });
         },
         clearSearch () {
