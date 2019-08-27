@@ -27,15 +27,39 @@
                                 <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
                                     <span class="inline">{{ $page.auth.user.name }}</span>
                                 </div>
-                                <icon class="w-5 h-5 group-hover:fill-blue-700 fill-blue-900 focus:fill-blue-700" name="cheveron-down" />
+                                <icon-base icon-fill="fill-blue-900" classes="group-hover:fill-blue-700 focus:fill-blue-700">
+                                    <cheveron-down />
+                                </icon-base>
                             </div>
                             <div slot="dropdown" class="mt-2 py-2 shadow-lg bg-white rounded text-sm">
-                                <inertia-link class="block px-6 py-2 hover:bg-blue-500 hover:text-white" :href="route('users.edit', $page.auth.user.id)">My Profile</inertia-link>
-                                <div v-if="$page.auth.user.is_admin">
-                                    <inertia-link class="block px-6 py-2 hover:bg-blue-500 hover:text-white" :href="route('users.list')">Manage Users</inertia-link>
-                                    <inertia-link class="block px-6 py-2 hover:bg-blue-500 hover:text-white" :href="route('activities.list')">View Activities</inertia-link>
+                                <div class="flex flex-col">
+                                    <inertia-link class="flex px-6 py-2 hover:bg-blue-500 hover:text-white" :href="route('users.edit', $page.auth.user.id)">
+                                        <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="profile" classes="mr-2">
+                                            <profile />
+                                        </icon-base>
+                                        My Profile
+                                    </inertia-link>
+                                    <div v-if="$page.auth.user.is_admin">
+                                        <inertia-link class="flex px-6 py-2 hover:bg-blue-500 hover:text-white" :href="route('users.list')">
+                                            <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="users" classes="mr-2">
+                                                <users />
+                                            </icon-base>
+                                            Manage Users
+                                        </inertia-link>
+                                        <inertia-link class="flex px-6 py-2 hover:bg-blue-500 hover:text-white" :href="route('activities.list')">
+                                            <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="activities" classes="mr-2">
+                                                <activities />
+                                            </icon-base>
+                                            View Activities
+                                        </inertia-link>
+                                    </div>
+                                    <inertia-link class="flex px-6 py-2 hover:bg-blue-500 hover:text-white" :href="route('logout')" method="post">
+                                        <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="logout" classes="mr-2">
+                                            <logout />
+                                        </icon-base>
+                                        Logout
+                                    </inertia-link>
                                 </div>
-                                <inertia-link class="block px-6 py-2 hover:bg-blue-500 hover:text-white" :href="route('logout')" method="post">Logout</inertia-link>
                             </div>
                         </dropdown>
                     </div>
@@ -52,23 +76,33 @@
 </template>
 
 <script>
-import Icon from '@/Shared/Icon';
 import Logo from '@/Shared/Logo';
 import Modal from '@/Shared/Modal';
+import Users from '@/Shared/Icons/Users';
+import IconBase from '@/Shared/IconBase';
 import Dropdown from '@/Shared/Dropdown';
 import MainMenu from '@/Shared/MainMenu';
+import Logout from '@/Shared/Icons/Logout';
+import Profile from '@/Shared/Icons/Profile';
 import SiteFooter from '@/Shared/SiteFooter';
 import FlashMessage from '@/Shared/FlashMessage';
+import Activities from '@/Shared/Icons/Activities';
+import CheveronDown from '@/Shared/Icons/CheveronDown';
 
 export default {
     components: {
-        Dropdown,
-        Modal,
-        Icon,
         Logo,
+        Modal,
+        Users,
+        Logout,
+        Profile,
+        IconBase,
+        Dropdown,
         MainMenu,
-        FlashMessage,
         SiteFooter,
+        Activities,
+        FlashMessage,
+        CheveronDown,
     },
     props: {
         title: String,

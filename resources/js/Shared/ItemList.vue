@@ -13,7 +13,9 @@
                 </td>
                 <td class="border-t w-px">
                     <inertia-link class="px-4 flex items-center" :href="route(`${entityName}.${rowAction}`, item.id)" tabindex="-1">
-                        <icon name="cheveron-right" class="block w-6 h-6 fill-gray-500" />
+                        <icon-base icon-fill="fill-gray-500" classes="ml-2">
+                            <cheveron-right />
+                        </icon-base>
                     </inertia-link>
                 </td>
             </tr>
@@ -25,10 +27,14 @@
 </template>
 
 <script>
-import Icon from '@/Shared/Icon';
+import IconBase from '@/Shared/IconBase';
+import CheveronRight from '@/Shared/Icons/CheveronRight';
 
 export default {
-    components: { Icon },
+    components: {
+        IconBase,
+        CheveronRight,
+    },
     props: {
         headerFields: {
             type: Array,
