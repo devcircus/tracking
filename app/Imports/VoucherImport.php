@@ -33,7 +33,6 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
     {
         if ($this->rowShouldNotBeIgnored($row['ditem'])) {
             $print_complete = $row['cmpdte'];
-            $print_complete_display = (new Carbon($print_complete))->format('m/d');
             $existing = Order::where('order_number', $row['ordnr'])->where('voucher', $row['orvch'])->first();
             $art_complete = optional($existing)->art_complete;
 
@@ -57,7 +56,7 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
                 'schedule_date' => $row['schdt'],
                 'report_created' => $this::$reportCreated,
                 'art_complete' => $art_complete,
-                'info' => $print_complete ? "COMPLETE - {$print_complete_display}" : '',
+                'info' => $this->getInfoForVoucher($existing, $print_complete),
             ]);
         }
     }
@@ -67,7 +66,7 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
      *
      * @param  \Maatwebsite\Excel\Events\BeforeImport  $event
      */
-    public static function beforeImport(BeforeImport $event)
+    public static function beforeImport(BeforeImport $event): void
     {
         static::$reportCreated = now()->toDateTimeString();
     }
@@ -77,7 +76,7 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
      *
      * @param  \Maatwebsite\Excel\Events\AfterImport  $event
      */
-    public static function afterImport(AfterImport $event)
+    public static function afterImport(AfterImport $event): void
     {
         SpreadsheetUploaded::broadcast(static::$reportCreated, auth()->user());
     }
@@ -96,10 +95,8 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
      * Should the current item be imported?
      *
      * @param  mixed  $item
-     *
-     * @return bool
      */
-    private function rowShouldNotBeIgnored($item)
+    private function rowShouldNotBeIgnored($item): bool
     {
         return ! $this->rowShouldBeIgnored($item);
     }
@@ -108,11 +105,26 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
      * Should the current item be ignored?
      *
      * @param  mixed  $item
-     *
-     * @return bool
      */
-    private function rowShouldBeIgnored($item)
+    private function rowShouldBeIgnored($item): bool
     {
         return preg_match('/^g?id[a-z]?+[A-Z]?+[0-9]?+\s*?/i', $item);
+    }
+
+    /**
+     * Get the info for the current item?
+     *
+     * @param  \App\Models\Order  $existingItem
+     * @param  string  $printComplete
+     */
+    private function getInfoForVoucher($existingItem, $printComplete): string
+    {
+        if ($printComplete) {
+            $displayDate = (new Carbon($printComplete))->format('m/d');
+
+            return "COMPLETE - {$displayDate}";
+        }
+
+        return optional($existingItem)->info ?? '';
     }
 }
