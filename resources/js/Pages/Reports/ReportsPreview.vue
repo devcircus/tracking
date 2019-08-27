@@ -75,7 +75,9 @@
                                 </td>
                                 <td class="border-t w-px">
                                     <inertia-link class="px-4 flex items-center" :href="route('reports.comprehensive.show', report.timestamp)" tabindex="-1">
-                                        <icon name="cheveron-right" class="block w-6 h-6 fill-gray-500" />
+                                        <icon-base icon-fill="fill-gray-500" classes="ml-2">
+                                            <cheveron-right />
+                                        </icon-base>
                                     </inertia-link>
                                 </td>
                             </tr>
@@ -113,18 +115,20 @@
 
 <script>
 import moment from 'moment';
-import Icon from '@/Shared/Icon';
+import IconBase from '@/Shared/IconBase';
 import Pagination from '@/Shared/Pagination';
 import FileUpload from '@/Shared/FileUpload';
 import LoadingButton from '@/Shared/LoadingButton';
 import WatchesForErrors from 'Mixins/WatchesForErrors';
+import CheveronRight from '@/Shared/Icons/CheveronRight';
 
 export default {
     components: {
-        FileUpload,
-        Icon,
+        IconBase,
         Pagination,
+        FileUpload,
         LoadingButton,
+        CheveronRight,
     },
     mixins: [ WatchesForErrors ],
     props: ['results'],
