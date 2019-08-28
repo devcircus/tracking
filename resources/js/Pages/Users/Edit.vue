@@ -18,7 +18,7 @@
                     <text-input v-model="form.password" :errors="getErrors('password')" class="pr-6 pb-8 w-full lg:w-1/2" type="password" autocomplete="new-password" label="Password" />
                 </div>
                 <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center">
-                    <button v-if="! user.deleted_at" class="text-red-500 hover:underline" tabindex="-1" type="button" @click="destroy">Delete User</button>
+                    <button v-if="! user.deleted_at && $page.auth.user.is_admin" class="text-red-500 hover:underline" tabindex="-1" type="button" @click="destroy">Delete User</button>
                     <loading-button :loading="sending" class="btn btn-blue ml-auto" type="submit">Update User</loading-button>
                 </div>
             </form>
@@ -67,21 +67,16 @@ export default {
              });
         },
         destroy () {
-            if (confirm('Are you sure you want to delete this user?')) {
-                this.$inertia.delete(this.route('users.destroy', this.user.id))
-            }
+            this.$showDialog('warning', 'user', 'delete', () => {
+                this.$inertia.delete(this.route('users.destroy', this.user.id), { replace: false, preserveScroll: true, preserveState: true });
+                this.$modal.hide('dialogModal');
+            });
         },
         restore () {
-            if (confirm('Are you sure you want to restore this user?')) {
-                this.$inertia.put(this.route('users.restore', this.user.id))
-            }
-        },
-        getErrors (field) {
-            if (this.$page.errors.default) {
-                return this.$page.errors.default[field];
-            }
-
-            return [];
+            this.$showDialog('warning', 'user', 'restore', () => {
+                this.$inertia.put(this.route('users.restore', this.user.id), null, { replace: false, preserveScroll: true, preserveState: true });
+                this.$modal.hide('dialogModal');
+            });
         },
     },
 }

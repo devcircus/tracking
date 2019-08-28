@@ -24,8 +24,8 @@
                 </div>
                 <div v-else class="mb-8 flex items-center">
                     <span class="flex btn btn-muted cursor-not-allowed">
-                        <icon-base icon-fill="fill-gray-800" icon-name="upload" classes="mr-2 flex-no-shrink">
-                            <upload />
+                        <icon-base icon-fill="fill-gray-800" icon-name="folder-add" classes="mr-2 flex-no-shrink">
+                            <folder-add />
                         </icon-base>
                         Choose a file
                     </span>
