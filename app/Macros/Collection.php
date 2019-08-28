@@ -47,6 +47,7 @@ class Collection
             $page = (int) request()->input('page') ?: 1;
             $offSet = ($page * $perPage) - $perPage;
             $itemsForCurrentPage = array_slice($items, $offSet, $perPage, true);
+            $path = request()->path();
 
             $result = app()->make(LengthAwarePaginator::class, [
                 'items' => $itemsForCurrentPage,
@@ -54,7 +55,7 @@ class Collection
                 'perPage' => $perPage,
                 'currentPage' => $page,
                 [
-                    'path'  => '/home',
+                    'path'  => "/{$path}",
                 ],
             ]);
 
@@ -73,7 +74,7 @@ class Collection
      */
     public function range()
     {
-        return function($start, $end, $step = 1) {
+        return function ($start, $end, $step = 1) {
             return new IlluminateCollection(range($start, $end, $step));
         };
     }
