@@ -1,9 +1,10 @@
 <template>
     <div class="relative">
-        <div class="flex bg-blue-900">
-            <div class="p-4">
-                <h1 class="text-2xl text-white font-semibold">{{ type | capitalize }} Orders</h1>
-            </div>
+        <div class="flex p-4 bg-blue-900">
+            <h1 class="text-2xl text-white font-semibold">Prototype Artwork</h1>
+            <icon-base icon-fill="fill-white" icon-name="vector" classes="ml-2 mt-1">
+                <vector />
+            </icon-base>
         </div>
         <div v-if="windowWidth >= 768" class="flex flex-col">
             <div class="flex justify-between bg-gray-400 border-l border-r border-b border-blue-300 p-4">
@@ -77,12 +78,14 @@
 
 <script>
 import moment from 'moment';
-import Dropdown from '@/Shared/Dropdown.vue';
+import IconBase from '@/Shared/IconBase';
+import Vector from '@/Shared/Icons/Vector';
 import ToggleArtComplete from '@/Partials/Orders/ToggleArtComplete';
 
 export default {
     components: {
-        Dropdown,
+        Vector,
+        IconBase,
         ToggleArtComplete,
     },
     props: ['vouchers', 'type', 'date', 'timestamp', 'group'],

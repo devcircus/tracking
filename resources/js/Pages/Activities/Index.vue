@@ -1,7 +1,10 @@
 <template>
     <layout title="Activities">
-        <div class="w-full bg-blue-800 p-4">
+        <div class="w-full flex bg-blue-800 p-4">
             <h1 class="text-white text-lg md:text-xl font-semibold uppercase">Activity Log</h1>
+            <icon-base icon-fill="fill-white" icon-name="activities" classes="ml-2">
+                <activities />
+            </icon-base>
         </div>
         <div>
             <vue-good-table ref="table" class="mb-8" :columns="activityColumns" :rows="rows" :pagination-options="activityPaginationOptions" :search-options="activitySearchOptions" :sort-options="activitySortOptions">
@@ -15,11 +18,15 @@
 
 <script>
 import Layout from '@/Shared/Layout';
+import IconBase from '@/Shared/IconBase';
 import { VueGoodTable } from 'vue-good-table';
+import Activities from '@/Shared/Icons/Activities';
 
 export default {
     components: {
         Layout,
+        IconBase,
+        Activities,
         VueGoodTable,
     },
     props: ['activities'],

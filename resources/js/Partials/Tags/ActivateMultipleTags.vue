@@ -1,7 +1,10 @@
 <template>
     <div>
-        <div class="w-full bg-blue-800 p-4">
+        <div class="w-full flex bg-blue-800 p-4">
             <h1 class="text-white text-lg lg:text-xl font-semibold uppercase">Activate multiple tags</h1>
+            <icon-base icon-fill="fill-white" icon-name="tags" classes="ml-2">
+                <tags />
+            </icon-base>
         </div>
         <div class="bg-white rounded shadow overflow-hidden w-full p-4">
             <form @submit.prevent="submit">
@@ -24,6 +27,8 @@
 
 <script>
 import moment from 'moment';
+import Tags from '@/Shared/Icons/Tags';
+import IconBase from '@/Shared/IconBase';
 import TextInput from '@/Shared/TextInput';
 import Datepicker from '@/Shared/Datepicker';
 import SelectInput from '@/Shared/SelectInput';
@@ -32,6 +37,8 @@ import WatchesForErrors from 'Mixins/WatchesForErrors';
 
 export default {
     components: {
+        Tags,
+        IconBase,
         TextInput,
         Datepicker,
         SelectInput,

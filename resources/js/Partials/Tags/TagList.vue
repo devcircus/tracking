@@ -1,16 +1,20 @@
 <script>
-import Icon from '@/Shared/Icon';
+import IconBase from '@/Shared/IconBase';
 import { filter, concat } from 'lodash';
 import Checkbox from '@/Shared/Checkbox';
 import Dropdown from '@/Shared/Dropdown';
+import ListAdd from '@/Shared/Icons/ListAdd';
 import { VueGoodTable } from 'vue-good-table';
+import CheveronDown from '@/Shared/Icons/CheveronDown';
 
 export default {
     components: {
-        Icon,
+        ListAdd,
+        IconBase,
         Dropdown,
         Checkbox,
         VueGoodTable,
+        CheveronDown,
     },
     props: ['tags'],
     remember: 'form',
@@ -110,8 +114,11 @@ export default {
 
 <template>
     <div>
-        <div class="w-full bg-blue-800 p-4">
+        <div class="w-full flex bg-blue-800 p-4">
             <h1 class="text-white text-lg md:text-xl font-semibold uppercase">Recently Added</h1>
+            <icon-base icon-fill="fill-white" icon-name="list-add" classes="ml-2">
+                <list-add />
+            </icon-base>
         </div>
         <div>
             <vue-good-table ref="table" class="mb-8" :columns="tagColumns" :rows="rows" :pagination-options="tagPaginationOptions" :search-options="tagSearchOptions" :sort-options="tagSortOptions">
@@ -125,7 +132,9 @@ export default {
                             <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
                                 <span class="inline text-gray-800 text-sm font-semibold">Options</span>
                             </div>
-                            <icon class="w-5 h-5 group-hover:fill-blue-700 fill-blue-900 focus:fill-blue-700" name="cheveron-down" />
+                            <icon-base icon-fill="fill-blue-900" icon-name="cheveron-down" classes="group-hover:fill-blue-700 focus:fill-blue-700">
+                                <cheveron-down />
+                            </icon-base>
                         </div>
                         <div slot="dropdown" class="mt-2 p-2 shadow-lg bg-white rounded">
                             <checkbox v-model="showActive" class="mb-2" label="Include active tags: " :width="4" :height="4" :checked="showActive" @input="hideDropdown()" />
