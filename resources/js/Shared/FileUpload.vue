@@ -2,7 +2,10 @@
     <label class="file-select">
         <div class="btn btn-green cursor-pointer" :class="additionalClasses">
             <span v-if="value">Selected File: {{ value.name }}</span>
-            <span v-else>{{ prompt }}</span>
+            <div v-else class="flex">
+                <slot />
+                <span>{{ prompt }}</span>
+            </div>
         </div>
         <input class="hidden" type="file" @change="handleFileChange" />
     </label>

@@ -7,13 +7,22 @@
             <div class="px-4">
                 <h1 class="mb-4 font-semibold text-lg text-gray-800 uppercase">Upload Report</h1>
                 <div v-if="$page.auth.user.is_admin" class="mb-6 flex items-center">
-                    <file-upload v-model="file" class="mr-8" prompt="Select" button-classes="btn-sm" />
-                    <loading-button v-if="file" :loading="loading" type="button" class="btn btn-blue btn-sm" :class="file ? 'cursor-pointer' : 'cursor-not-allowed btn-muted'" @clicked="uploadFile()">
+                    <file-upload v-model="file" class="mr-8" prompt="Select" button-classes="btn-sm">
+                        <icon-base icon-fill="fill-white" icon-name="upload" classes="mr-2 flex-no-shrink" width="14" height="14">
+                            <upload />
+                        </icon-base>
+                    </file-upload>
+                    <loading-button v-if="file" :loading="loading" type="button" class="flex btn btn-blue btn-sm" :class="file ? 'cursor-pointer' : 'cursor-not-allowed btn-muted'" @clicked="uploadFile()">
                         Upload
                     </loading-button>
                 </div>
                 <div v-else class="mb-8 flex items-center">
-                    <span class="btn btn-muted cursor-not-allowed">Choose a file</span>
+                    <span class="flex btn btn-muted cursor-not-allowed">
+                        <icon-base icon-fill="fill-gray-800" icon-name="upload" classes="mr-2 flex-no-shrink" width="14" height="14">
+                            <upload />
+                        </icon-base>
+                        Choose a file
+                    </span>
                 </div>
             </div>
             <div class="pt-4">
@@ -116,6 +125,7 @@
 <script>
 import moment from 'moment';
 import IconBase from '@/Shared/IconBase';
+import Upload from '@/Shared/Icons/Upload';
 import Pagination from '@/Shared/Pagination';
 import FileUpload from '@/Shared/FileUpload';
 import LoadingButton from '@/Shared/LoadingButton';
@@ -124,6 +134,7 @@ import CheveronRight from '@/Shared/Icons/CheveronRight';
 
 export default {
     components: {
+        Upload,
         IconBase,
         Pagination,
         FileUpload,
