@@ -1,12 +1,5 @@
 <template>
     <layout :title="displayDate(date)">
-        <div class="w-full md:w-4/5 mx-auto">
-            <h1 class="mb-8 font-bold text-xl md:text-2xl">
-                <span class="text-blue-500 hover:text-blue-800 uppercase">Artwork Report</span>
-            </h1>
-        </div>
-
-        <!-- Artists Report -->
         <div class="flex flex-col -px-4 w-full md:w-4/5 md:mx-auto mb-8">
             <artists-report :vouchers="results" type="prototype" :date="date" :timestamp="timestamp" :group="true" />
         </div>
@@ -16,13 +9,11 @@
 <script>
 import moment from 'moment';
 import Layout from '@/Shared/Layout';
-import { InertiaLink } from '@inertiajs/inertia-vue';
 import ArtistsReport from '@/Partials/Reports/ArtistsReport';
 
 export default {
     components: {
         Layout,
-        InertiaLink,
         ArtistsReport,
     },
     props: {

@@ -1,6 +1,11 @@
 <template>
     <layout title="Home">
-        <h1 class="mb-4 font-semibold text-2xl text-gray-800 uppercase">Reports</h1>
+        <div class="flex">
+            <h1 class="mb-4 font-semibold text-2xl text-gray-800 uppercase">Reports</h1>
+            <icon-base icon-fill="fill-gray-800" icon-name="inbox-full" classes="ml-2 mt-1">
+                <inbox-full />
+            </icon-base>
+        </div>
         <div v-if="reports">
             <div class="rounded shadow overflow-x-auto hidden md:block">
                 <table class="w-full whitespace-no-wrap">
@@ -111,12 +116,14 @@ import moment from 'moment';
 import Layout from '@/Shared/Layout';
 import IconBase from '@/Shared/IconBase';
 import Pagination from '@/Shared/Pagination';
+import InboxFull from '@/Shared/Icons/InboxFull';
 import CheveronRight from '@/Shared/Icons/CheveronRight';
 
 export default {
     components: {
         Layout,
         IconBase,
+        InboxFull,
         Pagination,
         CheveronRight,
     },

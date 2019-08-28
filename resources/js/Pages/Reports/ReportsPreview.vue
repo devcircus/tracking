@@ -1,7 +1,10 @@
 <template>
     <div class="flex flex-col w-full lg:w-2/3">
-        <div class="w-full bg-blue-800 p-4">
+        <div class="w-full flex bg-blue-800 p-4">
             <h1 class="text-white text-lg lg:text-xl font-semibold uppercase">Sublimation Reports</h1>
+            <icon-base icon-fill="fill-white" icon-name="inbox-full" classes="ml-2">
+                <inbox-full />
+            </icon-base>
         </div>
         <div class="bg-white rounded shadow overflow-hidden w-full py-4">
             <div class="px-4">
@@ -130,6 +133,7 @@ import moment from 'moment';
 import IconBase from '@/Shared/IconBase';
 import Pagination from '@/Shared/Pagination';
 import FileUpload from '@/Shared/FileUpload';
+import InboxFull from '@/Shared/Icons/InboxFull';
 import FolderAdd from '@/Shared/Icons/FolderAdd';
 import LoadingButton from '@/Shared/LoadingButton';
 import CloudUpload from '@/Shared/Icons/CloudUpload';
@@ -139,6 +143,7 @@ import CheveronRight from '@/Shared/Icons/CheveronRight';
 export default {
     components: {
         IconBase,
+        InboxFull,
         FolderAdd,
         Pagination,
         FileUpload,

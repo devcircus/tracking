@@ -36,7 +36,7 @@ export default {
     tagColumns: [
         {
             field: 'package_number',
-            label: 'Package Number',
+            label: 'Package',
             type: 'number',
             tdClass: 'text-left',
             thClass: 'text-left',
@@ -168,7 +168,7 @@ export default {
         },
         {
             field: 'properties.target',
-            label: 'Target',
+            label: 'Data',
         },
     ],
     activitySortOptions: {
