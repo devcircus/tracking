@@ -13,7 +13,7 @@ class StoreUploadResponder extends Responder
      */
     public function respond()
     {
-        $this->request->session()->flash('success', 'Spreadsheet upload started.');
+        $this->request->session()->flash('success', 'Report generation started.');
 
         return redirect()->back();
     }

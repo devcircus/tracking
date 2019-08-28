@@ -7,18 +7,21 @@
             <div class="px-4">
                 <h1 class="mb-4 font-semibold text-lg text-gray-800 uppercase">Upload Report</h1>
                 <div v-if="$page.auth.user.is_admin" class="mb-6 flex items-center">
-                    <file-upload v-model="file" class="mr-8" prompt="Select" button-classes="btn-sm">
-                        <icon-base icon-fill="fill-white" icon-name="upload" classes="mr-2 flex-no-shrink" width="14" height="14">
-                            <upload />
+                    <file-upload v-model="file" class="mr-8" prompt="Choose a file" button-classes="btn">
+                        <icon-base icon-fill="fill-white" icon-name="folder-add" classes="mr-2 flex-no-shrink">
+                            <folder-add />
                         </icon-base>
                     </file-upload>
-                    <loading-button v-if="file" :loading="loading" type="button" class="flex btn btn-blue btn-sm" :class="file ? 'cursor-pointer' : 'cursor-not-allowed btn-muted'" @clicked="uploadFile()">
+                    <loading-button v-if="file" :loading="loading" type="button" class="flex btn btn-blue" :class="file ? 'cursor-pointer' : 'cursor-not-allowed btn-muted'" @clicked="uploadFile()">
+                        <icon-base icon-fill="fill-white" icon-name="cloud-upload" classes="mr-2 flex-no-shrink">
+                            <cloud-upload />
+                        </icon-base>
                         Upload
                     </loading-button>
                 </div>
                 <div v-else class="mb-8 flex items-center">
                     <span class="flex btn btn-muted cursor-not-allowed">
-                        <icon-base icon-fill="fill-gray-800" icon-name="upload" classes="mr-2 flex-no-shrink" width="14" height="14">
+                        <icon-base icon-fill="fill-gray-800" icon-name="upload" classes="mr-2 flex-no-shrink">
                             <upload />
                         </icon-base>
                         Choose a file
@@ -125,19 +128,21 @@
 <script>
 import moment from 'moment';
 import IconBase from '@/Shared/IconBase';
-import Upload from '@/Shared/Icons/Upload';
 import Pagination from '@/Shared/Pagination';
 import FileUpload from '@/Shared/FileUpload';
+import FolderAdd from '@/Shared/Icons/FolderAdd';
 import LoadingButton from '@/Shared/LoadingButton';
+import CloudUpload from '@/Shared/Icons/CloudUpload';
 import WatchesForErrors from 'Mixins/WatchesForErrors';
 import CheveronRight from '@/Shared/Icons/CheveronRight';
 
 export default {
     components: {
-        Upload,
         IconBase,
+        FolderAdd,
         Pagination,
         FileUpload,
+        CloudUpload,
         LoadingButton,
         CheveronRight,
     },
