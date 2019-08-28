@@ -2,9 +2,7 @@
     <layout :title="displayDate(date)">
         <div class="w-full md:w-4/5 mx-auto">
             <h1 class="mb-8 font-bold text-xl md:text-2xl">
-                <inertia-link class="text-blue-500 hover:text-blue-800 uppercase" :href="route('dashboard')">Artists Report</inertia-link>
-                <span class="text-blue-500 text-2xl md:text-3xl">/</span>
-                <span class="text-blue-800 text-lg md:text-xl" href="#">{{ displayDate(date) }}</span>
+                <span class="text-blue-500 hover:text-blue-800 uppercase">Artwork Report</span>
             </h1>
         </div>
 

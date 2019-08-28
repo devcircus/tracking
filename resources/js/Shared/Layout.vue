@@ -24,37 +24,37 @@
                         <div class="mt-1 mr-4">&nbsp;</div>
                         <dropdown v-if="$page.auth.user" class="mt-1 lg:ml-auto " placement="bottom-end">
                             <div class="flex items-center cursor-pointer select-none group">
-                                <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
-                                    <span class="inline">{{ $page.auth.user.name }}</span>
-                                </div>
-                                <icon-base icon-fill="fill-blue-900" classes="group-hover:fill-blue-700 focus:fill-blue-700">
+                                <span class="text-blue-800 font-semibold group-hover:text-blue-500 focus:text-blue-500 mr-1 whitespace-no-wrap">
+                                    {{ $page.auth.user.name }}
+                                </span>
+                                <icon-base icon-fill="fill-blue-800" classes="group-hover:fill-blue-500 focus:fill-blue-500">
                                     <cheveron-down />
                                 </icon-base>
                             </div>
                             <div slot="dropdown" class="mt-2 py-2 shadow-lg bg-white rounded text-sm">
                                 <div class="flex flex-col">
-                                    <inertia-link class="flex px-6 py-2 hover:bg-blue-500 hover:text-white" :href="route('users.edit', $page.auth.user.id)">
-                                        <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="profile" classes="mr-2">
+                                    <inertia-link class="flex px-6 py-2 hover:bg-blue-500 hover:text-white group" :href="route('users.edit', $page.auth.user.id)">
+                                        <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="profile" classes="mr-2 group-hover:fill-white">
                                             <profile />
                                         </icon-base>
                                         My Profile
                                     </inertia-link>
                                     <div v-if="$page.auth.user.is_admin">
-                                        <inertia-link class="flex px-6 py-2 hover:bg-blue-500 hover:text-white" :href="route('users.list')">
-                                            <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="users" classes="mr-2">
+                                        <inertia-link class="flex px-6 py-2 hover:bg-blue-500 hover:text-white group" :href="route('users.list')">
+                                            <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="users" classes="mr-2 group-hover:fill-white">
                                                 <users />
                                             </icon-base>
                                             Manage Users
                                         </inertia-link>
-                                        <inertia-link class="flex px-6 py-2 hover:bg-blue-500 hover:text-white" :href="route('activities.list')">
-                                            <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="activities" classes="mr-2">
+                                        <inertia-link class="flex px-6 py-2 hover:bg-blue-500 hover:text-white group" :href="route('activities.list')">
+                                            <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="activities" classes="mr-2 group-hover:fill-white">
                                                 <activities />
                                             </icon-base>
                                             View Activities
                                         </inertia-link>
                                     </div>
-                                    <inertia-link class="flex px-6 py-2 hover:bg-blue-500 hover:text-white" :href="route('logout')" method="post">
-                                        <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="logout" classes="mr-2">
+                                    <inertia-link class="flex px-6 py-2 hover:bg-blue-500 hover:text-white group" :href="route('logout')" method="post">
+                                        <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="logout" classes="mr-2 group-hover:fill-white">
                                             <logout />
                                         </icon-base>
                                         Logout

@@ -4,23 +4,6 @@
             <div class="p-4">
                 <h1 class="text-2xl text-white font-semibold">{{ type | capitalize }} Orders</h1>
             </div>
-            <div class="ml-auto p-4 whitespace-no-wrap">
-                <portal-target :name="`dropdown-${type}`" slim />
-                <dropdown class="block" placement="bottom-end" :name="`dropdown-${type}`">
-                    <svg class="fill-white w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
-                    <div slot="dropdown" class="flex flex-col justify-between mt-2 px-8 py-4 shadow-lg bg-white border-2 border-blue-500 rounded">
-                        <span v-if="type === 'prototype' && $page.auth.user.is_admin" class="uppercase text-base text-blue-900 font-semibold hover:text-blue-400 px-2 py-1 cursor-pointer" @click="addVoucher()">
-                            Add Voucher
-                        </span>
-                        <inertia-link v-if="group" :href="route('reports.individual.show', { type: type, date: timestamp })" class="uppercase text-base text-blue-900 font-semibold hover:text-blue-400 px-2 py-1">
-                            View
-                        </inertia-link>
-                        <a :href="route('pdf.show', { type: type, date: timestamp })" target="_blank" class="uppercase text-base text-blue-900 font-semibold hover:text-blue-400 px-2 py-1" @click="hideDropdown()">
-                            Pdf
-                        </a>
-                    </div>
-                </dropdown>
-            </div>
         </div>
         <div v-if="windowWidth >= 768" class="flex flex-col">
             <div class="flex justify-between bg-gray-400 border-l border-r border-b border-blue-300 p-4">
