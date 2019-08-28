@@ -96,7 +96,7 @@
         </div>
         <div v-else>
             <div v-if="inProgress">
-                <span class="border-t px-6 py-4 w-full">Uploading New Report. Data will refresh shortly...</span>
+                <span class="border-t px-6 py-4 w-full">Generating New Report. Data will refresh shortly...</span>
                 <img class="inline-block py-4" src="images/loader-on-gray.gif" />
             </div>
             <span v-else class="border-t px-6 py-4 w-full">No reports found.</span>
