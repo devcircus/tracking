@@ -1,6 +1,6 @@
 <template>
     <layout :title="displayDate(date)">
-        <div class="flex flex-col -px-4 w-full md:w-4/5 md:mx-auto mb-8">
+        <div class="flex flex-col -px-4 w-full mb-8">
             <artists-report :vouchers="results" type="prototype" :date="date" :timestamp="timestamp" :group="true" />
         </div>
     </layout>
