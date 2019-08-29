@@ -39,7 +39,6 @@ class AddOrderService
     public function run(OrderData $order)
     {
         $this->validator->validate($order->toArray());
-
         $order = $this->order->saveOrder($order->toArray());
 
         activity()
