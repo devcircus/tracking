@@ -6,12 +6,12 @@
                 <vector />
             </icon-base>
         </div>
-        <div v-if="windowWidth >= 768" class="flex flex-col">
+        <div v-if="windowWidth >= 800" class="flex flex-col">
             <div class="flex justify-between bg-gray-400 border-l border-r border-b border-blue-300 p-4">
-                <span class="block w-200p text-lg text-gray-800 font-semibold">
+                <span class="block w-120p text-lg text-gray-800 font-semibold">
                     Date
                 </span>
-                <span class="block w-200p text-lg text-gray-800 font-semibold">
+                <span class="hidden xl:block w-200p text-lg text-gray-800 font-semibold">
                     Order
                 </span>
                 <span class="block w-300p text-lg text-gray-800 font-semibold">
@@ -20,7 +20,7 @@
                 <span class="block flex-1 text-lg text-gray-800 font-semibold">
                     Style
                 </span>
-                <span class="block flex-1 text-lg text-gray-800 font-semibold">
+                <span class="hidden xl:block flex-1 text-lg text-gray-800 font-semibold">
                     Art Ready
                 </span>
                 <span v-if="type === 'prototype'" class="block flex-1 text-lg text-gray-800 font-semibold">
@@ -29,10 +29,10 @@
             </div>
             <template v-if="notEmpty">
                 <div v-for="voucher in vouchers" :key="voucher.id" class="flex flex-wrap justify-between border-l border-r border-b border-blue-300 p-4 hover:bg-gray-300 cursor-pointer">
-                    <span class="w-200p text-base text-gray-800 font-semibold md:font-normal mb-2 md:mb-0">
+                    <span class="w-120p text-base text-gray-800 font-semibold md:font-normal mb-2 md:mb-0">
                         {{ voucher.schedule_date }}
                     </span>
-                    <span class="w-200p text-base text-gray-800 font-normal mb-2 md:mb-0">
+                    <span class="hidden xl:block w-200p text-base text-gray-800 font-normal mb-2 md:mb-0">
                         {{ voucher.order_number }} - {{ voucher.voucher }}
                     </span>
                     <span class="w-300p text-base text-gray-800 font-normal">
@@ -41,7 +41,7 @@
                     <span class="flex-1 text-base text-gray-800 font-normal">
                         {{ voucher.style }}
                     </span>
-                    <span class="flex-1 text-base text-gray-800 font-normal">
+                    <span class="hidden xl:block flex-1 text-base text-gray-800 font-normal">
                         {{ shortDate(voucher.art_complete) }}
                     </span>
                     <div v-if="$page.auth.user.is_artist || $page.auth.user.is_admin" class="flex-1 text-base text-gray-800 font-normal">
