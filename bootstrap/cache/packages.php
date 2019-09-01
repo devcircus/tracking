@@ -39,6 +39,17 @@
       'LaraFlash' => 'DevMarketer\\LaraFlash\\LaraFlashFacade',
     ),
   ),
+  'facade/ignition' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Facade\\Ignition\\IgnitionServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Flare' => 'Facade\\Ignition\\Facades\\Flare',
+    ),
+  ),
   'fideloper/proxy' => 
   array (
     'providers' => 
