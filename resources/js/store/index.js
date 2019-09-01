@@ -193,4 +193,65 @@ export default {
         enabled: true,
         placeholder: 'Search activities...',
     },
+    artworkColumns: [
+        {
+            field: 'schedule_date',
+            label: 'Scheduled',
+            type: 'date',
+            dateInputFormat: 'yyyy-LL-dd',
+            dateOutputFormat: 'yyyy-LL-dd',
+            tdClass: 'text-left',
+            thClass: 'text-left',
+            width: '160px',
+            sortable: true,
+        },
+        {
+            field: 'order_number',
+            label: 'Order',
+            type: 'number',
+            sortable: true,
+        },
+        {
+            field: 'voucher',
+            label: 'Voucher',
+            type: 'text',
+            sortable: false,
+        },
+        {
+            field: 'customer',
+            label: 'Customer',
+            width: '300px',
+            type: 'text',
+            sortable: true,
+        },
+        {
+            field: 'style',
+            label: 'Style',
+            type: 'text',
+            sortable: true,
+        },
+        {
+            field: 'art_complete',
+            label: 'Complete',
+            type: 'date',
+            dateInputFormat: 'yyyy-LL-dd HH:mm:ss',
+            dateOutputFormat: 'LL-dd',
+            sortable: true,
+        },
+        {
+            field: 'actions',
+            label: 'Actions',
+            sortable: false,
+        },
+    ],
+    artworkSortOptions: {
+        enabled: true,
+        initialSortBy: [
+            { field: 'schedule_date', type: 'asc' },
+        ],
+    },
+    artworkSearchOptions: {
+        enabled: true,
+        placeholder: 'Search prototypes...',
+    },
 }

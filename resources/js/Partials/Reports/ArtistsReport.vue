@@ -1,78 +1,70 @@
 <template>
     <div class="relative">
-        <div class="flex p-4 bg-blue-900">
+        <div class="w-3/4 xl:w-full mx-auto flex p-4 bg-blue-900">
             <h1 class="text-2xl text-white font-semibold">Prototype Artwork</h1>
             <icon-base icon-fill="fill-white" icon-name="vector" classes="ml-2 mt-1">
                 <vector />
             </icon-base>
         </div>
-        <div v-if="windowWidth >= 800" class="flex flex-col">
-            <div class="flex justify-between bg-gray-400 border-l border-r border-b border-blue-300 p-4">
-                <span class="block w-120p text-lg text-gray-800 font-semibold">
-                    Date
-                </span>
-                <span class="hidden xl:block w-200p text-lg text-gray-800 font-semibold">
-                    Order
-                </span>
-                <span class="block w-300p text-lg text-gray-800 font-semibold">
-                    Customer
-                </span>
-                <span class="block flex-1 text-lg text-gray-800 font-semibold">
-                    Style
-                </span>
-                <span class="hidden xl:block flex-1 text-lg text-gray-800 font-semibold">
-                    Art Ready
-                </span>
-                <span v-if="type === 'prototype'" class="block flex-1 text-lg text-gray-800 font-semibold">
-                    Actions
-                </span>
-            </div>
-            <template v-if="notEmpty">
-                <div v-for="voucher in vouchers" :key="voucher.id" class="flex flex-wrap justify-between border-l border-r border-b border-blue-300 p-4 hover:bg-gray-300 cursor-pointer">
-                    <span class="w-120p text-base text-gray-800 font-semibold md:font-normal mb-2 md:mb-0">
-                        {{ voucher.schedule_date }}
-                    </span>
-                    <span class="hidden xl:block w-200p text-base text-gray-800 font-normal mb-2 md:mb-0">
-                        {{ voucher.order_number }} - {{ voucher.voucher }}
-                    </span>
-                    <span class="w-300p text-base text-gray-800 font-normal">
-                        {{ voucher.customer }}
-                    </span>
-                    <span class="flex-1 text-base text-gray-800 font-normal">
-                        {{ voucher.style }}
-                    </span>
-                    <span class="hidden xl:block flex-1 text-base text-gray-800 font-normal">
-                        {{ shortDate(voucher.art_complete) }}
-                    </span>
-                    <div v-if="$page.auth.user.is_artist || $page.auth.user.is_admin" class="flex-1 text-base text-gray-800 font-normal">
-                        <toggle-art-complete :voucher="voucher" />
-                    </div>
+        <div v-if="windowWidth >= 1280">
+            <vue-good-table ref="table" class="w-full mx-auto mb-8" :columns="artworkColumns" :rows="vouchers" :search-options="artworkSearchOptions" :sort-options="artworkSortOptions">
+                <div slot="emptystate">
+                    No prototype vouchers found.
                 </div>
-            </template>
-            <template v-else>
-                <div class="flex justify-between border-l border-r border-b border-blue-300 p-4">
-                    <span class="text-lg text-gray-800 font-normal">
-                        No Vouchers Found
-                    </span>
+                <div slot="table-actions" class="flex justify-between">
+                    <span class="text-blue-500 text-sm font-semibold leading-loose mr-2 inline-block mt-tenth cursor-pointer" @click="clearSearch()">Clear</span>
                 </div>
-            </template>
+                <template slot="table-row" slot-scope="props">
+                    <span v-if="props.column.field == 'actions'" class="flex justify-between px-3">
+                        <toggle-art-complete v-if="$page.auth.user.is_artist || $page.auth.user.is_admin" class="ml-auto btn-sm" :voucher="props.row" />
+                    </span>
+                    <span v-if="props.row.art_complete">
+                        <span class="text-green-500">{{ props.formattedRow[props.column.field] }}</span>
+                    </span>
+                    <span v-else>
+                        <span class="text-red-500">{{ props.formattedRow[props.column.field] }}</span>
+                    </span>
+                </template>
+            </vue-good-table>
         </div>
-        <template v-else>
-            <div class="border border-gray-400 mb-8">
-                <div class="flex flex-col">
-                    <div v-for="voucher in vouchers" :key="voucher.id" class="flex flex-col bg-white px-3 py-3 border-b">
-                        <span class="font-semibold text-gray-700 mb-2 mt-4">Schedule Date: <span class="font-normal">{{ voucher.schedule_date }}</span></span>
-                        <span class="font-semibold text-gray-700 mb-2">Order: <span class="font-normal">{{ voucher.order_number }} - {{ voucher.voucher }}</span></span>
-                        <span class="font-semibold text-gray-700 mb-2">Customer: <span class="font-normal">{{ voucher.customer }}</span></span>
-                        <span class="font-semibold text-gray-700 mb-2">Style: <span class="font-normal">{{ voucher.style }}</span></span>
-                        <span class="font-semibold text-gray-700 mb-3">Art Complete: <span class="font-normal">{{ shortDate(voucher.art_complete) }}</span></span>
-                        <span v-if="$page.auth.user.is_artist || $page.auth.user.is_admin" class="w-full">
-                            <toggle-art-complete class="ml-auto" :voucher="voucher" />
-                        </span>
+        <div v-else>
+            <div v-if="notEmpty" class="flex flex-col w-3/4 mx-auto">
+                <div v-for="voucher in vouchers" :key="voucher.id" class="flex flex-col bg-white px-3 py-3 border-b">
+                    <div class="flex mb-4 mt-4">
+                        <span class="w-160p font-semibold text-lg uppercase text-gray-700">Schedule Date: </span>
+                        <span class="text-lg text-gray-600 font-semibold">{{ voucher.schedule_date }}</span>
                     </div>
+                    <div class="flex mb-2">
+                        <span class="w-160p font-semibold text-gray-700">Order: </span>
+                        <span class="font-normal">{{ voucher.order_number }} - {{ voucher.voucher }}</span>
+                    </div>
+
+                    <div class="flex mb-2">
+                        <span class="w-160p font-semibold text-gray-700">Customer: </span>
+                        <span class="font-normal">{{ voucher.customer }}</span>
+                    </div>
+
+                    <div class="flex mb-2">
+                        <span class="w-160p font-semibold text-gray-700">Style: </span>
+                        <span class="font-normal">{{ voucher.style }}</span>
+                    </div>
+
+                    <div class="flex mb-3">
+                        <span class="w-160p font-semibold text-gray-700">Art Complete: </span>
+                        <span class="font-normal">{{ shortDate(voucher.art_complete) }}</span>
+                    </div>
+
+                    <span v-if="$page.auth.user.is_artist || $page.auth.user.is_admin" class="w-full">
+                        <toggle-art-complete class="ml-auto" :voucher="voucher" />
+                    </span>
                 </div>
             </div>
-        </template>
+            <div v-else class="flex justify-between border-l border-r border-b border-blue-300 p-4">
+                <span class="text-lg text-gray-800 font-normal">
+                    No Vouchers Found
+                </span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -80,15 +72,18 @@
 import moment from 'moment';
 import IconBase from '@/Shared/IconBase';
 import Vector from '@/Shared/Icons/Vector';
+import { VueGoodTable } from 'vue-good-table';
 import ToggleArtComplete from '@/Partials/Orders/ToggleArtComplete';
 
 export default {
     components: {
         Vector,
         IconBase,
+        VueGoodTable,
         ToggleArtComplete,
     },
     props: ['vouchers', 'type', 'date', 'timestamp', 'group'],
+    store: ['artworkColumns', 'artworkSortOptions', 'artworkSearchOptions'],
     computed: {
         notEmpty () {
             return this.vouchers.length > 0;
@@ -100,6 +95,9 @@ export default {
     methods: {
         shortDate (date) {
             return date ?moment(date).format('MM-DD') : '';
+        },
+        clearSearch () {
+            this.$refs['table'].globalSearchTerm = '';
         },
     },
 }
