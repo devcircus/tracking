@@ -33,7 +33,7 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
     {
         if ($this->rowShouldNotBeIgnored($row['ditem'])) {
             $print_complete = $row['cmpdte'];
-            $existing = Order::where('order_number', $row['ordnr'])->where('voucher', $row['orvch'])->first();
+            $existing = Order::latest('report_created')->where('order_number', $row['ordnr'])->where('voucher', $row['orvch'])->first();
             $art_complete = optional($existing)->art_complete;
 
             return new Order([
