@@ -101,6 +101,9 @@ export default {
         setDate (event, field) {
             this.form[field] = moment(event).format('YYYY-MM-DD');
         },
+        resetForm () {
+            this.$modal.hide('newVoucher');
+        },
     },
 }
 </script>
