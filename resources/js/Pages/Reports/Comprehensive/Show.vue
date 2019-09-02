@@ -28,8 +28,8 @@
 import moment from 'moment';
 import Layout from '@/Shared/Layout';
 import { InertiaLink } from '@inertiajs/inertia-vue';
-import ReportSummary from '@/Partials/ReportSummary';
-import IndividualReport from '@/Partials/IndividualReport';
+import ReportSummary from '@/Partials/Reports/ReportSummary';
+import IndividualReport from '@/Partials/Reports/IndividualReport';
 
 export default {
     components: {
