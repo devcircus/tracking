@@ -5,12 +5,12 @@ namespace App\Services\OrderTypes\TypeCheckers;
 use Illuminate\Database\Eloquent\Model;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
-class CheckForProductionOrder
+class CheckForSpOrder
 {
     use SelfCallingService;
 
     /**
-     * Check if the order is for production.
+     * Check if the order is for Sp.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
      *
@@ -18,7 +18,7 @@ class CheckForProductionOrder
      */
     public function run(Model $model)
     {
-        if ('SU' === $model->cut_house && '34' === $model->sew_house) {
+        if ('SU' === $model->cut_house && 'SP' === $model->sew_house) {
             return true;
         }
         return false;

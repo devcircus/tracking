@@ -14,10 +14,12 @@
                         <th class="text-white font-bold px-6 pt-6 pb-4">New</th>
                         <th class="text-white font-bold px-6 pt-6 pb-4">Rush</th>
                         <th class="text-white font-bold px-6 pt-6 pb-4">Late</th>
-                        <th class="text-white font-bold px-6 pt-6 pb-4">Prototypes</th>
-                        <th class="text-white font-bold px-6 pt-6 pb-4">Production</th>
+                        <th class="text-white font-bold px-6 pt-6 pb-4">PTs</th>
+                        <th class="text-white font-bold px-6 pt-6 pb-4">34</th>
+                        <th class="text-white font-bold px-6 pt-6 pb-4">PX</th>
+                        <th class="text-white font-bold px-6 pt-6 pb-4">SP</th>
+                        <th class="text-white font-bold px-6 pt-6 pb-4">RF</th>
                         <th class="text-white font-bold px-6 pt-6 pb-4">Bags</th>
-                        <th class="text-white font-bold px-6 pt-6 pb-4">Total</th>
                         <th class="text-white font-bold px-6 pt-6 pb-4">&nbsp;</th>
                     </tr>
                     <tr v-if="inProgress" class="bg-white hover:bg-gray-100 focus-within:bg-gray-100">
@@ -55,17 +57,27 @@
                         </td>
                         <td class="border-t">
                             <inertia-link class="px-6 py-4 flex items-center" :href="route('reports.comprehensive.show', report.timestamp)" tabindex="-1">
-                                {{ report.quantities.production }}
+                                {{ report.quantities.ninas }}
+                            </inertia-link>
+                        </td>
+                        <td class="border-t">
+                            <inertia-link class="px-6 py-4 flex items-center" :href="route('reports.comprehensive.show', report.timestamp)" tabindex="-1">
+                                {{ report.quantities.px }}
+                            </inertia-link>
+                        </td>
+                        <td class="border-t">
+                            <inertia-link class="px-6 py-4 flex items-center" :href="route('reports.comprehensive.show', report.timestamp)" tabindex="-1">
+                                {{ report.quantities.sp }}
+                            </inertia-link>
+                        </td>
+                        <td class="border-t">
+                            <inertia-link class="px-6 py-4 flex items-center" :href="route('reports.comprehensive.show', report.timestamp)" tabindex="-1">
+                                {{ report.quantities.rf }}
                             </inertia-link>
                         </td>
                         <td class="border-t">
                             <inertia-link class="px-6 py-4 flex items-center" :href="route('reports.comprehensive.show', report.timestamp)" tabindex="-1">
                                 {{ report.quantities.bag }}
-                            </inertia-link>
-                        </td>
-                        <td class="border-t">
-                            <inertia-link class="px-6 py-4 flex items-center" :href="route('reports.comprehensive.show', report.timestamp)" tabindex="-1">
-                                {{ report.quantities.total }}
                             </inertia-link>
                         </td>
                         <td class="border-t w-px">

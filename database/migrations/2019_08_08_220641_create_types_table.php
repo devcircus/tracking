@@ -19,7 +19,7 @@ class CreateTypesTable extends Migration
         });
 
         // Insert default types
-        $types = ['bag', 'rush', 'new', 'late', 'production', 'prototype'];
+        $types = ['bag', 'rush', 'new', 'late', 'ninas', 'px', 'sp', 'rf', 'prototype'];
         foreach ($types as $type) {
             DB::table('types')->insert(
                 [
