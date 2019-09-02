@@ -25,11 +25,11 @@
             </inertia-link>
         </div>
         <div v-if="$page.auth.user.is_admin || $page.auth.user.is_artist" :class="margin">
-            <inertia-link class="flex items-center group py-3" :href="route('vouchers.list')">
-                <icon-base :dynamic-classes="isPath('vouchers') ? 'fill-blue-300' : 'fill-white group-hover:fill-blue-300'" icon-name="vector" classes="mr-2">
+            <inertia-link class="flex items-center group py-3" :href="route('reports.artwork.list')">
+                <icon-base :dynamic-classes="isPath('reports/artwork') ? 'fill-blue-300' : 'fill-white group-hover:fill-blue-300'" icon-name="vector" classes="mr-2">
                     <vector />
                 </icon-base>
-                <div :class="isPath('vouchers') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-xl">Artwork</div>
+                <div :class="isPath('reports/artwork') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-xl">Artwork</div>
             </inertia-link>
         </div>
         <div v-if="$page.auth.user.is_admin">

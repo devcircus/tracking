@@ -16,7 +16,7 @@
 import moment from 'moment';
 import Layout from '@/Shared/Layout';
 import { InertiaLink } from '@inertiajs/inertia-vue';
-import IndividualReport from '@/Partials/IndividualReport';
+import IndividualReport from '@/Partials/Reports/IndividualReport';
 
 export default {
     components: {

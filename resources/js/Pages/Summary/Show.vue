@@ -22,7 +22,7 @@
 <script>
 import moment from 'moment';
 import Layout from '@/Shared/Layout.vue';
-import ReportSummary from '@/Partials/ReportSummary.vue';
+import ReportSummary from '@/Partials/Reports/ReportSummary.vue';
 
 export default {
     components: {

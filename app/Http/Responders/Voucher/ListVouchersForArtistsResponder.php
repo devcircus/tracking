@@ -13,7 +13,7 @@ class ListVouchersForArtistsResponder extends Responder
      */
     public function respond(): Response
     {
-        return Inertia::render('Vouchers/Index', [
+        return Inertia::render('Reports/Artwork/Index', [
             'results' => $this->payload['reports'],
             'date' => $this->payload['date'],
             'timestamp' => $this->payload['timestamp'],
