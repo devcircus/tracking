@@ -17,7 +17,10 @@ class OrdersServiceProvider extends ServiceProvider
                 'bag' => 'bag',
                 'late' => 'late',
                 'new' => 'new',
-                'production' => 'production',
+                'ninas' => 'ninas',
+                'px' => 'px',
+                'sp' => 'sp',
+                'rf' => 'rf',
                 'prototype' => 'prototype',
                 'rush' => 'rush',
             ]);
@@ -28,7 +31,10 @@ class OrdersServiceProvider extends ServiceProvider
                 'bag' => Type::where('type', 'bag')->first(),
                 'late' => Type::where('type', 'late')->first(),
                 'new' => Type::where('type', 'new')->first(),
-                'production' => Type::where('type', 'production')->first(),
+                'ninas' => Type::where('type', 'ninas')->first(),
+                'px' => Type::where('type', 'px')->first(),
+                'sp' => Type::where('type', 'sp')->first(),
+                'rf' => Type::where('type', 'rf')->first(),
                 'prototype' => Type::where('type', 'prototype')->first(),
                 'rush' => Type::where('type', 'rush')->first(),
             ]);

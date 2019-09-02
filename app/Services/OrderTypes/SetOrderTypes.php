@@ -17,7 +17,10 @@ class SetOrderTypes
         'rush' => TypeCheckers\CheckForRushOrder::class,
         'new' => TypeCheckers\CheckForNewOrder::class,
         'prototype' => TypeCheckers\CheckForPrototypeOrder::class,
-        'production' => TypeCheckers\CheckForProductionOrder::class,
+        'ninas' => TypeCheckers\CheckForNinasOrder::class,
+        'px' => TypeCheckers\CheckForPxOrder::class,
+        'sp' => TypeCheckers\CheckForSpOrder::class,
+        'rf' => TypeCheckers\CheckForRfOrder::class,
     ];
 
     /**

@@ -60,7 +60,10 @@ class BuildDashboardData extends CachedService
                     ->selectRaw("count(case when sew_house = 'NS' and print_complete is null then 1 end) as prototype")
                     ->selectRaw("count(case when (print_house = 'NS' and CURDATE() > schedule_date) or (sew_house = '34' and cut_house = 'SU' and date_add(CURDATE(), INTERVAL 7 DAY) >= schedule_date) then 1 end) as late")
                     ->selectRaw("count(case when sew_house = 'NS' and print_complete is null and rush_date is not null then 1 end) as rush")
-                    ->selectRaw("count(case when sew_house = '34' and cut_house = 'SU' then 1 end) as production")
+                    ->selectRaw("count(case when sew_house = '34' and cut_house = 'SU' then 1 end) as ninas")
+                    ->selectRaw("count(case when sew_house = 'PX' and cut_house = 'SU' then 1 end) as px")
+                    ->selectRaw("count(case when sew_house = 'SP' and cut_house = 'SU' then 1 end) as sp")
+                    ->selectRaw("count(case when sew_house = 'RF' and cut_house = 'SU' then 1 end) as rf")
                     ->selectRaw("count(case when sew_house = 'RY' and cut_house = 'SU' then 1 end) as bag")
                     ->first(),
                 'date' => $date,

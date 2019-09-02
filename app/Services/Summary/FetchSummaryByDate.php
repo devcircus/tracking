@@ -32,7 +32,7 @@ class FetchSummaryByDate extends CachedService
      */
     public function run(string $date)
     {
-        return resolve('orders')->only(['prototype', 'production'])->map(function ($type) use ($date) {
+        return resolve('orders')->only(['prototype', 'ninas'])->map(function ($type) use ($date) {
             $query = $this->orders->type($type)->forDate($date)->notComplete($type);
 
             return [
