@@ -112,6 +112,8 @@ class ProcessRegistration extends Action
      */
     protected function registered(Request $request, $user)
     {
+        parent::registered();
+
         return redirect()->route('dashboard')->with(['success' => 'User registered. Check your email to verify your account.']);
     }
 }

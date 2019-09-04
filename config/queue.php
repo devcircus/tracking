@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Queue Connection Name
@@ -29,7 +28,6 @@ return [
     */
 
     'connections' => [
-
         'sync' => [
             'driver' => 'sync',
         ],
@@ -65,7 +63,6 @@ return [
             'retry_after' => 90,
             'block_for' => null,
         ],
-
     ],
 
     /*
@@ -78,10 +75,9 @@ return [
     | have failed. You may change them to any database / table you wish.
     |
     */
-
     'failed' => [
+        'driver' => env('QUEUE_FAILED_DRIVER', 'database'),
         'database' => env('DB_CONNECTION', 'mysql'),
         'table' => 'failed_jobs',
     ],
-
 ];
