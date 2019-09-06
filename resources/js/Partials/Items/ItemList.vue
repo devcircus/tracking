@@ -13,7 +13,7 @@
                 </div>
                 <div slot="table-actions" class="flex justify-between">
                     <span class="text-blue-500 text-sm font-semibold leading-loose mr-2 inline-block mt-tenth cursor-pointer" @click="clearSearch()">Clear</span>
-                    <dropdown class="mr-1" placement="bottom-end">
+                    <dropdown v-if="$page.auth.user.can.administerItems" class="mr-1" placement="bottom-end">
                         <div class="flex items-center cursor-pointer select-none group">
                             <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
                                 <span class="inline text-gray-800 text-sm font-semibold">Options</span>
@@ -23,16 +23,16 @@
                             </icon-base>
                         </div>
                         <div slot="dropdown" class="mt-2 p-2 shadow-lg bg-white rounded">
-                            <checkbox v-if="$page.auth.user.is_admin" v-model="showTrashed" class="mb-2" label="Include deleted items: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
+                            <checkbox v-model="showTrashed" class="mb-2" label="Include deleted items: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
                             <span class="text-blue-500 font-semibold text-xs uppercase py-2 cursor-pointer" @click="newItem()">New Item</span>
                         </div>
                     </dropdown>
                 </div>
                 <template slot="table-row" slot-scope="props">
                     <span v-if="props.column.field == 'actions'" class="flex justify-between px-3">
-                        <button v-if="props.row.deleted_at && $page.auth.user.is_admin" class="text-green-500 hover:underline" tabindex="-1" type="button" @click="restoreItem(props.row.id)">Restore</button>
-                        <button v-else-if="props.row.deleted_at === null && $page.auth.user.is_admin" class="text-red-500 hover:underline" tabindex="-1" type="button" @click="destroyItem(props.row.id)">Delete</button>
-                        <inertia-link :href="route('items.show', props.row.id)" class="btn btn-text py-0 text-blue-500 hover:underline" tabindex="-1">View</inertia-link>
+                        <button v-if="props.row.deleted_at && $page.auth.user.can.restoreItem" class="text-green-500 hover:underline" tabindex="-1" type="button" @click="restoreItem(props.row.id)">Restore</button>
+                        <button v-else-if="props.row.deleted_at === null && $page.auth.user.can.deleteItem" class="text-red-500 hover:underline" tabindex="-1" type="button" @click="destroyItem(props.row.id)">Delete</button>
+                        <inertia-link v-if="$page.auth.user.can.administerItem" :href="route('items.show', props.row.id)" class="btn btn-text py-0 text-blue-500 hover:underline" tabindex="-1">View</inertia-link>
                     </span>
                     <span v-if="props.row.deleted_at">
                         <span class="text-red-500">{{ props.formattedRow[props.column.field] }}</span>

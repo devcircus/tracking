@@ -2,11 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\Tag;
 use Inertia\Inertia;
+use App\Policies\ItemPolicy;
+use App\Models\InventoryItem;
+use App\Models\User;
+use App\Policies\InventoryPolicy;
 use Illuminate\Support\Facades\Auth;
-use App\Services\Tag\ListTagsService;
 use Illuminate\Support\Facades\Config;
-use App\Services\Item\ListInventoryItemsService;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
@@ -63,6 +66,7 @@ class InertiaServiceProvider extends ServiceProvider
                         'is_admin' => $user->is_admin,
                         'is_artist' => $user->is_artist,
                         'deleted_at' => $user->deleted_at,
+                        'can' => $user->getAuthorizationDetails(),
                     ] : null,
                 ];
             },

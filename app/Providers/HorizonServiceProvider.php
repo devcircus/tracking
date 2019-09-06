@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\User;
 use Laravel\Horizon\Horizon;
 use Illuminate\Support\Facades\Gate;
-use Laravel\Horizon\HorizonApplicationServiceProvider;
-use App\Models\User;
 use Illuminate\Support\Facades\Config;
+use Laravel\Horizon\HorizonApplicationServiceProvider;
 
 class HorizonServiceProvider extends HorizonApplicationServiceProvider
 {
