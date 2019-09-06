@@ -128,6 +128,14 @@ export default {
             return ! this.notEmpty;
         },
     },
+    watch: {
+        data: {
+            handler (value) {
+               this.setInitialInfo();
+            },
+            deep: true,
+        },
+    },
     methods: {
         showActionModal (index, item) {
             if (! this.$page.auth.user.is_admin) return;
