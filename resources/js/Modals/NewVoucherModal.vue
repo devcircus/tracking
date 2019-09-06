@@ -94,7 +94,7 @@ export default {
         submit () {
             this.sending = true;
             this.submitted = true;
-            this.$inertia.post(this.route('orders.add'), this.form, { replace: false, preserveScroll: false, preserveState: false }).then(() => {
+            this.$inertia.post(this.route('orders.add'), this.form, { replace: false, preserveScroll: false, preserveState: true }).then(() => {
                 this.sending = false;
             });
         },
