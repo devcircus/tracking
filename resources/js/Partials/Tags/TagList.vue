@@ -139,14 +139,14 @@ export default {
                         <div slot="dropdown" class="mt-2 p-2 shadow-lg bg-white rounded">
                             <checkbox v-model="showActive" class="mb-2" label="Include active tags: " :width="4" :height="4" :checked="showActive" @input="hideDropdown()" />
                             <checkbox v-model="showFinished" class="mb-2" label="Include finished tags: " :width="4" :height="4" :checked="showFinished" @input="hideDropdown()" />
-                            <checkbox v-if="$page.auth.user.is_admin" v-model="showTrashed" class="mb-2" label="Include deleted tags: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
+                            <checkbox v-if="$page.auth.user.can.deleteTag" v-model="showTrashed" class="mb-2" label="Include deleted tags: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
                         </div>
                     </dropdown>
                 </div>
                 <template slot="table-row" slot-scope="props">
                     <span v-if="props.column.field == 'actions'" class="flex justify-between px-3">
-                        <button v-if="props.row.deleted_at && $page.auth.user.is_admin" class="text-green-500 hover:underline" tabindex="-1" type="button" @click="restoreTag(props.row.id)">Restore</button>
-                        <button v-else-if="props.row.deleted_at === null && $page.auth.user.is_admin" class="text-red-500 hover:underline" tabindex="-1" type="button" @click="destroyTag(props.row.id)">Delete</button>
+                        <button v-if="props.row.deleted_at && $page.auth.user.can.restoreTag" class="text-green-500 hover:underline" tabindex="-1" type="button" @click="restoreTag(props.row.id)">Restore</button>
+                        <button v-else-if="props.row.deleted_at === null && $page.auth.user.can.deleteTag" class="text-red-500 hover:underline" tabindex="-1" type="button" @click="destroyTag(props.row.id)">Delete</button>
                         <button v-if="props.row.finished_at" class="text-green-500 hover:underline" tabindex="-1" type="button" @click="reactivateTag(props.row.id)">Activate</button>
                         <button v-else class="text-red-500 hover:underline" tabindex="-1" type="button" @click="finishTag(props.row.id)">Finish</button>
                     </span>

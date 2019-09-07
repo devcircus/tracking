@@ -2,20 +2,21 @@
 
 namespace App\Providers;
 
+use App\Models\Tag;
 use App\Models\User;
+use App\Policies\ItemPolicy;
+use App\Models\InventoryItem;
+use App\Policies\InventoryPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
-    /**
-     * The policy mappings for the application.
-     *
-     * @var array
-     */
+    /** @var array */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        Tag::class => InventoryPolicy::class,
+        InventoryItem::class => ItemPolicy::class,
     ];
 
     /**
