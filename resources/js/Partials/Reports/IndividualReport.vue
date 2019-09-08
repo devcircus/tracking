@@ -40,10 +40,10 @@
                 <span class="hidden xl:block w-300p text-lg text-gray-800 font-semibold">
                     Customer
                 </span>
-                <span v-if="type != 'prototype'" class="hidden md:block flex-1 text-lg text-gray-800 font-semibold">
+                <span v-if="type != 'prototype'" class="hidden md:block md:w-160p text-lg text-gray-800 font-semibold">
                     Style
                 </span>
-                <span v-else class="hidden lg:block text-lg text-gray-800 font-semibold">
+                <span v-else class="hidden lg:block lg:w-160p text-lg text-gray-800 font-semibold">
                     Style
                 </span>
                 <span v-if="type === 'prototype'" class="text-lg text-gray-800 font-semibold w-260p">
@@ -71,10 +71,10 @@
                     <span class="hidden xl:block w-300p text-base xl:text-lg font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
                         {{ item.customer }}
                     </span>
-                    <span v-if="type != 'prototype'" class="hidden md:block flex-1 text-base xl:text-lg font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
+                    <span v-if="type != 'prototype'" class="hidden md:block md:w-160p text-base xl:text-lg font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
                         {{ item.style }}
                     </span>
-                    <span v-else class="hidden lg:block text-base xl:text-lg font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
+                    <span v-else class="hidden lg:block lg:w-160p text-base xl:text-lg font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
                         {{ item.style }}
                     </span>
                     <div v-if="type === 'prototype' && $page.auth.user.is_admin" class="text-base xl:text-lg text-gray-800 font-normal w-260p" @click.stop>
