@@ -108,7 +108,7 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
      */
     private function rowShouldBeIgnored($item): bool
     {
-        return preg_match('/^g?id[a-z]?+[A-Z]?+[0-9]?+\s*?/i', $item);
+        return preg_match('/(^g?id)|(^cm)[a-z]?+[A-Z]?+[0-9]?+\s*?/i', $item);
     }
 
     /**
