@@ -32,7 +32,7 @@ class Upload extends Model
     }
 
     /**
-     * Set reports_created for an Upload.
+     * Note that the reports have been created for an Upload date.
      *
      * @param  string  $date
      */
@@ -71,8 +71,6 @@ class Upload extends Model
      */
     public function latestUploadInProgress(): bool
     {
-        $date = Upload::latest()->first()->uploaded_at;
-
-        return $this->uploadInProgressForDate($date);
+        return $this->uploadInProgressForDate(Upload::latest()->first()->uploaded_at);
     }
 }

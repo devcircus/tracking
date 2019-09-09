@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Voucher;
+namespace App\Services\Artwork;
 
 use App\Models\Order;
 use App\Services\Report\FetchIndividualReportByDate;

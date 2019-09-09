@@ -4,7 +4,7 @@ namespace App\Http\Actions\Voucher;
 
 use App\Models\Order;
 use PerfectOblivion\Actions\Action;
-use App\Services\Voucher\ArtCompleteService;
+use App\Services\Artwork\ArtCompleteService;
 use App\Http\Responders\Voucher\ArtCompleteResponder;
 
 class ArtComplete extends Action

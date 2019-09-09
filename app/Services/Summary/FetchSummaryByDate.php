@@ -2,25 +2,30 @@
 
 namespace App\Services\Summary;
 
+use App\Models\Type;
 use App\Models\Order;
-use App\Services\CachedService;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
-class FetchSummaryByDate extends CachedService
+class FetchSummaryByDate
 {
     use SelfCallingService;
 
     /** @var \App\Models\Order */
     private $orders;
 
+    /** @var \App\Models\Type */
+    private $types;
+
     /**
      * Construct a new FetchAllOrdersByDate service.
      *
      * @param  \App\Models\Order  $orders
+     * @param  \App\Models\Type  $types
      */
-    public function __construct(Order $orders)
+    public function __construct(Order $orders, Type $types)
     {
         $this->orders = $orders;
+        $this->types = $types;
     }
 
     /**
@@ -32,8 +37,8 @@ class FetchSummaryByDate extends CachedService
      */
     public function run(string $date)
     {
-        return resolve('orders')->only(['prototype', 'ninas'])->map(function ($type) use ($date) {
-            $query = $this->orders->type($type)->forDate($date)->notComplete($type);
+        return $this->types->all()->keyBy('type')->toBase()->only(['prototype', 'ninas'])->map(function ($model, $key) use ($date) {
+            $query = $this->orders->type($key)->forDate($date)->notComplete($key);
 
             return [
                 'summary' => $query->weeklyVouchers(),

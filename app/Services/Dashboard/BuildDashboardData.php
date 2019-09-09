@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Services\Order;
+namespace App\Services\Dashboard;
 
 use App\Models\Order;
 use App\Models\Upload;
-use App\Services\CachedService;
 use Illuminate\Support\Facades\DB;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
-class BuildDashboardData extends CachedService
+class BuildDashboardData
 {
     use SelfCallingService;
 
