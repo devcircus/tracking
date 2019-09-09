@@ -3,10 +3,9 @@
 namespace App\Services\Report;
 
 use App\Models\Order;
-use App\Services\CachedService;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
-class FetchIndividualReportByDate extends CachedService
+class FetchIndividualReportByDate
 {
     use SelfCallingService;
 

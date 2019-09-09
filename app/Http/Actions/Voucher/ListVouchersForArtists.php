@@ -4,7 +4,7 @@ namespace App\Http\Actions\Voucher;
 
 use Inertia\Response;
 use PerfectOblivion\Actions\Action;
-use App\Services\Voucher\ListVouchersForArtistsService;
+use App\Services\Artwork\ListVouchersForArtistsService;
 use App\Http\Responders\Voucher\ListVouchersForArtistsResponder;
 
 class ListVouchersForArtists extends Action

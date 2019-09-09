@@ -2,9 +2,8 @@
 
 namespace App\Services\Upload;
 
-use App\Models\Upload;
-use App\Events\ReportsCreated;
 use App\Models\User;
+use App\Models\Upload;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class StoreUploadInDatabaseService

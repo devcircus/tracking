@@ -2,6 +2,7 @@
 
 namespace App\Services\OrderTypes;
 
+use App\Models\Type;
 use Illuminate\Database\Eloquent\Model;
 use App\Services\OrderTypes\TypeCheckers;
 use PerfectOblivion\Services\Traits\SelfCallingService;
@@ -36,10 +37,9 @@ class SetOrderTypes
             return $checker::call($model);
         })->keys()->toArray();
 
-        $types = collect($found)->map(function($type) {
-            return resolve('types')[$type]->id;
-        });
-
-        return $model->types()->sync($types);
+        return $model->types()->sync(collect($found)->map(function ($type) {
+                return Type::whereType($type)->first()->id;
+            })
+        );
     }
 }

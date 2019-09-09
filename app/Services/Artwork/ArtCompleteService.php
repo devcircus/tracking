@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Voucher;
+namespace App\Services\Artwork;
 
 use App\Models\User;
 use App\Models\Order;

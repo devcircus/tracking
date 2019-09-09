@@ -2,7 +2,7 @@
 
 namespace App\Services\Report;
 
-use App\Services\Order\BuildDashboardData;
+use App\Services\Dashboard\BuildDashboardData;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class IndexService

@@ -2,12 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Tag;
 use Inertia\Inertia;
-use App\Policies\ItemPolicy;
-use App\Models\InventoryItem;
-use App\Models\User;
-use App\Policies\InventoryPolicy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Session;
