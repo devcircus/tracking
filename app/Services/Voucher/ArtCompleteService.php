@@ -37,7 +37,9 @@ class ArtCompleteService
         $complete = $order->toggleArtComplete();
         $authenticated = auth()->user();
 
-        Notification::send($this->users->administrators(), new ArtComplete($order, $authenticated));
+        if ($complete) {
+            Notification::send($this->users->administrators(), new ArtComplete($order, $authenticated));
+        }
 
         activity()
             ->causedBy($authenticated)
