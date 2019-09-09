@@ -2846,16 +2846,16 @@
         },
         {
             "name": "perfect-oblivion/valid",
-            "version": "0.2.2",
+            "version": "0.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/perfect-oblivion/valid.git",
-                "reference": "7b9f9d7523ffe31ce7db4c7c9192c5d0c02f4e43"
+                "reference": "37ba34f190e47aabc11c8277685a9057bda50e6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/perfect-oblivion/valid/zipball/7b9f9d7523ffe31ce7db4c7c9192c5d0c02f4e43",
-                "reference": "7b9f9d7523ffe31ce7db4c7c9192c5d0c02f4e43",
+                "url": "https://api.github.com/repos/perfect-oblivion/valid/zipball/37ba34f190e47aabc11c8277685a9057bda50e6a",
+                "reference": "37ba34f190e47aabc11c8277685a9057bda50e6a",
                 "shasum": ""
             },
             "require": {
@@ -2901,7 +2901,7 @@
                 "rules",
                 "validation"
             ],
-            "time": "2019-09-04T15:40:41+00:00"
+            "time": "2019-09-09T14:28:54+00:00"
         },
         {
             "name": "phar-io/manifest",
