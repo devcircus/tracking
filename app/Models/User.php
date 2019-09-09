@@ -12,6 +12,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Database\Eloquent\Collection;
 
 class User extends Authenticatable implements AuthorizableContract, MustVerifyEmail
 {
@@ -94,6 +95,14 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
         return in_array(SoftDeletes::class, class_uses($this))
             ? $this->where($this->getRouteKeyName(), $value)->withTrashed()->first()
             : parent::resolveRouteBinding($value);
+    }
+
+    /**
+     * Get all users who are administrators.
+     */
+    public function administrators(): Collection
+    {
+        return $this->where('is_admin', true)->get();
     }
 
     /**
