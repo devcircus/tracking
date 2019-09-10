@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Http\Actions\Voucher;
+namespace App\Http\Actions\Artwork;
 
 use Inertia\Response;
 use PerfectOblivion\Actions\Action;
 use App\Services\Artwork\ListVouchersForArtistsService;
-use App\Http\Responders\Voucher\ListVouchersForArtistsResponder;
+use App\Http\Responders\Artwork\ListVouchersForArtistsResponder;
 
 class ListVouchersForArtists extends Action
 {
-    /** @var \App\Http\Responders\Vouchers\ListVouchersForArtistsResponder */
+    /** @var \App\Http\Responders\Artworks\ListVouchersForArtistsResponder */
     private $responder;
 
     /**
-    * Construct a new ListVouchersForArtists action.
-    *
-    * @param  \App\Http\Responders\Vouchers\ListVouchersForArtistsResponder  $responder
-    */
+     * Construct a new ListVouchersForArtists action.
+     *
+     * @param  \App\Http\Responders\Artworks\ListVouchersForArtistsResponder  $responder
+     */
     public function __construct(ListVouchersForArtistsResponder $responder)
     {
         $this->responder = $responder;

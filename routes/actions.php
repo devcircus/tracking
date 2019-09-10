@@ -70,7 +70,7 @@ Route::group(['middleware' => ['auth', 'is_admin'], 'as' => 'items.', 'prefix' =
 // Reports
 Route::group(['middleware' => ['auth'], 'as' => 'reports.', 'prefix' => 'reports'], function ($router) {
     $router->get('/', Report\Index::class)->middleware(['auth'])->name('list');
-    $router->get('/artwork', Voucher\ListVouchersForArtists::class)->name('artwork.list');
+    $router->get('/artwork', Artwork\ListVouchersForArtists::class)->name('artwork.list');
     $router->get('/create', Report\CreateReport::class)->name('create');
     $router->get('/{type}/{date}', Report\ShowIndividualReport::class)->middleware(['date'])->name('individual.show');
     $router->get('/{date}', Report\ShowComprehensiveReport::class)->middleware(['date'])->name('comprehensive.show');
@@ -100,5 +100,6 @@ Route::group(['middleware' => ['auth', 'date'], 'as' => 'summary.', 'prefix' => 
 
 // Voucher tracking for artists
 Route::group(['middleware' => ['auth', 'is_artist'], 'as' => 'vouchers.', 'prefix' => 'vouchers'], function ($router) {
-    $router->put('/{order}/art', Voucher\ArtComplete::class)->name('art');
+    $router->post('/batch/art', Artwork\BatchArtComplete::class)->name('art.batch');
+    $router->put('/{order}/art', Artwork\ArtComplete::class)->name('art');
 });
