@@ -1,9 +1,9 @@
 <template>
-    <loading-button :loading="sending" class="flex btn shadow-md" :class="buttonClasses(voucher)" type="button" @clicked="toggleArtComplete(voucher.id)">
-        <icon-base v-if="voucher.art_complete" icon-fill="fill-white" icon-name="thumbs-up" classes="mr-2">
+    <loading-button :loading="sending" class="flex btn shadow-md p-2" :class="buttonClasses(voucher)" type="button" @clicked="toggleArtComplete(voucher.id)">
+        <icon-base v-if="voucher.art_complete" :height="14" :width="14" icon-fill="fill-white" icon-name="thumbs-up" classes="mr-2">
             <thumbs-up />
         </icon-base>
-        <icon-base v-else icon-fill="fill-white" icon-name="thumbs-down" classes="mr-2">
+        <icon-base v-else icon-fill="fill-white" :height="14" :width="14" icon-name="thumbs-down" classes="mr-2">
             <thumbs-down />
         </icon-base>
         {{ buttonText(voucher) }}
