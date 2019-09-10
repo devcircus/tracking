@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Responders\Voucher;
+namespace App\Http\Responders\Artwork;
 
 use Inertia\Inertia;
 use Inertia\Response;

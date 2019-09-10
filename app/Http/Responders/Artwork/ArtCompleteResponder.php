@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Responders\Voucher;
+namespace App\Http\Responders\Artwork;
 
 use Illuminate\Http\RedirectResponse;
 use PerfectOblivion\Responder\Responder;
