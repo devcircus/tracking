@@ -31,7 +31,13 @@
                 <template slot="table-row" slot-scope="props">
                     <span v-if="props.column.field == 'actions'" class="flex justify-between px-3">
                         <checkbox v-if="showCheckboxes" class="mb-2" :width="6" :height="6" :checked="selected[props.row.id]" @input="selectVoucher(props.row)" />
-                        <toggle-art-complete v-if="$page.auth.user.is_artist || $page.auth.user.is_admin" class="ml-auto btn-sm" :voucher="props.row" />
+                        <toggle v-if="userCanToggleArt()"
+                                :value="props.row.art_complete ? true : false"
+                                on-text="Complete"
+                                off-text="Not Complete"
+                                :sending="sendingToggle[props.row.id] ? true : false"
+                                @clicked="toggleArtComplete(props.row.id)"
+                        />
                     </span>
                     <span v-if="props.row.art_complete">
                         <span class="text-green-500">{{ props.formattedRow[props.column.field] }}</span>
@@ -70,7 +76,13 @@
                     </div>
 
                     <span v-if="$page.auth.user.is_artist || $page.auth.user.is_admin" class="w-full">
-                        <toggle-art-complete class="ml-auto" :voucher="voucher" />
+                        <toggle v-if="userCanToggleArt()"
+                                :value="voucher.art_complete ? true : false"
+                                on-text="Complete"
+                                off-text="Not Complete"
+                                :sending="sendingToggle[voucher.id] ? true : false"
+                                @clicked="toggleArtComplete(voucher.id)"
+                        />
                     </span>
                 </div>
             </div>
@@ -85,7 +97,7 @@
 
 <script>
 import moment from 'moment';
-import { filter } from 'lodash';
+import Toggle from '@/Shared/Toggle';
 import Checkbox from '@/Shared/Checkbox';
 import Dropdown from '@/Shared/Dropdown';
 import IconBase from '@/Shared/IconBase';
@@ -93,18 +105,17 @@ import Vector from '@/Shared/Icons/Vector';
 import { VueGoodTable } from 'vue-good-table';
 import LoadingButton from '@/Shared/LoadingButton';
 import CheveronDown from '@/Shared/Icons/CheveronDown';
-import ToggleArtComplete from '@/Partials/Orders/ToggleArtComplete';
 
 export default {
     components: {
         Vector,
+        Toggle,
         Checkbox,
         Dropdown,
         IconBase,
         VueGoodTable,
         CheveronDown,
         LoadingButton,
-        ToggleArtComplete,
     },
     props: ['vouchers', 'type', 'date', 'timestamp', 'group'],
     store: ['artworkColumns', 'artworkSortOptions', 'artworkSearchOptions'],
@@ -113,6 +124,7 @@ export default {
             showCheckboxes: false,
             showBatchUpdateButton: false,
             sendingArtworkUpdate: false,
+            sendingToggle: [],
             selected: {},
         }
     },
@@ -140,6 +152,15 @@ export default {
         },
     },
     methods: {
+        userCanToggleArt () {
+            return this.$page.auth.user.is_artist || this.$page.auth.user.is_admin;
+        },
+        toggleArtComplete (id) {
+            this.sendingToggle[id] = true;
+            this.$inertia.put(this.route('vouchers.art', id), null, { replace: false, preserveScroll: true, preserveState: true }).then( () => {
+                this.$delete(this.sendingToggle, id);
+            });
+        },
         shortDate (date) {
             return date ?moment(date).format('MM-DD') : '';
         },
