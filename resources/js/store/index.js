@@ -254,4 +254,187 @@ export default {
         enabled: true,
         placeholder: 'Search prototypes...',
     },
+    colorColumns: [
+        {
+            field: 'code',
+            label: 'Code',
+            type: 'text',
+            sortable: true,
+        },
+        {
+            field: 'name',
+            label: 'Name',
+            type: 'text',
+            sortable: true,
+        },
+        {
+            field: 'type',
+            label: 'Type',
+            type: 'text',
+            sortable: true,
+        },
+    ],
+    colorSortOptions: {
+        enabled: true,
+        initialSortBy: [
+            { field: 'code', type: 'asc' },
+        ],
+    },
+    colorPaginationOptions: {
+        enabled: true,
+        mode: 'pages',
+        perPage: 10,
+        dropdownAllowAll: true,
+        nextLabel: 'next',
+        prevLabel: 'prev',
+        rowsPerPageLabel: 'Records per page',
+        ofLabel: 'of',
+        pageLabel: 'page',
+        allLabel: 'All',
+    },
+    colorSearchOptions: {
+        enabled: true,
+        placeholder: 'Search colors...',
+    },
+    fabricColumns: [
+        {
+            field: 'code',
+            label: 'Code',
+            type: 'text',
+            sortable: true,
+        },
+        {
+            field: 'name',
+            label: 'Name',
+            type: 'text',
+            sortable: true,
+        },
+        {
+            field: getCrossGrain,
+            label: 'Cross-Grain',
+            type: 'boolean',
+        },
+        {
+            field: 'press_speed',
+            label: 'Press Speed',
+            type: 'number',
+        },
+    ],
+    fabricSortOptions: {
+        enabled: true,
+        initialSortBy: [
+            { field: 'code', type: 'asc' },
+            { field: 'name', type: 'asc' },
+        ],
+    },
+    fabricPaginationOptions: {
+        enabled: true,
+        mode: 'pages',
+        perPage: 10,
+        dropdownAllowAll: true,
+        nextLabel: 'next',
+        prevLabel: 'prev',
+        rowsPerPageLabel: 'Records per page',
+        ofLabel: 'of',
+        pageLabel: 'page',
+        allLabel: 'All',
+    },
+    fabricSearchOptions: {
+        enabled: true,
+        placeholder: 'Search fabrics...',
+    },
+    printerColumns: [
+        {
+            field: 'name',
+            label: 'Name',
+            type: 'text',
+            sortable: true,
+        },
+        {
+            field: 'model',
+            label: 'Model',
+            type: 'text',
+            sortable: true,
+        },
+        {
+            field: getInkInfo,
+            label: 'Ink',
+            type: 'text',
+        },
+        {
+            field: 'ink.type',
+            label: 'Ink Type',
+            type: 'text',
+            sortable: false,
+        },
+        {
+            field: 'manufacturer',
+            label: 'Manufacturer',
+            type: 'text',
+            sortable: true,
+        },
+        {
+            field: 'colors',
+            label: 'Colors',
+            sortable: false,
+        },
+    ],
+    printerColorColumns: [
+        {
+            field: 'code',
+            label: 'Code',
+            type: 'text',
+            sortable: true,
+        },
+        {
+            field: 'name',
+            label: 'Name',
+            type: 'text',
+            sortable: true,
+        },
+        {
+            field: 'type',
+            label: 'Type',
+            type: 'text',
+            sortable: false,
+        },
+        {
+            field: getColorApproved,
+            label: 'Approved',
+            type: 'boolean',
+            sortable: true,
+        },
+        {
+            field: concatenateCmyk,
+            label: 'CMYK',
+            type: 'text',
+            sortable: false,
+        },
+    ],
+    printerColorSortOptions: {
+        enabled: true,
+        initialSortBy: [
+            { field: 'code', type: 'asc' },
+        ],
+    },
+    printerColorSearchOptions: {
+        enabled: true,
+        placeholder: 'Search colors...',
+    },
+}
+
+function getCrossGrain (fabric) {
+    return fabric.cross_grain == 1 ? 'true' : 'false';
+}
+
+function getColorApproved (color) {
+    return color.pivot.approved == 1 ? 'true' : 'false';
+}
+
+function concatenateCmyk (color) {
+    return `${color.pivot.cyan}-${color.pivot.magenta}-${color.pivot.yellow}-${color.pivot.black}`;
+}
+
+function getInkInfo (printer) {
+    return `${printer.ink.manufacturer}-${printer.ink.version}`;
 }

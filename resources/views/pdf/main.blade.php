@@ -1,7 +1,6 @@
 @extends('pdf.layout')
 
 @section('content')
-
 <table class="table table-striped">
     <caption class="heading">{{ ucfirst($type) }} Orders</caption>
     <thead>
@@ -37,5 +36,4 @@
         @endforelse
     </tbody>
 </table>
-
 @endsection

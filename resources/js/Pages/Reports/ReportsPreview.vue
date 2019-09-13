@@ -196,7 +196,7 @@ export default {
             });
         },
         showReport (timestamp) {
-            this.$inertia.replace(this.route('reports.comprehensive.show', timestamp));
+            this.$inertia.visit(this.route('reports.comprehensive.show', timestamp));
         },
         getDayOfWeek (date) {
             return moment(date).format('ddd');

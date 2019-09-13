@@ -82,7 +82,7 @@ export default {
     },
     methods: {
         newItem () {
-            this.$inertia.replace(this.route('items.create'));
+            this.$inertia.visit(this.route('items.create'));
         },
         restoreItem (id) {
             this.$showDialog('warning', 'item', 'restore',

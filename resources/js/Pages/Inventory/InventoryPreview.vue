@@ -58,7 +58,7 @@ export default {
     },
     methods: {
         showItem (params) {
-            this.$inertia.replace(this.route('items.show', params.row.id));
+            this.$inertia.visit(this.route('items.show', params.row.id));
         },
     },
 }
