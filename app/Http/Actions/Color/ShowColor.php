@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use PerfectOblivion\Actions\Action;
 use App\Http\Responders\Color\ShowColorResponder;
 use App\Models\Color;
+use App\Services\Materials\ListPrintersService;
 use Inertia\Response;
 
 class ShowColor extends Action
@@ -30,6 +31,10 @@ class ShowColor extends Action
      */
     public function __invoke(Color $color): Response
     {
-        return $this->responder->withPayload($color->load(['printers']))->respond();
+        $printers = ListPrintersService::call($color->type);
+        return $this->responder->withPayload([
+            'colorData' => $color->load(['printers']),
+            'printers' => $printers,
+        ])->respond();
     }
 }

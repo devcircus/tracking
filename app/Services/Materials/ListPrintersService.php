@@ -3,6 +3,7 @@
 namespace App\Services\Materials;
 
 use App\Models\Printer;
+use Illuminate\Database\Eloquent\Collection;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class ListPrintersService
@@ -25,10 +26,12 @@ class ListPrintersService
     /**
      * Handle the call to the service.
      *
-     * @return mixed
+     * @param  string|null  $type
      */
-    public function run()
+    public function run(?string $type = null): Collection
     {
-        return $this->printers->all();
+        return $type ? $this->printers->whereHas('ink', function ($query) use ($type) {
+            return $query->where('type', $type);
+        })->get() : $this->printers->all();
     }
 }

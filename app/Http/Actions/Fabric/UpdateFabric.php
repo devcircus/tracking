@@ -33,7 +33,7 @@ class UpdateFabric extends Action
     public function __invoke(Request $request, Fabric $fabric): RedirectResponse
     {
         $updated = UpdateFabricService::call($fabric, $request->only([
-            'name', 'model', 'manufacturer', 'ink_id',
+            'code', 'name', 'manufacturer', 'cross_grain', 'press_speed'
         ]));
 
         return $this->responder->withPayload($updated)->respond();

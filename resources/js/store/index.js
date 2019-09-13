@@ -421,6 +421,30 @@ export default {
         enabled: true,
         placeholder: 'Search colors...',
     },
+    inkColumns: [
+        {
+            field: 'manufacturer',
+            label: 'Manufacturer',
+            type: 'text',
+        },
+        {
+            field: 'version',
+            label: 'Version',
+            type: 'text',
+        },
+        {
+            field: 'type',
+            label: 'Type',
+            type: 'text',
+        },
+    ],
+    inkSortOptions: {
+        enabled: true,
+        initialSortBy: [
+            { field: 'manufacturer', type: 'asc' },
+            { field: 'version', type: 'asc' },
+        ],
+    },
 }
 
 function getCrossGrain (fabric) {

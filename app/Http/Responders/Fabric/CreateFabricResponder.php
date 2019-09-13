@@ -13,6 +13,6 @@ class CreateFabricResponder extends Responder
      */
     public function respond(): Response
     {
-        return Inertia::render('Fabrics/Create', $this->payload);
+        return Inertia::render('Fabrics/Create');
     }
 }

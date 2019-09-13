@@ -1,15 +1,13 @@
 <template>
     <vue-good-table ref="table"
                     class="mb-8"
-                    :columns="fabricColumns"
-                    :rows="fabrics"
-                    :pagination-options="fabricPaginationOptions"
-                    :search-options="fabricSearchOptions"
-                    :sort-options="fabricSortOptions"
-                    @on-row-click="showFabric"
+                    :columns="inkColumns"
+                    :rows="inks"
+                    :sort-options="inkSortOptions"
+                    @on-row-click="showInk"
     >
         <div slot="emptystate">
-            No fabrics found.
+            No inks found.
         </div>
         <template slot="table-actions">
             <span class="text-blue-500 text-sm font-semibold leading-loose mr-2 inline-block mt-tenth cursor-pointer" @click="clearSearch()">Clear</span>
@@ -23,7 +21,7 @@
                     </icon-base>
                 </div>
                 <div slot="dropdown" class="mt-2 p-2 shadow-lg bg-white rounded">
-                    <inertia-link :href="route('fabrics.create')" class="text-blue-600 text-sm font-semibold hover:text-blue-800">New Fabric</inertia-link>
+                    <inertia-link :href="route('inks.create')" class="text-blue-600 text-sm font-semibold hover:text-blue-800">New Ink</inertia-link>
                 </div>
             </dropdown>
         </template>
@@ -43,11 +41,11 @@ export default {
         VueGoodTable,
         CheveronDown,
     },
-    props: ['fabrics'],
-    store: ['fabricColumns', 'fabricSortOptions', 'fabricPaginationOptions', 'fabricSearchOptions'],
+    props: ['inks'],
+    store: ['inkColumns', 'inkSortOptions'],
     methods: {
-        showFabric (params) {
-            this.$inertia.visit(this.route('fabrics.show', params.row.id));
+        showInk (params) {
+            this.$inertia.visit(this.route('inks.show', params.row.id));
         },
         clearSearch () {
             this.$refs['table'].globalSearchTerm = '';

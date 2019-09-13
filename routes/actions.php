@@ -115,16 +115,22 @@ Route::group(['middleware' => ['auth'], 'as' => 'materials.', 'prefix' => 'mater
 
 // Colors
 Route::group(['middleware' => ['auth'], 'as' => 'colors.', 'prefix' => 'colors'], function ($router) {
+    $router->get('/create', Color\CreateColor::class)->middleware(['is_admin'])->name('create');
+    $router->post('/', Color\StoreColor::class)->middleware(['is_admin'])->name('store');
+    $router->put('/{color}', Color\UpdateColor::class)->middleware(['is_admin'])->name('update');
+    $router->delete('/{color}', Color\DeleteColor::class)->middleware(['is_admin'])->name('destroy');
+    $router->put('/{color}/restore', Color\RestoreColor::class)->middleware(['is_admin'])->name('restore');
     $router->get('/{color}', Color\ShowColor::class)->name('show');
+    $router->put('/{color}/printer/{printer}',Color\SetColor::class)->middleware(['is_admin'])->name('set');
     $router->get('/printer/{printer}/colors', Color\ShowPrinterColors::class)->name('printer');
     $router->get('/printer/{printer}/colors/pdf', Color\Pdf\ShowPrinterColorsPdf::class)->name('printer.pdf');
 });
 
 // Fabrics
 Route::group(['middleware' => ['auth'], 'as' => 'fabrics.', 'prefix' => 'fabrics'], function ($router) {
+    $router->get('/create', Fabric\CreateFabric::class)->middleware(['is_admin'])->name('create');
     $router->get('/{fabric}', Fabric\ShowFabric::class)->name('show');
     $router->post('/', Fabric\StoreFabric::class)->middleware(['is_admin'])->name('store');
-    $router->get('/create', Fabric\CreateFabric::class)->middleware(['is_admin'])->name('create');
     $router->put('/{fabric}', Fabric\UpdateFabric::class)->middleware(['is_admin'])->name('update');
     $router->delete('/{fabric}', Fabric\DeleteFabric::class)->middleware(['is_admin'])->name('destroy');
     $router->put('/{fabric}/restore', Fabric\RestoreFabric::class)->middleware(['is_admin'])->name('restore');
@@ -138,4 +144,14 @@ Route::group(['middleware' => ['auth'], 'as' => 'printers.', 'prefix' => 'printe
     $router->put('/{printer}', Printer\UpdatePrinter::class)->middleware(['is_admin'])->name('update');
     $router->delete('/{printer}', Printer\DeletePrinter::class)->middleware(['is_admin'])->name('destroy');
     $router->put('/{printer}/restore', Printer\RestorePrinter::class)->middleware(['is_admin'])->name('restore');
+});
+
+// Inks
+Route::group(['middleware' => ['auth'], 'as' => 'inks.', 'prefix' => 'inks'], function ($router) {
+    $router->get('/create', Ink\CreateInk::class)->middleware(['is_admin'])->name('create');
+    $router->get('/{ink}', Ink\ShowInk::class)->name('show');
+    $router->post('/', Ink\StoreInk::class)->middleware(['is_admin'])->name('store');
+    $router->put('/{ink}', Ink\UpdateInk::class)->middleware(['is_admin'])->name('update');
+    $router->delete('/{ink}', Ink\DeleteInk::class)->middleware(['is_admin'])->name('destroy');
+    $router->put('/{ink}/restore', Ink\RestoreInk::class)->middleware(['is_admin'])->name('restore');
 });

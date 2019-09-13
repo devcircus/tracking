@@ -14,7 +14,7 @@ class ShowFabricResponder extends Responder
     public function respond(): Response
     {
         return Inertia::render('Fabrics/Show', [
-            'fabric' => $this->payload,
+            'fabricData' => $this->payload,
         ]);
     }
 }

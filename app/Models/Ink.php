@@ -16,4 +16,46 @@ class Ink extends Model
     {
         return $this->hasMany(Printer::class);
     }
+
+    /**
+     * Add a new Ink.
+     *
+     * @param  array  $data
+     */
+    public function addInk(array $data): Ink
+    {
+        return $this->create($data);
+    }
+
+    /**
+     * Update a Ink.
+     *
+     * @param  array  $data
+     */
+    public function updateInk(array $data): Ink
+    {
+        return tap($this, function ($instance) use ($data) {
+            return $instance->update($data);
+        })->fresh();
+    }
+
+    /**
+     * Delete a Ink.
+     */
+    public function deleteInk(): Ink
+    {
+        return tap($this, function ($instance) {
+            return $instance->delete();
+        });
+    }
+
+    /**
+     * Restore a deleted Ink.
+     */
+    public function restoreInk(): Ink
+    {
+        return tap($this, function ($instance) {
+            return $instance->restore();
+        });
+    }
 }
