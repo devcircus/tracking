@@ -2,8 +2,8 @@
     <div class="w-full">
         <div class="flex flex-col md:flex-row mb-8">
             <h1 class="text-blue-600 text-base font-semibold uppercase mr-2 mb-2 md:mb-0">{{ printer.name }}-{{ printer.model }}-{{ printer.ink.type }}</h1>
-            <span class="text-sm font-bold uppercase" :class="printerColor.pivot.approved ? 'text-green-600' : 'text-red-600'">
-                ( {{ printerColor.pivot.approved ? 'approved' : 'not approved' }} )
+            <span class="text-sm font-bold uppercase" :class="form.approved ? 'text-green-600' : 'text-red-600'">
+                ( {{ form.approved ? 'approved' : 'not approved' }} )
             </span>
         </div>
         <form @submit.prevent="setColorForPrinter()">
