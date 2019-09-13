@@ -18,7 +18,7 @@ export default {
                 if (! this.$collection(newErrors).has(this.errorBag) && this.form && this.submitted) {
                     this.submitted = false;
                     this.resetForm();
-                    this.$inertia.replace(window.location.pathname, { method: 'get', data: {}, preserveScroll: false, preserveState: false });
+                    this.$inertia.visit(window.location.pathname, { method: 'get', data: {}, preserveScroll: false, preserveState: false });
                 }
             },
             deep: true,

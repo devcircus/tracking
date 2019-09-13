@@ -25,19 +25,19 @@
             </inertia-link>
         </div>
         <div v-if="$page.auth.user.is_admin || $page.auth.user.is_artist" :class="margin">
-            <inertia-link class="flex items-center group py-3" :href="route('reports.artwork.list')">
-                <icon-base :dynamic-classes="isPath('reports/artwork') ? 'fill-blue-300' : 'fill-white group-hover:fill-blue-300'" icon-name="vector" classes="mr-2">
-                    <vector />
+            <inertia-link class="flex items-center group py-3" :href="route('artwork.list')">
+                <icon-base :dynamic-classes="isPath('artwork') ? 'fill-blue-300' : 'fill-white group-hover:fill-blue-300'" icon-name="pen-tool" classes="mr-2">
+                    <pen-tool />
                 </icon-base>
-                <div :class="isPath('reports/artwork') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-xl">Artwork</div>
+                <div :class="isPath('artwork') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-xl">Artwork</div>
             </inertia-link>
         </div>
-        <div v-if="$page.auth.user.is_admin">
-            <inertia-link class="flex items-center group py-3" :href="route('users.list')">
-                <icon-base :dynamic-classes="isPath('users') ? 'fill-blue-300' : 'fill-white group-hover:fill-blue-300'" icon-name="users" classes="mr-2">
-                    <users />
+        <div>
+            <inertia-link class="flex items-center group py-3" :href="route('materials.list')">
+                <icon-base :dynamic-classes="isPath('materials') ? 'fill-blue-300' : 'fill-white group-hover:fill-blue-300'" icon-name="printer" classes="mr-2">
+                    <printer />
                 </icon-base>
-                <div :class="isPath('users') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-xl">Users</div>
+                <div :class="isPath('materials') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-xl">Materials</div>
             </inertia-link>
         </div>
     </div>
@@ -45,17 +45,17 @@
 
 <script>
 import Book from '@/Shared/Icons/Book';
-import Users from '@/Shared/Icons/Users';
 import IconBase from '@/Shared/IconBase';
-import Vector from '@/Shared/Icons/Vector';
+import Printer from '@/Shared/Icons/Printer';
+import PenTool from '@/Shared/Icons/PenTool';
 import InboxFull from '@/Shared/Icons/InboxFull';
 import Dashboard from '@/Shared/Icons/Dashboard';
 
 export default {
     components: {
         Book,
-        Users,
-        Vector,
+        Printer,
+        PenTool,
         IconBase,
         InboxFull,
         Dashboard,

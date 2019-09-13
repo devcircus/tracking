@@ -160,7 +160,7 @@ export default {
             this.inProgress = response.data.uploading;
         });
         this.$listen('reportsCreated', () => {
-            this.$inertia.replace(this.route('reports.list'), { method: 'get', data: {}, preserveScroll: false, preserveState: false }).then(() => {
+            this.$inertia.visit(this.route('reports.list'), { method: 'get', data: {}, preserveScroll: false, preserveState: false }).then(() => {
                 this.inProgress = false;
             });
         });
