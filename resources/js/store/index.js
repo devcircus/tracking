@@ -310,6 +310,12 @@ export default {
             sortable: true,
         },
         {
+            field: 'manufacturer',
+            label: 'Manufacturer',
+            type: 'text',
+            sortable: true,
+        },
+        {
             field: getCrossGrain,
             label: 'Cross-Grain',
             type: 'boolean',
