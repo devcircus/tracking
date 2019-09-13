@@ -15,7 +15,7 @@ class UpdateInkValidationService extends ValidationService
     {
         return [
             'manufacturer' => ['required', 'string', 'min:3'],
-            'version' => ['required', 'string', 'min:3'],
+            'version' => ['required', 'string', 'min:2'],
             'type' => ['required', 'string', 'in:neon,standard'],
         ];
     }
