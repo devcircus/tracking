@@ -37,15 +37,15 @@
         <template v-else>
             <div class="flex flex-col p-2 mb-2">
                 <div class="flex mb-2">
-                    <span class="text-gray-800 font-black uppercase mr-2 w-160p">Ink Manufacturer: </span>
+                    <span class="text-gray-800 font-black uppercase mr-2 w-200p">Ink Manufacturer: </span>
                     <span class="text-gray-700 font-bold uppercase">{{ ink.manufacturer }}</span>
                 </div>
                 <div class="flex mb-2">
-                    <span class="text-gray-800 font-black uppercase mr-2 w-160p">Version: </span>
+                    <span class="text-gray-800 font-black uppercase mr-2 w-200p">Version: </span>
                     <span class="text-gray-700 font-bold uppercase">{{ ink.version }}</span>
                 </div>
                 <div class="flex mb-2">
-                    <span class="text-gray-800 font-black uppercase mr-2 w-160p">Type: </span>
+                    <span class="text-gray-800 font-black uppercase mr-2 w-200p">Type: </span>
                     <span class="text-gray-700 font-bold uppercase">{{ ink.type }}</span>
                 </div>
             </div>
