@@ -19,7 +19,7 @@
         </template>
         <template slot="table-actions">
             <span class="text-blue-500 text-sm font-semibold leading-loose mr-2 inline-block mt-tenth cursor-pointer" @click="clearSearch()">Clear</span>
-            <dropdown class="mt-1 mr-1" placement="bottom-end">
+            <dropdown v-if="$page.auth.user.is_admin" class="mt-1 mr-1" placement="bottom-end">
                 <div class="flex items-center cursor-pointer select-none group">
                     <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
                         <span class="inline text-sm">Options</span>

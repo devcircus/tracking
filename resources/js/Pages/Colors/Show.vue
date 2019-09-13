@@ -65,7 +65,7 @@
                 </icon-base>
             </div>
             <div class="w-full md:w-2/5 flex flex-col">
-                <div v-for="printer in color.printers" :key="printer.id" class="flex-col mb-2 bg-gray-300 p-2">
+                <div v-for="printer in colorData.printers" :key="printer.id" class="flex-col mb-2 bg-gray-300 p-2">
                     <div class="flex mb-2">
                         <inertia-link :href="route('printers.show', printer.id)" class="text-gray-800 font-black uppercase mr-2 w-100p">{{ printer.name }}</inertia-link>
                         <span class="text-gray-700 text-sm font-bold uppercase mr-2" :class="printer.pivot.approved ? 'text-green-500' : 'text-red-500'">( {{ printer.pivot.approved ? 'approved' : 'not approved' }} )</span>
