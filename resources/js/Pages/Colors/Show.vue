@@ -36,7 +36,7 @@
                 </div>
                 <div class="w-full lg:w-1/2 px-2">
                     <div class="bg-white flex flex-col shadow overflow-hidden w-full p-8">
-                        <div v-for="printer in printers" :key="printer.id">
+                        <div v-for="printer in printers" :key="printer.id" class="mb-12">
                             <color-for-printer :printer="printer" :color="colorData" />
                         </div>
                     </div>

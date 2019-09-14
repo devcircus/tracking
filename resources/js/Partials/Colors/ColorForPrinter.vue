@@ -15,7 +15,7 @@
                 <text-input v-model="form.cyan" :errors="getErrors('cyan')" class="pb-8 w-full" label="Cyan" />
                 <text-input v-model="form.magenta" :errors="getErrors('magenta')" class="pb-8 w-full" label="Magenta" />
                 <text-input v-model="form.yellow" :errors="getErrors('yellow')" class="pb-8 w-full" label="Yellow" />
-                <text-input v-model="form.black" :errors="getErrors('black')" class="pb-8 w-full" label="Black" />
+                <text-input v-model="form.black" :errors="getErrors('black')" class="pb-2 w-full" label="Black" />
             </div>
             <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center">
                 <loading-button :loading="sending" class="btn btn-blue ml-auto" type="submit">Update Color</loading-button>

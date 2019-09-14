@@ -16,7 +16,7 @@ const purgecss = require('@fullhuman/postcss-purgecss')({
         path.join(__dirname, 'resources/js/**/*.vue'),
     ],
     whitelist: ['html', 'body'],
-    whitelistPatterns: [/^attachment/, /^v-/, /^nprogress/, /^spinner/, /^peg/, /^bar/, /^vdp/, /^report/, /^vgt/, /^footer/, /^form-/, /^text-/, /^column/, /^bordered/],
+    whitelistPatterns: [/^attachment/, /^v-/, /^nprogress/, /^spinner/, /^peg/, /^bar/, /^vdp/, /^report/, /^vgt/, /^footer/, /^form-/, /^text-/, /^column/, /^bordered/, /^clickable/],
     extractors: [
         {
             extractor: TailwindExtractor,
