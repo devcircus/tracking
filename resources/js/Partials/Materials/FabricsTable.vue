@@ -22,8 +22,9 @@
                         <cheveron-down />
                     </icon-base>
                 </div>
-                <div slot="dropdown" class="mt-2 p-2 shadow-lg bg-white rounded">
-                    <inertia-link :href="route('fabrics.create')" class="text-blue-600 text-sm font-semibold hover:text-blue-800">New Fabric</inertia-link>
+                <div slot="dropdown" class="flex flex-col mt-2 p-2 shadow-lg bg-white rounded">
+                    <inertia-link :href="route('fabrics.create')" class="text-blue-600 text-sm font-semibold uppercase hover:text-blue-800 mb-2">New Fabric</inertia-link>
+                    <a :href="route('fabrics.pdf')" target="_blank" class="text-red-500 font-semibold text-sm uppercase cursor-pointer" @click="hideDropdown()">View PDF</a>
                 </div>
             </dropdown>
         </template>

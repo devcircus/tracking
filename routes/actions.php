@@ -121,13 +121,14 @@ Route::group(['middleware' => ['auth'], 'as' => 'colors.', 'prefix' => 'colors']
     $router->delete('/{color}', Color\DeleteColor::class)->middleware(['is_admin'])->name('destroy');
     $router->put('/{color}/restore', Color\RestoreColor::class)->middleware(['is_admin'])->name('restore');
     $router->get('/{color}', Color\ShowColor::class)->name('show');
-    $router->put('/{color}/printer/{printer}',Color\SetColor::class)->middleware(['is_admin'])->name('set');
+    $router->put('/{color}/printer/{printer}', Color\SetColor::class)->middleware(['is_admin'])->name('set');
     $router->get('/printer/{printer}/colors', Color\ShowPrinterColors::class)->name('printer');
     $router->get('/printer/{printer}/colors/pdf', Color\Pdf\ShowPrinterColorsPdf::class)->name('printer.pdf');
 });
 
 // Fabrics
 Route::group(['middleware' => ['auth'], 'as' => 'fabrics.', 'prefix' => 'fabrics'], function ($router) {
+    $router->get('/', Fabric\ListFabricsPdf::class)->name('pdf');
     $router->get('/create', Fabric\CreateFabric::class)->middleware(['is_admin'])->name('create');
     $router->get('/{fabric}', Fabric\ShowFabric::class)->name('show');
     $router->post('/', Fabric\StoreFabric::class)->middleware(['is_admin'])->name('store');
