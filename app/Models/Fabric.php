@@ -8,6 +8,11 @@ class Fabric extends Model
 {
     use SoftDeletes;
 
+    /** @var array */
+    protected $casts = [
+        'cross_grain' => 'boolean',
+    ];
+
     /**
      * Add a new Fabric.
      *

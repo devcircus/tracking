@@ -33,7 +33,7 @@ class UpdateColor extends Action
     public function __invoke(Request $request, Color $color): RedirectResponse
     {
         $updated = UpdateColorService::call($color, $request->only([
-            'code', 'name', 'type'
+            'code', 'name', 'custom', 'type'
         ]));
 
         return $this->responder->withPayload($updated)->respond();

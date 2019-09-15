@@ -268,10 +268,32 @@ export default {
             sortable: true,
         },
         {
+            field: getCustomColor,
+            label: 'Custom Team Color',
+            type: 'text',
+            sortable: true,
+            filterOptions: {
+                enabled: true,
+                placeholder: 'Both custom and non-custom colors',
+                filterDropdownItems: [
+                    { value: 'false', text: 'Only non-custom colors' },
+                    { value: 'true', text: 'Only custom colors' },
+                ],
+            },
+        },
+        {
             field: 'type',
             label: 'Type',
             type: 'text',
             sortable: true,
+            filterOptions: {
+                enabled: true,
+                placeholder: 'Both both neon and standard colors',
+                filterDropdownItems: [
+                    { value: 'standard', text: 'Only standard colors' },
+                    { value: 'neon', text: 'Only neon colors' },
+                ],
+            },
         },
     ],
     colorSortOptions: {
@@ -399,6 +421,20 @@ export default {
             sortable: true,
         },
         {
+            field: getCustomColor,
+            label: 'Custom Team Color',
+            type: 'text',
+            sortable: true,
+            filterOptions: {
+                enabled: true,
+                placeholder: 'Both custom and non-custom colors',
+                filterDropdownItems: [
+                    { value: 'false', text: 'Only non-custom colors' },
+                    { value: 'true', text: 'Only custom colors' },
+                ],
+            },
+        },
+        {
             field: 'type',
             label: 'Type',
             type: 'text',
@@ -459,6 +495,10 @@ function getCrossGrain (fabric) {
 
 function getColorApproved (color) {
     return color.pivot.approved == 1 ? 'true' : 'false';
+}
+
+function getCustomColor (color) {
+    return color.custom == 1 ? 'true' : 'false';
 }
 
 function concatenateCmyk (color) {

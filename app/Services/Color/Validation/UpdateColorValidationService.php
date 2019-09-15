@@ -16,6 +16,7 @@ class UpdateColorValidationService extends ValidationService
         return [
             'code' => ['required', 'string', 'min:3'],
             'name' => ['required', 'string', 'min:3'],
+            'custom' => ['required', 'boolean'],
             'type' => ['required', 'string', 'min:3', 'in:neon,standard'],
         ];
     }

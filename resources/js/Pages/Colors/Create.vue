@@ -11,6 +11,7 @@
                     <div class="flex flex-col">
                         <text-input v-model="form.code" :errors="getErrors('code')" class="pr-6 pb-8 w-full lg:w-1/2" label="Code" />
                         <text-input v-model="form.name" :errors="getErrors('name')" class="pb-8 w-full lg:w-1/2" label="Name" />
+                        <checkbox v-model="form.custom" :errors="getErrors('custom')" class="pb-8 text-lg w-full lg:w-1/2" label="Custom Team Color? " :width="4" :height="4" :checked="form.custom" />
                         <select-input v-model="form.type" class="pb-8 w-full lg:w-1/2" :error="getErrors('type')" label="Type">
                             <option value="standard">Standard</option>
                             <option value="neon">Neon</option>
@@ -27,6 +28,7 @@
 
 <script>
 import Layout from '@/Shared/Layout';
+import Checkbox from '@/Shared/Checkbox';
 import TextInput from '@/Shared/TextInput';
 import SelectInput from '@/Shared/SelectInput';
 import LoadingButton from '@/Shared/LoadingButton';
@@ -34,6 +36,7 @@ import LoadingButton from '@/Shared/LoadingButton';
 export default {
     components: {
         Layout,
+        Checkbox,
         TextInput,
         SelectInput,
         LoadingButton,
@@ -45,6 +48,7 @@ export default {
             form: {
                 code: null,
                 name: null,
+                custom: false,
                 type: null,
             },
         }
