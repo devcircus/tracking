@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Services\Materials;
+namespace App\Services\Fabric;
 
 use App\Models\Fabric;
 use Illuminate\Database\Eloquent\Collection;
+use App\Services\Materials\ListFabricsService;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
-class ListFabricsService
+class ListFabricsPdfService
 {
     use SelfCallingService;
 
@@ -14,7 +15,7 @@ class ListFabricsService
     private $fabrics;
 
     /**
-     * Construct a new ListFabricsService.
+     * Construct a new ListFabricsPdfService.
      *
      * @param  \App\Models\Fabric  $fabrics
      */
@@ -25,11 +26,9 @@ class ListFabricsService
 
     /**
      * Handle the call to the service.
-     *
-     * @return mixed
      */
     public function run(): Collection
     {
-        return $this->fabrics->all();
+        return ListFabricsService::call();
     }
 }

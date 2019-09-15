@@ -20,7 +20,7 @@
                     </icon-base>
                 </div>
                 <div slot="dropdown" class="mt-2 p-2 shadow-lg bg-white rounded">
-                    <inertia-link :href="route('inks.create')" class="text-blue-600 text-sm font-semibold hover:text-blue-800">New Ink</inertia-link>
+                    <inertia-link :href="route('inks.create')" class="text-blue-600 text-sm font-semibold uppercase hover:text-blue-800">New Ink</inertia-link>
                 </div>
             </dropdown>
         </template>
