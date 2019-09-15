@@ -20,12 +20,13 @@
                     <div class="bg-white shadow overflow-hidden w-full p-8">
                         <form @submit.prevent="submit">
                             <div class="flex flex-col">
-                                <text-input v-model="color.code" :errors="getErrors('code')" class="pb-8 w-full lg:w-1/2" label="Code" />
-                                <text-input v-model="color.name" :errors="getErrors('name')" class="pb-8 w-full lg:w-1/2" label="Name" />
-                                <select-input v-model="color.type" class="pb-8 w-full lg:w-1/2" :error="getErrors('type')" label="Type">
-                                    <option value="standard">Standard</option>
-                                    <option value="neon">Neon</option>
-                                </select-input>
+                                <text-input v-model="color.code" :errors="getErrors('code')" class="mb-8 w-full lg:w-1/2" label="Code" />
+                                <text-input v-model="color.name" :errors="getErrors('name')" class="mb-8 w-full lg:w-1/2" label="Name" />
+                                <checkbox v-model="color.custom" :errors="getErrors('custom')" class="pb-8 text-lg w-full lg:w-1/2" label="Custom Team Color? " :width="4" :height="4" :checked="color.custom" />
+                                <div class="flex w-full lg:w-1/2 mb-8 content-center">
+                                    <span class="text-sm font-semibold mr-2 leading-tight">Type: </span>
+                                    <span class="text-base font-medium">{{ color.type }}</span>
+                                </div>
                             </div>
                             <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center">
                                 <button v-if="! colorData.deleted_at" class="btn btn-text text-red-500 hover:underline" tabindex="-1" type="button" @click="destroy">Delete</button>
@@ -82,22 +83,22 @@
 
 <script>
 import Layout from '@/Shared/Layout';
+import Checkbox from '@/Shared/Checkbox';
 import IconBase from '@/Shared/IconBase';
 import TextInput from '@/Shared/TextInput';
 import Artist from '@/Shared/Icons/Artist';
 import Printer from '@/Shared/Icons/Printer';
-import SelectInput from '@/Shared/SelectInput';
 import LoadingButton from '@/Shared/LoadingButton';
 import ColorForPrinter from '@/Partials/Colors/ColorForPrinter';
 
 export default {
     components: {
         Layout,
+        Checkbox,
         Artist,
         Printer,
         IconBase,
         TextInput,
-        SelectInput,
         LoadingButton,
         ColorForPrinter,
     },
@@ -108,6 +109,7 @@ export default {
             color: {
                 code: null,
                 name: null,
+                custom: false,
                 type: null,
             },
         }
@@ -119,6 +121,7 @@ export default {
         setColorData () {
             this.color.code = this.colorData.code;
             this.color.name = this.colorData.name;
+            this.color.custom = this.colorData.custom;
             this.color.type = this.colorData.type;
         },
         getColorValues (colors) {

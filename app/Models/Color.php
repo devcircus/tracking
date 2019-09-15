@@ -9,6 +9,11 @@ class Color extends Model
 {
     use SoftDeletes;
 
+    /** @var array */
+    protected $casts = [
+        'custom' => 'boolean',
+    ];
+
     /**
      * A color belongs to many Printers.
      */

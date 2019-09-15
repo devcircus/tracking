@@ -63,11 +63,13 @@ export default {
                 return color.code === this.color.code && color.type === this.color.type;
             });
 
-            this.form.cyan = this.printerColor.pivot.cyan;
-            this.form.magenta = this.printerColor.pivot.magenta;
-            this.form.yellow = this.printerColor.pivot.yellow;
-            this.form.black = this.printerColor.pivot.black;
-            this.form.approved = this.printerColor.pivot.approved;
+            if (this.printerColor) {
+                this.form.cyan = this.printerColor.pivot.cyan;
+                this.form.magenta = this.printerColor.pivot.magenta;
+                this.form.yellow = this.printerColor.pivot.yellow;
+                this.form.black = this.printerColor.pivot.black;
+                this.form.approved = this.printerColor.pivot.approved;
+            }
         },
     },
 }
