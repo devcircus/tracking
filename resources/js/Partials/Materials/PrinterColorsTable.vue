@@ -44,6 +44,19 @@ export default {
     },
     props: ['printer', 'colors'],
     store: ['printerColorColumns', 'printerColorSortOptions', 'printerColorSearchOptions'],
+    watch: {
+        windowWidth (value) {
+            if (value < 768) {
+                this.$set(this.printerColorColumns[2], 'hidden', true);
+                this.$set(this.printerColorColumns[3], 'hidden', true);
+                this.$set(this.printerColorColumns[4], 'hidden', true);
+            } else {
+                this.$set(this.printerColorColumns[2], 'hidden', false);
+                this.$set(this.printerColorColumns[3], 'hidden', false);
+                this.$set(this.printerColorColumns[4], 'hidden', false);
+            }
+        },
+    },
     methods: {
         showPdf () {
             this.$inertia.visit(this.route('colors.printer.pdf', this.printer.id));

@@ -11,7 +11,7 @@
             <span v-if="props.column.field == 'colors'" class="flex px-3">
                 <button v-if="props.row.has_neon" class="text-blue-600 text-sm hover:underline mr-8" tabindex="-1" type="button" @click="showColors(props.row.id)">View Colors</button>
                 <button v-if="props.row.has_standard" class="text-blue-600 text-sm hover:underline mr-8" tabindex="-1" type="button" @click="showColors(props.row.id)">View Colors</button>
-                <button class="text-green-600 text-sm hover:underline" tabindex="-1" type="button" @click="showPrinter(props.row.id)">View Printer Info</button>
+                <button class="text-green-600 text-sm hover:underline" tabindex="-1" type="button" @click="showPrinter(props.row.id)">View Printer</button>
             </span>
             <span v-else>
                 {{ props.formattedRow[props.column.field] }}
@@ -67,6 +67,21 @@ export default {
             }
 
             return filter(this.printers, printer => printer.deleted_at === null);
+        },
+    },
+    watch: {
+        windowWidth (value) {
+            if (value < 768) {
+                this.$set(this.printerColumns[2], 'hidden', true);
+                this.$set(this.printerColumns[3], 'hidden', true);
+                this.$set(this.printerColumns[4], 'hidden', true);
+                this.$set(this.printerColumns[0], 'tdClass', 'text-sm');
+            } else {
+                this.$set(this.printerColumns[2], 'hidden', false);
+                this.$set(this.printerColumns[3], 'hidden', false);
+                this.$set(this.printerColumns[4], 'hidden', false);
+                this.$set(this.printerColumns[0], 'tdClass', 'text-base');
+            }
         },
     },
     methods: {
