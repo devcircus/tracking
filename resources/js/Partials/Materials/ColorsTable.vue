@@ -2,7 +2,7 @@
     <vue-good-table ref="table"
                     class="mb-8"
                     :columns="colorColumns"
-                    :rows="colors"
+                    :rows="rows"
                     :pagination-options="colorPaginationOptions"
                     :search-options="colorSearchOptions"
                     :sort-options="colorSortOptions"
@@ -23,6 +23,7 @@
                     </icon-base>
                 </div>
                 <div slot="dropdown" class="mt-2 p-2 shadow-lg bg-white rounded">
+                    <checkbox v-model="showTrashed" class="mb-2" label="Include deleted colors: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
                     <inertia-link :href="route('colors.create')" class="text-blue-600 text-sm font-semibold uppercase hover:text-blue-800">New Color</inertia-link>
                 </div>
             </dropdown>
@@ -31,8 +32,10 @@
 </template>
 
 <script>
+import { filter } from 'lodash';
 import Dropdown from '@/Shared/Dropdown';
 import IconBase from '@/Shared/IconBase';
+import Checkbox from '@/Shared/Checkbox';
 import { VueGoodTable } from 'vue-good-table';
 import CheveronDown from '@/Shared/Icons/CheveronDown';
 
@@ -40,11 +43,26 @@ export default {
     components: {
         Dropdown,
         IconBase,
+        Checkbox,
         VueGoodTable,
         CheveronDown,
     },
     props: ['colors'],
     store: ['colorColumns', 'colorSortOptions', 'colorPaginationOptions', 'colorSearchOptions'],
+    data () {
+        return {
+            showTrashed: false,
+        }
+    },
+    computed: {
+        rows () {
+            if (this.showTrashed) {
+                return this.colors;
+            }
+
+            return filter(this.colors, color => color.deleted_at === null);
+        },
+    },
     methods: {
         showColor (params) {
             this.$inertia.visit(this.route('colors.show', params.row.id));

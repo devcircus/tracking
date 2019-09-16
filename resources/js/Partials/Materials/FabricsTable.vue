@@ -2,7 +2,7 @@
     <vue-good-table ref="table"
                     class="mb-8"
                     :columns="fabricColumns"
-                    :rows="fabrics"
+                    :rows="rows"
                     :pagination-options="fabricPaginationOptions"
                     :search-options="fabricSearchOptions"
                     :sort-options="fabricSortOptions"
@@ -23,6 +23,7 @@
                     </icon-base>
                 </div>
                 <div slot="dropdown" class="flex flex-col mt-2 p-2 shadow-lg bg-white rounded">
+                    <checkbox v-model="showTrashed" class="mb-2" label="Include deleted fabrics: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
                     <inertia-link :href="route('fabrics.create')" class="text-blue-600 text-sm font-semibold uppercase hover:text-blue-800 mb-2">New Fabric</inertia-link>
                     <a :href="route('fabrics.pdf')" target="_blank" class="text-red-500 font-semibold text-sm uppercase cursor-pointer" @click="hideDropdown()">View PDF</a>
                 </div>
@@ -32,8 +33,10 @@
 </template>
 
 <script>
+import { filter } from 'lodash';
 import Dropdown from '@/Shared/Dropdown';
 import IconBase from '@/Shared/IconBase';
+import Checkbox from '@/Shared/Checkbox';
 import { VueGoodTable } from 'vue-good-table';
 import CheveronDown from '@/Shared/Icons/CheveronDown';
 
@@ -41,11 +44,26 @@ export default {
     components: {
         Dropdown,
         IconBase,
+        Checkbox,
         VueGoodTable,
         CheveronDown,
     },
     props: ['fabrics'],
     store: ['fabricColumns', 'fabricSortOptions', 'fabricPaginationOptions', 'fabricSearchOptions'],
+    data () {
+        return {
+            showTrashed: false,
+        }
+    },
+    computed: {
+        rows () {
+            if (this.showTrashed) {
+                return this.fabrics;
+            }
+
+            return filter(this.fabrics, fabric => fabric.deleted_at === null);
+        },
+    },
     methods: {
         showFabric (params) {
             this.$inertia.visit(this.route('fabrics.show', params.row.id));

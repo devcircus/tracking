@@ -29,6 +29,6 @@ class ListFabricsPdfService
      */
     public function run(): Collection
     {
-        return ListFabricsService::call();
+        return ListFabricsService::call($withTrashed = false);
     }
 }
