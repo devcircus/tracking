@@ -19,6 +19,7 @@ class StorePrinterValidationService extends ValidationService
             'model' => ['required', 'string', 'min:3'],
             'manufacturer' => ['required', 'string', 'min:3'],
             'ink_id' => ['required', 'numeric', Rule::exists('inks', 'id')],
+            'copy_printer_id' => ['nullable', 'numeric', Rule::exists('printers', 'id')],
         ];
     }
 

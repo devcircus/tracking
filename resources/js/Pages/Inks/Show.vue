@@ -21,10 +21,10 @@
                         <div class="flex flex-col">
                             <text-input v-model="ink.manufacturer" :errors="getErrors('manufacturer')" class="pb-8 w-full lg:w-1/2" label="Manufacturer" />
                             <text-input v-model="ink.version" :errors="getErrors('version')" class="pb-8 w-full lg:w-1/2" label="Version" />
-                            <select-input v-model="ink.type" class="pb-8 w-full lg:w-1/2" :error="getErrors('type')" label="Type">
-                                <option value="standard">Standard</option>
-                                <option value="neon">Neon</option>
-                            </select-input>
+                            <div class="flex w-full lg:w-1/2 mb-8 content-center">
+                                <span class="text-sm font-semibold mr-2 leading-tight">Type: </span>
+                                <span class="text-base font-medium">{{ inkData.type }}</span>
+                            </div>
                         </div>
                     </div>
                     <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center">
@@ -58,7 +58,6 @@ import Ink from '@/Shared/Icons/Ink';
 import Layout from '@/Shared/Layout';
 import IconBase from '@/Shared/IconBase';
 import TextInput from '@/Shared/TextInput';
-import SelectInput from '@/Shared/SelectInput';
 import LoadingButton from '@/Shared/LoadingButton';
 import TrashedMessage from '@/Shared/TrashedMessage';
 
@@ -68,7 +67,6 @@ export default {
         Layout,
         IconBase,
         TextInput,
-        SelectInput,
         LoadingButton,
         TrashedMessage,
     },

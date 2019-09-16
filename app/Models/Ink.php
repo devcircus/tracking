@@ -4,10 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Ink extends Model
 {
     use SoftDeletes;
+
+    /**
+     * An Ink belongs to many Colors.
+     */
+    public function colors(): BelongsToMany
+    {
+        return $this->belongsToMany(Color::class)->withPivot(['cyan', 'magenta', 'yellow', 'black', 'approved']);
+    }
 
     /**
      * An Ink has many Printers.

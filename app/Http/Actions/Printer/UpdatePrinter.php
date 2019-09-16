@@ -29,7 +29,7 @@ class UpdatePrinter extends Action
     public function __invoke(Request $request, Printer $printer)
     {
         $updated = UpdatePrinterService::call($printer, $request->only([
-            'name', 'model', 'manufacturer', 'ink_id',
+            'name', 'model', 'manufacturer'
         ]));
 
         return $this->responder->withPayload($updated)->respond();

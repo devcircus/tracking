@@ -33,7 +33,7 @@ class UpdateInk extends Action
     public function __invoke(Request $request, Ink $ink): RedirectResponse
     {
         $updated = UpdateInkService::call($ink, $request->only([
-            'version', 'type', 'manufacturer'
+            'version', 'manufacturer'
         ]));
 
         return $this->responder->withPayload($updated)->respond();

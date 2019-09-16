@@ -12,8 +12,12 @@
                         <text-input v-model="form.name" :errors="getErrors('name')" class="pr-6 pb-8 w-full lg:w-1/2" label="Name" />
                         <text-input v-model="form.model" :errors="getErrors('model')" class="pb-8 w-full lg:w-1/2" label="Model" />
                         <text-input v-model="form.manufacturer" :errors="getErrors('manufacturer')" class="pb-8 w-full lg:w-1/2" label="Manufacturer" />
-                        <select-input v-model="form.ink_id" class="pb-8 w-full lg:w-1/2" :error="getErrors('ink_id')" label="Ink">
+                        <select-input v-model="form.ink_id" class="pb-8 w-full lg:w-1/2" :errors="getErrors('ink_id')" label="Ink">
                             <option v-for="ink in inks" :key="ink.id" :value="ink.id">{{ ink.manufacturer }}-{{ ink.version }}-{{ ink.type }}</option>
+                        </select-input>
+                        <select-input v-model="form.copy_printer_id" class="pb-8 w-full lg:w-1/2" :errors="getErrors('copy_printer_id')" label="Copy colors from existing printer">
+                            <option value="">Do not copy colors</option>
+                            <option v-for="printer in copyPrinters" :key="printer.id" :value="printer.id">{{ printer.name }}-{{ printer.model }}-{{ printer.ink.type }}</option>
                         </select-input>
                     </div>
                 </div>
@@ -26,6 +30,7 @@
 </template>
 
 <script>
+import { filter } from 'lodash';
 import Layout from '@/Shared/Layout';
 import TextInput from '@/Shared/TextInput';
 import SelectInput from '@/Shared/SelectInput';
@@ -38,7 +43,7 @@ export default {
         SelectInput,
         LoadingButton,
     },
-    props: ['inks'],
+    props: ['inks', 'printers'],
     remember: 'form',
     data () {
         return {
@@ -48,8 +53,14 @@ export default {
                 model: null,
                 manufacturer: null,
                 ink_id: null,
+                copy_printer_id: '',
             },
         }
+    },
+    computed: {
+        copyPrinters () {
+            return this.form.ink_id ? filter(this.printers, printer => printer.ink.id === this.form.ink_id) : this.printers;
+        },
     },
     methods: {
         submit () {

@@ -29,7 +29,7 @@ class StorePrinter extends Action
     public function __invoke(Request $request): RedirectResponse
     {
         $printer = StorePrinterService::call($request->only([
-            'name', 'model','manufacturer', 'ink_id'
+            'name', 'model','manufacturer', 'ink_id', 'copy_printer_id'
         ]));
 
         return $this->responder->withPayload($printer)->respond();

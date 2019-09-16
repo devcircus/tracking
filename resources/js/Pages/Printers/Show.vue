@@ -22,9 +22,10 @@
                             <text-input v-model="printer.name" :errors="getErrors('name')" class="pr-6 pb-8 w-full lg:w-1/2" label="Name" />
                             <text-input v-model="printer.model" :errors="getErrors('model')" class="pb-8 w-full lg:w-1/2" label="Model" />
                             <text-input v-model="printer.manufacturer" :errors="getErrors('manufacturer')" class="pb-8 w-full lg:w-1/2" label="Manufacturer" />
-                            <select-input v-model="printer.ink_id" class="pb-8 w-full lg:w-1/2" :error="getErrors('ink_id')" label="Ink">
-                                <option v-for="ink in inks" :key="ink.id" :value="ink.id">{{ ink.manufacturer }}-{{ ink.version }}-{{ ink.type }}</option>
-                            </select-input>
+                            <div class="flex w-full lg:w-1/2 mb-8 content-center">
+                                <span class="text-sm font-semibold mr-2 leading-tight">Ink: </span>
+                                <span class="text-base font-medium">{{ printerData.ink.manufacturer }}-{{ printerData.ink.version }}-{{ printerData.ink.type }}</span>
+                            </div>
                         </div>
                     </div>
                     <div class="px-8 py-4 bg-gray-100 border-t border-gray-200 flex items-center">
@@ -58,7 +59,6 @@ import Layout from '@/Shared/Layout';
 import IconBase from '@/Shared/IconBase';
 import TextInput from '@/Shared/TextInput';
 import Printer from '@/Shared/Icons/Printer';
-import SelectInput from '@/Shared/SelectInput';
 import LoadingButton from '@/Shared/LoadingButton';
 import TrashedMessage from '@/Shared/TrashedMessage';
 
@@ -68,7 +68,6 @@ export default {
         Printer,
         IconBase,
         TextInput,
-        SelectInput,
         LoadingButton,
         TrashedMessage,
     },

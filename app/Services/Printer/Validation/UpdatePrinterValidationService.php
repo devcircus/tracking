@@ -18,7 +18,6 @@ class UpdatePrinterValidationService extends ValidationService
             'name' => ['required', 'string', 'min:3', Rule::unique('printers', 'name')->ignore($this->validationData()['id'])],
             'model' => ['required', 'string', 'min:3'],
             'manufacturer' => ['required', 'string', 'min:3'],
-            'ink_id' => ['required', 'numeric', Rule::exists('inks', 'id')],
         ];
     }
 
