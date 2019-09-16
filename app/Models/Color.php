@@ -15,6 +15,14 @@ class Color extends Model
     ];
 
     /**
+     * A color belongs to many Inks.
+     */
+    public function inks(): BelongsToMany
+    {
+        return $this->belongsToMany(Ink::class)->withPivot(['cyan', 'magenta', 'yellow', 'black', 'approved']);
+    }
+
+    /**
      * A color belongs to many Printers.
      */
     public function printers(): BelongsToMany

@@ -80,7 +80,28 @@ class Printer extends Model
      */
     public function addPrinter(array $data): Printer
     {
-        return $this->create($data);
+        $printer = $this->create([
+            'name' => $data['name'],
+            'model' => $data['model'],
+            'manufacturer' => $data['manufacturer'],
+            'ink_id' => $data['ink_id'],
+        ]);
+
+        if ($existing_id = $data['copy_printer_id']) {
+            $existingPrinter = $this->find($existing_id);
+            foreach($existingPrinter->colors as $color) {
+                $printer->colors()->attach($color->id, [
+                    'approved' => $color->pivot->approved,
+                    'cyan' => $color->pivot->cyan,
+                    'magenta' => $color->pivot->magenta,
+                    'yellow' => $color->pivot->yellow,
+                    'black' => $color->pivot->black,
+                ]);
+            }
+            $printer->save();
+        }
+
+        return $printer;
     }
 
     /**

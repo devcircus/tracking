@@ -6,6 +6,7 @@ use Inertia\Response;
 use PerfectOblivion\Actions\Action;
 use App\Services\Materials\ListInksService;
 use App\Http\Responders\Printer\CreatePrinterResponder;
+use App\Services\Materials\ListPrintersService;
 
 class CreatePrinter extends Action
 {
@@ -28,9 +29,11 @@ class CreatePrinter extends Action
     public function __invoke(): Response
     {
         $inks = ListInksService::call();
+        $printers = ListPrintersService::call();
 
         return $this->responder->withPayload([
             'inks' => $inks,
+            'printers' => $printers,
         ])->respond();
     }
 }
