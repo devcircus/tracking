@@ -32,6 +32,6 @@ class ListPrintersService
     {
         return $type ? $this->printers->whereHas('ink', function ($query) use ($type) {
             return $query->where('type', $type);
-        })->get() : $this->printers->all();
+        })->get() : $this->printers->withTrashed()->get();
     }
 }

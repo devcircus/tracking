@@ -89,6 +89,7 @@ import TextInput from '@/Shared/TextInput';
 import Artist from '@/Shared/Icons/Artist';
 import Printer from '@/Shared/Icons/Printer';
 import LoadingButton from '@/Shared/LoadingButton';
+import TrashedMessage from '@/Shared/TrashedMessage';
 import ColorForPrinter from '@/Partials/Colors/ColorForPrinter';
 
 export default {
@@ -100,6 +101,7 @@ export default {
         IconBase,
         TextInput,
         LoadingButton,
+        TrashedMessage,
         ColorForPrinter,
     },
     props: ['colorData', 'printers'],

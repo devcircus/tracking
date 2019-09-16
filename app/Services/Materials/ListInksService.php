@@ -29,6 +29,6 @@ class ListInksService
      */
     public function run()
     {
-        return $this->inks->all();
+        return $this->inks->withTrashed()->get();
     }
 }

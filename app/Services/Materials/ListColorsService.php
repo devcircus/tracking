@@ -29,6 +29,6 @@ class ListColorsService
      */
     public function run()
     {
-        return $this->colors->all();
+        return $this->colors->withTrashed()->get();
     }
 }

@@ -26,10 +26,12 @@ class ListFabricsService
     /**
      * Handle the call to the service.
      *
+     * @param  bool  $withTrashed
+     *
      * @return mixed
      */
-    public function run(): Collection
+    public function run(bool $withTrashed = true): Collection
     {
-        return $this->fabrics->all();
+        return $this->fabrics->withTrashed($withTrashed)->get();
     }
 }

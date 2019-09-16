@@ -2,7 +2,7 @@
     <vue-good-table ref="table"
                     class="mb-8"
                     :columns="inkColumns"
-                    :rows="inks"
+                    :rows="rows"
                     :sort-options="inkSortOptions"
                     @on-row-click="showInk"
     >
@@ -20,6 +20,7 @@
                     </icon-base>
                 </div>
                 <div slot="dropdown" class="mt-2 p-2 shadow-lg bg-white rounded">
+                    <checkbox v-model="showTrashed" class="mb-2" label="Include deleted inks: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
                     <inertia-link :href="route('inks.create')" class="text-blue-600 text-sm font-semibold uppercase hover:text-blue-800">New Ink</inertia-link>
                 </div>
             </dropdown>
@@ -28,8 +29,10 @@
 </template>
 
 <script>
+import { filter } from 'lodash';
 import Dropdown from '@/Shared/Dropdown';
 import IconBase from '@/Shared/IconBase';
+import Checkbox from '@/Shared/Checkbox';
 import { VueGoodTable } from 'vue-good-table';
 import CheveronDown from '@/Shared/Icons/CheveronDown';
 
@@ -37,11 +40,26 @@ export default {
     components: {
         Dropdown,
         IconBase,
+        Checkbox,
         VueGoodTable,
         CheveronDown,
     },
     props: ['inks'],
     store: ['inkColumns', 'inkSortOptions'],
+    data () {
+        return {
+            showTrashed: false,
+        }
+    },
+    computed: {
+        rows () {
+            if (this.showTrashed) {
+                return this.inks;
+            }
+
+            return filter(this.inks, ink => ink.deleted_at === null);
+        },
+    },
     methods: {
         showInk (params) {
             this.$inertia.visit(this.route('inks.show', params.row.id));
