@@ -288,7 +288,7 @@ export default {
             sortable: true,
             filterOptions: {
                 enabled: true,
-                placeholder: 'Both both neon and standard colors',
+                placeholder: 'Both neon and standard colors',
                 filterDropdownItems: [
                     { value: 'standard', text: 'Only standard colors' },
                     { value: 'neon', text: 'Only neon colors' },

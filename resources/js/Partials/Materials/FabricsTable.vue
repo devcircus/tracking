@@ -64,6 +64,19 @@ export default {
             return filter(this.fabrics, fabric => fabric.deleted_at === null);
         },
     },
+    watch: {
+        windowWidth (value) {
+            if (value < 768) {
+                this.$set(this.fabricColumns[2], 'hidden', true);
+                this.$set(this.fabricColumns[3], 'hidden', true);
+                this.$set(this.fabricColumns[4], 'hidden', true);
+            } else {
+                this.$set(this.fabricColumns[2], 'hidden', false);
+                this.$set(this.fabricColumns[3], 'hidden', false);
+                this.$set(this.fabricColumns[4], 'hidden', false);
+            }
+        },
+    },
     methods: {
         showFabric (params) {
             this.$inertia.visit(this.route('fabrics.show', params.row.id));

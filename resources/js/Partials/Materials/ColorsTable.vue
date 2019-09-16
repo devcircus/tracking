@@ -63,6 +63,15 @@ export default {
             return filter(this.colors, color => color.deleted_at === null);
         },
     },
+    watch: {
+        windowWidth (value) {
+            if (value < 768) {
+                this.$set(this.colorColumns[2], 'hidden', true);
+            } else {
+                this.$set(this.colorColumns[2], 'hidden', false);
+            }
+        },
+    },
     methods: {
         showColor (params) {
             this.$inertia.visit(this.route('colors.show', params.row.id));
