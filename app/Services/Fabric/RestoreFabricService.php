@@ -16,6 +16,14 @@ class RestoreFabricService
      */
     public function run(Fabric $printer): Fabric
     {
-        return $printer->restoreFabric();
+        $restored = $printer->restoreFabric();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($restored)
+            ->withProperties(['target' => $restored->name])
+            ->log('fabric restored');
+
+        return $restored;
     }
 }

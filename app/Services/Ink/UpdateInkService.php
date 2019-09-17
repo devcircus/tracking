@@ -33,6 +33,14 @@ class UpdateInkService
     {
         $this->validator->validate(array_merge($data, ['id' => $ink->id]));
 
-        return $ink->updateInk($data);
+        $updated = $ink->updateInk($data);
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($updated)
+            ->withProperties(['target' => "{$updated->manufacturer}-{$updated->version}-{$updated->type}"])
+            ->log('ink updated');
+
+        return $updated;
     }
 }

@@ -37,6 +37,14 @@ class StoreInkService
     {
         $this->validator->validate($data);
 
-        return $this->inks->addInk($data);
+        $created = $this->inks->addInk($data);
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($created)
+            ->withProperties(['target' => "{$created->manufacturer}-{$created->version}-{$created->type}"])
+            ->log('ink created');
+
+        return $created;
     }
 }

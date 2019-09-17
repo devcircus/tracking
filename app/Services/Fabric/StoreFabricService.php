@@ -37,6 +37,14 @@ class StoreFabricService
     {
         $this->validator->validate($data);
 
-        return $this->fabrics->addFabric($data);
+        $created = $this->fabrics->addFabric($data);
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($created)
+            ->withProperties(['target' => $created->name])
+            ->log('fabric created');
+
+        return $created;
     }
 }

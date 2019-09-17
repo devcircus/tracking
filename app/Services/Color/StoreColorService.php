@@ -37,6 +37,14 @@ class StoreColorService
     {
         $this->validator->validate($data);
 
-        return $this->colors->addColor($data);
+        $created = $this->colors->addColor($data);
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($created)
+            ->withProperties(['target' => $created->name])
+            ->log('color created');
+
+        return $created;
     }
 }

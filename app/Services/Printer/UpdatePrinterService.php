@@ -25,13 +25,19 @@ class UpdatePrinterService
 
     /**
      * Handle the call to the service.
-     *
-     * @return mixed
      */
-    public function run(Printer $printer, array $data)
+    public function run(Printer $printer, array $data): Printer
     {
         $this->validator->validate(array_merge($data, ['id' => $printer->id]));
 
-        return $printer->updatePrinter($data);
+        $updated = $printer->updatePrinter($data);
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($updated)
+            ->withProperties(['target' => $updated->name])
+            ->log('printer updated');
+
+        return $updated;
     }
 }

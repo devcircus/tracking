@@ -16,6 +16,14 @@ class DeleteInkService
      */
     public function run(Ink $ink): Ink
     {
-        return $ink->deleteInk();
+        $deleted = $ink->deleteInk();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($deleted)
+            ->withProperties(['target' => "{$deleted->manufacturer}-{$deleted->version}-{$deleted->type}"])
+            ->log('ink deleted');
+
+        return $deleted;
     }
 }

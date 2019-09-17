@@ -16,6 +16,14 @@ class DeleteFabricService
      */
     public function run(Fabric $printer): Fabric
     {
-        return $printer->deleteFabric();
+        $deleted = $printer->deleteFabric();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($deleted)
+            ->withProperties(['target' => $deleted->name])
+            ->log('fabric deleted');
+
+        return $deleted;
     }
 }
