@@ -6,7 +6,7 @@
             <span class="text-blue-700">{{ printer.name }}</span>
         </h1>
         <div class="w-full flex bg-blue-800 p-4 mb-2">
-            <h1 class="text-white text-lg lg:text-xl font-semibold uppercase mr-2">{{ `${printer.name} Colors` }}</h1>
+            <h1 class="text-white text-lg lg:text-xl font-semibold uppercase mr-2">{{ `${printer.name}-${printer.model} Colors` }}</h1>
             <h2 class="text-white text-base lg:text-lg font-semibold uppercase">( {{ printer.ink.type }} )</h2>
             <icon-base icon-fill="fill-white" icon-name="printer" classes="ml-2">
                 <printer />
@@ -22,7 +22,7 @@
 import Layout from '@/Shared/Layout';
 import IconBase from '@/Shared/IconBase';
 import Printer from '@/Shared/Icons/Printer';
-import PrinterColorsTable from '@/Partials/Materials/PrinterColorsTable';
+import PrinterColorsTable from '@/Partials/Materials/Printers/PrinterColorsTable';
 
 export default {
     components: {

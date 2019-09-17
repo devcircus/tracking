@@ -46,10 +46,10 @@ import IconBase from '@/Shared/IconBase';
 import Shirt from '@/Shared/Icons/Shirt';
 import Artist from '@/Shared/Icons/Artist';
 import Printer from '@/Shared/Icons/Printer';
-import InksTable from '@/Partials/Materials/InksTable';
-import ColorsTable from '@/Partials/Materials/ColorsTable';
-import FabricsTable from '@/Partials/Materials/FabricsTable';
-import PrintersTable from '@/Partials/Materials/PrintersTable';
+import InksTable from '@/Partials/Materials/Inks/InksTable';
+import ColorsTable from '@/Partials/Materials/Colors/ColorsTable';
+import FabricsTable from '@/Partials/Materials/Fabrics/FabricsTable';
+import PrintersTable from '@/Partials/Materials/Printers/PrintersTable';
 
 export default {
     components: {
