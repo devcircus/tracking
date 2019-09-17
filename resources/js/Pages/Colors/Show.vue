@@ -38,7 +38,7 @@
                 <div class="w-full lg:w-1/2 px-2">
                     <div class="bg-white flex flex-col shadow overflow-hidden w-full p-8">
                         <div v-for="printer in printers" :key="printer.id" class="mb-12">
-                            <color-for-printer :printer="printer" :color="colorData" />
+                            <printer-color :printer="printer" :color="colorData" />
                         </div>
                     </div>
                 </div>
@@ -90,7 +90,7 @@ import Artist from '@/Shared/Icons/Artist';
 import Printer from '@/Shared/Icons/Printer';
 import LoadingButton from '@/Shared/LoadingButton';
 import TrashedMessage from '@/Shared/TrashedMessage';
-import ColorForPrinter from '@/Partials/Colors/ColorForPrinter';
+import PrinterColor from '@/Partials/Materials/Colors/PrinterColor';
 
 export default {
     components: {
@@ -100,9 +100,9 @@ export default {
         Printer,
         IconBase,
         TextInput,
+        PrinterColor,
         LoadingButton,
         TrashedMessage,
-        ColorForPrinter,
     },
     props: ['colorData', 'printers'],
     data () {
