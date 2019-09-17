@@ -33,6 +33,14 @@ class UpdateColorService
     {
         $this->validator->validate(array_merge($data, ['id' => $color->id]));
 
-        return $color->updateColor($data);
+        $updated = $color->updateColor($data);
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($updated)
+            ->withProperties(['target' => $updated->name])
+            ->log('color updated');
+
+        return $updated;
     }
 }

@@ -16,6 +16,14 @@ class RestoreInkService
      */
     public function run(Ink $ink): Ink
     {
-        return $ink->restoreInk();
+        $restored = $ink->restoreInk();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($restored)
+            ->withProperties(['target' => "{$restored->manufacturer}-{$restored->version}-{$restored->type}"])
+            ->log('ink restored');
+
+        return $restored;
     }
 }

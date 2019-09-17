@@ -16,6 +16,14 @@ class DeletePrinterService
      */
     public function run(Printer $printer): Printer
     {
-        return $printer->deletePrinter();
+        $deleted = $printer->deletePrinter();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($deleted)
+            ->withProperties(['target' => $deleted->name])
+            ->log('printer deleted');
+
+        return $deleted;
     }
 }

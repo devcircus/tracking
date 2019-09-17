@@ -16,6 +16,14 @@ class RestorePrinterService
      */
     public function run(Printer $printer): Printer
     {
-        return $printer->restorePrinter();
+        $restored = $printer->restorePrinter();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($restored)
+            ->withProperties(['target' => $restored->name])
+            ->log('printer restored');
+
+        return $restored;
     }
 }

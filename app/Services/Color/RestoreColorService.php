@@ -16,6 +16,14 @@ class RestoreColorService
      */
     public function run(Color $printer): Color
     {
-        return $printer->restoreColor();
+        $restored = $printer->restoreColor();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($restored)
+            ->withProperties(['target' => $restored->name])
+            ->log('color restored');
+
+        return $restored;
     }
 }

@@ -33,6 +33,14 @@ class UpdateFabricService
     {
         $this->validator->validate(array_merge($data, ['id' => $fabric->id]));
 
-        return $fabric->updateFabric($data);
+        $updated = $fabric->updateFabric($data);
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($updated)
+            ->withProperties(['target' => $updated->name])
+            ->log('fabric updated');
+
+        return $updated;
     }
 }

@@ -37,6 +37,14 @@ class StorePrinterService
     {
         $this->validator->validate($data);
 
-        return $this->printers->addPrinter($data);
+        $created = $this->printers->addPrinter($data);
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($created)
+            ->withProperties(['target' => $created->name])
+            ->log('printer created');
+
+        return $created;
     }
 }

@@ -16,6 +16,14 @@ class DeleteColorService
      */
     public function run(Color $printer): Color
     {
-        return $printer->deleteColor();
+        $deleted = $printer->deleteColor();
+
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($deleted)
+            ->withProperties(['target' => $deleted->name])
+            ->log('color deleted');
+
+        return $deleted;
     }
 }

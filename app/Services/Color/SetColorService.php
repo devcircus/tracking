@@ -29,17 +29,23 @@ class SetColorService
      * @param  \App\Models\Color  $color
      * @param  \App\Models\Printer  $printer
      * @param  array  $data
-     *
-     * @return mixed
      */
-    public function run(Color $color, Printer $printer, array $data)
+    public function run(Color $color, Printer $printer, array $data): Color
     {
         $this->validator->validate($data);
 
         if ($printer->colors->contains($color)) {
-            return $printer->colors()->updateExistingPivot($color->id, $data);
+            $printer->colors()->updateExistingPivot($color->id, $data);
+        } else {
+            $printer->colors()->attach($color->id, $data);
         }
 
-        return $printer->colors()->attach($color->id, $data);
+        activity()
+            ->causedBy(auth()->user())
+            ->performedOn($color)
+            ->withProperties(['target' => $color->name])
+            ->log('color cmyk set');
+
+        return $color;
     }
 }
