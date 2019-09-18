@@ -2,7 +2,9 @@
 
 namespace App\Http\Actions\Artwork;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Notifications\ArtComplete;
 use PerfectOblivion\Actions\Action;
 use App\Services\Artwork\BatchArtCompleteService;
 use App\Http\Responders\Artwork\BatchArtCompleteResponder;
@@ -12,14 +14,19 @@ class BatchArtComplete extends Action
     /** @var \App\Http\Responders\Artwork\BatchArtCompleteResponder */
     private $responder;
 
+    /** @var \App\Models\User */
+    private $users;
+
     /**
-    * Construct a new BatchArtComplete action.
-    *
-    * @param  \App\Http\Responders\Artwork\BatchArtCompleteResponder  $responder
-    */
-    public function __construct(BatchArtCompleteResponder $responder)
+     * Construct a new BatchArtComplete action.
+     *
+     * @param  \App\Http\Responders\Artwork\BatchArtCompleteResponder  $responder
+     * @param  \App\Models\User  $users
+     */
+    public function __construct(BatchArtCompleteResponder $responder, User $users)
     {
         $this->responder = $responder;
+        $this->users = $users;
     }
 
     /**
@@ -31,8 +38,9 @@ class BatchArtComplete extends Action
      */
     public function __invoke(Request $request)
     {
-        $result = BatchArtCompleteService::call($request->artwork);
+        $orders = BatchArtCompleteService::call($request->artwork);
+        $this->users->superAdministrator()->notify(new ArtComplete(collect($orders), $request->user()));
 
-        return $this->responder->withPayload($result)->respond();
+        return $this->responder->withPayload($orders)->respond();
     }
 }

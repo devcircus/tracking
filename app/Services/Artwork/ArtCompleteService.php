@@ -4,8 +4,6 @@ namespace App\Services\Artwork;
 
 use App\Models\User;
 use App\Models\Order;
-use App\Notifications\ArtComplete;
-use Illuminate\Support\Facades\Notification;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class ArtCompleteService
@@ -35,14 +33,9 @@ class ArtCompleteService
     public function run(Order $order)
     {
         $complete = $order->toggleArtComplete();
-        $authenticated = auth()->user();
-
-        if ($complete) {
-            $this->users->superAdministrator()->notify(new ArtComplete($order, $authenticated));
-        }
 
         activity()
-            ->causedBy($authenticated)
+            ->causedBy(auth()->user())
             ->performedOn($order)
             ->withProperties(['target' => "{$order->order_number}-{$order->voucher}"])
             ->log($complete ? 'art complete' : 'art not complete');
