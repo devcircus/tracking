@@ -23,17 +23,17 @@ Route::group(['middleware' => ['guest'], 'as' => 'password.', 'prefix' => 'passw
 
 // Users
 Route::group(['middleware' => ['auth'], 'as' => 'users.', 'prefix' => 'users'], function ($router) {
-    $router->get('/', User\ListUsers::class)->middleware(['auth'])->name('list');
+    $router->get('/', User\ListUsers::class)->middleware(['auth', 'is_admin'])->name('list');
     $router->get('/create', User\CreateUser::class)->middleware(['auth', 'is_admin'])->name('create');
     $router->post('/', User\StoreUser::class)->middleware(['auth', 'is_admin'])->name('store');
     $router->delete('/{user}', User\DeleteUser::class)->middleware(['auth', 'is_admin'], 'selfdelete.prevent')->name('destroy');
-    $router->get('/{user}/edit', User\EditUser::class)->middleware(['auth'])->name('edit');
-    $router->put('/{user}', User\UpdateUser::class)->middleware(['auth'])->name('update');
-    $router->put('/{user}/restore', User\RestoreUser::class)->middleware(['auth'])->name('restore');
+    $router->get('/{user}/edit', User\EditUser::class)->middleware(['auth', 'is_target'])->name('edit');
+    $router->put('/{user}', User\UpdateUser::class)->middleware(['auth', 'is_target'])->name('update');
+    $router->put('/{user}/restore', User\RestoreUser::class)->middleware(['auth', 'is_admin'])->name('restore');
 });
 
 // Activities
-Route::get('/activities', Activity\ListActivities::class)->middleware(['auth', 'is_admin'])->name('activities.list');
+Route::get('/activities', Activity\ListActivities::class)->middleware(['auth', 'is_super_admin'])->name('activities.list');
 
 /***************************************************************
  *# # # # # # # # # # # INVENTORY ROUTES # # # # # # # # # # # #*
