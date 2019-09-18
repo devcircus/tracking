@@ -61,6 +61,7 @@ class InertiaServiceProvider extends ServiceProvider
                         'is_admin' => $user->is_admin,
                         'is_artist' => $user->is_artist,
                         'deleted_at' => $user->deleted_at,
+                        'is_super_admin' => $user->is_super_admin,
                         'can' => $user->getAuthorizationDetails(),
                     ] : null,
                 ];

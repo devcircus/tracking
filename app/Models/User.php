@@ -29,6 +29,11 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
     protected $perPage = 10;
 
     /** @var array */
+    protected $appends = [
+        'is_super_admin',
+    ];
+
+    /** @var array */
     protected $casts = [
         'is_admin' => 'boolean',
         'is_artist' => 'boolean',
@@ -81,6 +86,14 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
                 $builder->onlyTrashed();
             }
         });
+    }
+
+    /**
+     * Get the is_super_admin attribute.
+     */
+    public function getIsSuperAdminAttribute(): bool
+    {
+        return $this->email === config('auth.admin.email');
     }
 
     /**

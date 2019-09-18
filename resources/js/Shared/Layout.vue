@@ -39,7 +39,7 @@
                                         </icon-base>
                                         My Profile
                                     </inertia-link>
-                                    <div v-if="$page.auth.user.is_admin">
+                                    <div v-if="$page.auth.user.is_super_admin">
                                         <inertia-link class="flex px-6 py-2 hover:bg-blue-500 hover:text-white group" :href="route('users.list')">
                                             <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="users" classes="mr-2 group-hover:fill-white">
                                                 <users />
