@@ -3,7 +3,7 @@
 namespace App\Services\Artwork;
 
 use App\Models\Order;
-use App\Services\Artwork\ArtCompleteService;
+use Illuminate\Support\Collection;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class BatchArtCompleteService
@@ -27,13 +27,20 @@ class BatchArtCompleteService
      * Handle the call to the service.
      *
      * @param  array  $artwork
-     *
-     * @return mixed
      */
-    public function run(array $artwork)
+    public function run(array $artwork): Collection
     {
-        return collect($artwork)->each(function ($item, $key) {
-            return ArtCompleteService::call($this->orders->find($key));
+        $orders = collect($artwork)->map(function ($item, $key) {
+            return $this->orders->find($key);
         });
+
+        $completed = [];
+        foreach ($orders as $order) {
+            if (ArtCompleteService::call($order)) {
+                $completed[] = $order;
+            }
+        }
+
+        return $completed;
     }
 }

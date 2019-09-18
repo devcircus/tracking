@@ -2,9 +2,10 @@
 
 namespace App\Notifications;
 
-use App\Models\Order;
 use App\Models\User;
+use App\Models\Order;
 use Illuminate\Bus\Queueable;
+use Illuminate\Support\Collection;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -13,7 +14,7 @@ class ArtComplete extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /** @var \App\Models\Order */
+    /** @var \App\Models\Order|\Illuminate\Support\Collection */
     public $order;
 
     /** @var \App\Models\User */
@@ -22,10 +23,10 @@ class ArtComplete extends Notification implements ShouldQueue
     /**
      * Create a new notification instance.
      *
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\Order|\Illuminate\Support\Collection  $order
      * @param  \App\Models\User  $artist
      */
-    public function __construct(Order $order, User $artist)
+    public function __construct($order, User $artist)
     {
         $this->order = $order;
         $this->artist = $artist;
@@ -36,6 +37,7 @@ class ArtComplete extends Notification implements ShouldQueue
      * Get the notification's delivery channels.
      *
      * @param  mixed  $notifiable
+     *
      * @return array
      */
     public function via($notifiable)
@@ -52,10 +54,22 @@ class ArtComplete extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->subject("Art complete: {$this->order->customer} - {$this->order->order_number} - {$this->order->voucher}.")
-                    ->line("{$this->artist->name} finished the art for: ")
-                    ->line("{$this->order->customer} - {$this->order->order_number} - {$this->order->voucher}")
-                    ->line('The voucher is ready to print.');
+        $mailMessage = (new MailMessage)
+                    ->subject('Art complete')
+                    ->line("{$this->artist->name} finished the art for: ");
+
+        if ($this->order instanceof Order) {
+            $mailMessage->line("{$this->order->customer} - {$this->order->order_number} - {$this->order->voucher}");
+        }
+
+        if ($this->order instanceof Collection) {
+            foreach ($this->order as $order) {
+                $mailMessage->line("{$order->customer} - {$order->order_number} - {$order->voucher}");
+            }
+        }
+
+        $mailMessage->line('The voucher(s) are ready to print.');
+
+        return $mailMessage;
     }
 }
