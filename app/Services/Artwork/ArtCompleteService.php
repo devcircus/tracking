@@ -38,7 +38,7 @@ class ArtCompleteService
         $authenticated = auth()->user();
 
         if ($complete) {
-            Notification::send($this->users->administrators(), new ArtComplete($order, $authenticated));
+            $this->users->superAdministrator()->notify(new ArtComplete($order, $authenticated));
         }
 
         activity()

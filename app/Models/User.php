@@ -119,6 +119,16 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
     }
 
     /**
+     * Get the super-administrator.
+     */
+    public function superAdministrator(): User
+    {
+        $administrators = $this->administrators();
+
+        return $administrators->where('is_super_admin', true)->first();
+    }
+
+    /**
      * Create a user with the provided data.
      *
      * @param  array  $user
