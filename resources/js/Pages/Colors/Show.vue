@@ -11,7 +11,7 @@
                 <artist />
             </icon-base>
         </div>
-        <template v-if="$page.auth.user.is_admin">
+        <template v-if="$page.auth.user.can.administerColors">
             <div class="flex flex-col lg:flex-row -mx-2">
                 <div class="w-full lg:w-1/2 px-2">
                     <trashed-message v-if="colorData.deleted_at" class="w-full mb-6" @restore="restore">

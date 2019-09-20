@@ -11,7 +11,7 @@
                 <printer />
             </icon-base>
         </div>
-        <template v-if="$page.auth.user.is_admin">
+        <template v-if="$page.auth.user.can.administerPrinters">
             <trashed-message v-if="printerData.deleted_at" class="w-full md:w-2/5 mb-6" @restore="restore">
                 This printer has been deleted.
             </trashed-message>

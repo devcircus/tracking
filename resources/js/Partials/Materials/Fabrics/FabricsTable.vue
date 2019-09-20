@@ -13,7 +13,7 @@
         </div>
         <template slot="table-actions">
             <span class="text-blue-500 text-sm font-semibold leading-loose mr-2 inline-block mt-tenth cursor-pointer" @click="clearSearch()">Clear</span>
-            <dropdown v-if="$page.auth.user.is_admin" class="mt-1 mr-1" placement="bottom-end">
+            <dropdown class="mt-1 mr-1" placement="bottom-end">
                 <div class="flex items-center cursor-pointer select-none group">
                     <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
                         <span class="inline text-sm">Options</span>
@@ -24,7 +24,7 @@
                 </div>
                 <div slot="dropdown" class="flex flex-col mt-2 p-2 shadow-lg bg-white rounded">
                     <checkbox v-model="showTrashed" class="mb-2" label="Include deleted fabrics: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
-                    <inertia-link :href="route('fabrics.create')" class="text-blue-600 text-sm font-semibold uppercase hover:text-blue-800 mb-2">New Fabric</inertia-link>
+                    <inertia-link v-if="$page.auth.user.can.createFabrics" :href="route('fabrics.create')" class="text-blue-600 text-sm font-semibold uppercase hover:text-blue-800 mb-2">New Fabric</inertia-link>
                     <a :href="route('fabrics.pdf')" target="_blank" class="text-red-500 font-semibold text-sm uppercase cursor-pointer" @click="hideDropdown()">View PDF</a>
                 </div>
             </dropdown>

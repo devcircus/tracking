@@ -30,8 +30,8 @@
                 </div>
                 <template slot="table-row" slot-scope="props">
                     <span v-if="props.column.field == 'actions'" class="flex justify-between px-3">
-                        <button v-if="props.row.deleted_at && $page.auth.user.can.restoreItem" class="text-green-500 hover:underline" tabindex="-1" type="button" @click="restoreItem(props.row.id)">Restore</button>
-                        <button v-else-if="props.row.deleted_at === null && $page.auth.user.can.deleteItem" class="text-red-500 hover:underline" tabindex="-1" type="button" @click="destroyItem(props.row.id)">Delete</button>
+                        <button v-if="props.row.deleted_at && $page.auth.user.can.restoreItems" class="text-green-500 hover:underline" tabindex="-1" type="button" @click="restoreItem(props.row.id)">Restore</button>
+                        <button v-else-if="props.row.deleted_at === null && $page.auth.user.can.deleteItems" class="text-red-500 hover:underline" tabindex="-1" type="button" @click="destroyItem(props.row.id)">Delete</button>
                         <inertia-link v-if="$page.auth.user.can.administerItems" :href="route('items.show', props.row.id)" class="btn btn-text py-0 text-blue-500 hover:underline" tabindex="-1">View</inertia-link>
                     </span>
                     <span v-if="props.row.deleted_at">
