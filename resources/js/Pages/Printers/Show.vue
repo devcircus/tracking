@@ -49,6 +49,13 @@
                     <span class="text-gray-800 font-black uppercase mr-2 w-160p">Manufacturer: </span>
                     <span class="text-gray-700 font-bold uppercase">{{ printer.manufacturer }}</span>
                 </div>
+                <div class="flex mb-4">
+                    <span class="text-gray-800 font-black uppercase mr-2 w-160p">Ink: </span>
+                    <span class="text-gray-700 font-bold uppercase">{{ printerData.ink.manufacturer }}-{{ printerData.ink.version }}-{{ printerData.ink.type }}</span>
+                </div>
+                <div class="flex mb-2">
+                    <inertia-link :href="route('colors.printer', printerData.id)" class="text-blue-600 font-bold uppercase mr-2 w-160p">View Colors</inertia-link>
+                </div>
             </div>
         </template>
     </layout>
