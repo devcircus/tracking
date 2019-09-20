@@ -10,7 +10,7 @@
                 <dropdown class="block" placement="bottom-end" :name="`dropdown-${type}`">
                     <svg class="fill-white w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
                     <div slot="dropdown" class="flex flex-col justify-between mt-2 px-8 py-4 shadow-lg bg-white border-2 border-blue-500 rounded">
-                        <span v-if="type === 'prototype' && $page.auth.user.is_admin" class="uppercase text-base text-blue-900 font-semibold hover:text-blue-400 px-2 py-1 cursor-pointer" @click="addVoucher()">
+                        <span v-if="type === 'prototype' && $page.auth.user.can.administerReports" class="uppercase text-base text-blue-900 font-semibold hover:text-blue-400 px-2 py-1 cursor-pointer" @click="addVoucher()">
                             Add Voucher
                         </span>
                         <inertia-link v-if="group" :href="route('reports.individual.show', { type: type, date: timestamp })" class="uppercase text-base text-blue-900 font-semibold hover:text-blue-400 px-2 py-1">
@@ -77,7 +77,7 @@
                     <span v-else class="hidden lg:block lg:w-160p text-base xl:text-lg font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
                         {{ item.style }}
                     </span>
-                    <div v-if="type === 'prototype' && $page.auth.user.is_admin" class="text-base xl:text-lg text-gray-800 font-normal w-260p" @click.stop>
+                    <div v-if="type === 'prototype' && $page.auth.user.can.administerReports" class="text-base xl:text-lg text-gray-800 font-normal w-260p" @click.stop>
                         <input :id="`${item.id}`"
                                v-model="info[item.id]"
                                class="border border-blue p-1 h-12 w-full"
@@ -138,7 +138,7 @@ export default {
     },
     methods: {
         showActionModal (index, item) {
-            if (! this.$page.auth.user.is_admin) return;
+            if (! this.$page.auth.user.can.administerReports) return;
             switch (index) {
                 case 'rush':
                     break;
@@ -157,7 +157,7 @@ export default {
             }
         },
         addVoucher () {
-            if (! this.$page.auth.user.is_admin) {
+            if (! this.$page.auth.user.can.administerReports) {
                 this.$page.warning.warning = 'Only administrators may add new vouchers.';
 
                 return;

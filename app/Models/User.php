@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Authorization\Policies;
 use App\Policies\ItemPolicy;
 use App\Policies\InventoryPolicy;
+use App\Policies\MaterialsPolicy;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Collection;
@@ -198,17 +200,14 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
 
     public function getAuthorizationDetails()
     {
-        return [
-            InventoryPolicy::ADMINISTER => $this->can(InventoryPolicy::ADMINISTER, Tag::class),
-            InventoryPolicy::ACTIVATE => $this->can(InventoryPolicy::ACTIVATE, Tag::class),
-            InventoryPolicy::RESTORE => $this->can(InventoryPolicy::RESTORE, Tag::class),
-            InventoryPolicy::FINISH => $this->can(InventoryPolicy::FINISH, Tag::class),
-            InventoryPolicy::DELETE => $this->can(InventoryPolicy::DELETE, Tag::class),
-            ItemPolicy::ADMINISTER => $this->can(ItemPolicy::ADMINISTER, InventoryItem::class),
-            ItemPolicy::DELETE => $this->can(ItemPolicy::DELETE, InventoryItem::class),
-            ItemPolicy::RESTORE => $this->can(ItemPolicy::RESTORE, InventoryItem::class),
-            ItemPolicy::UPDATE => $this->can(ItemPolicy::UPDATE, InventoryItem::class),
-            ItemPolicy::CREATE => $this->can(ItemPolicy::CREATE, InventoryItem::class),
-        ];
+        $policies = resolve(Policies::class)->getPolicies();
+
+        $can = [];
+
+        foreach ($policies as $key => $policy) {
+            $can[$policy] = $this->can($policy);
+        }
+
+        return $can;
     }
 }

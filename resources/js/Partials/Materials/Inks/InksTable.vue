@@ -10,7 +10,7 @@
             No inks found.
         </div>
         <template slot="table-actions">
-            <dropdown v-if="$page.auth.user.is_admin" class="mt-1 mr-1" placement="bottom-end">
+            <dropdown class="mt-1 mr-1" placement="bottom-end">
                 <div class="flex items-center cursor-pointer select-none group">
                     <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
                         <span class="inline text-sm">Options</span>
@@ -21,7 +21,7 @@
                 </div>
                 <div slot="dropdown" class="mt-2 p-2 shadow-lg bg-white rounded">
                     <checkbox v-model="showTrashed" class="mb-2" label="Include deleted inks: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
-                    <inertia-link :href="route('inks.create')" class="text-blue-600 text-sm font-semibold uppercase hover:text-blue-800">New Ink</inertia-link>
+                    <inertia-link v-if="$page.auth.user.can.createInks" :href="route('inks.create')" class="text-blue-600 text-sm font-semibold uppercase hover:text-blue-800">New Ink</inertia-link>
                 </div>
             </dropdown>
         </template>
