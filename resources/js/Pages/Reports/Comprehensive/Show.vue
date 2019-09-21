@@ -1,13 +1,5 @@
 <template>
     <layout :title="displayDate(date)">
-        <div class="w-full">
-            <h1 class="mb-8 font-bold text-xl lg:text-2xl">
-                <inertia-link class="text-blue-500 hover:text-blue-800 uppercase" :href="route('dashboard')">Reports</inertia-link>
-                <span class="text-blue-500 text-2xl lg:text-3xl">/</span>
-                <span class="text-blue-800" href="#">{{ displayDate(date) }}</span>
-            </h1>
-        </div>
-
         <!-- Reports Summary for Production and Prototype -->
         <div class="flex flex-col lg:flex-row -px-4 w-full mb-8">
             <div v-for="(data, index) in results.summary" :key="index" class="mr-4 last-child:mr-0 mb-4 lg:mb-0 w-full lg:w-1/2">

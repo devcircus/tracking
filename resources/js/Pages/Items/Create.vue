@@ -1,10 +1,5 @@
 <template>
     <layout title="Create Item">
-        <h1 class="mb-8 font-bold text-3xl">
-            <inertia-link class="text-blue-300 hover:text-blue-700" :href="route('inventory')">Inventory</inertia-link>
-            <span class="text-blue-300 font-medium">/</span>
-            <span class="text-gray-800 font-semibold">Create Item</span>
-        </h1>
         <div class="bg-white rounded shadow overflow-hidden w-full lg:w-2/3">
             <form @submit.prevent="submit">
                 <div class="p-8 -mr-6 -mb-8 flex flex-col">

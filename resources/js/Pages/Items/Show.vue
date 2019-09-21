@@ -1,10 +1,5 @@
 <template>
     <layout :title="displayName">
-        <h1 class="mb-8 font-bold text-3xl">
-            <inertia-link class="text-blue-300 hover:text-blue-700" :href="route('inventory')">Inventory</inertia-link>
-            <span class="text-blue-300 font-medium">/</span>
-            {{ displayName }}
-        </h1>
         <trashed-message v-if="item.deleted_at" class="mb-6" @restore="restore">
             This item has been deleted.
         </trashed-message>

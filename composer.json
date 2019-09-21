@@ -23,6 +23,7 @@
     "require": {
         "php": "^7.3.0",
         "barryvdh/laravel-dompdf": "^0.8.5",
+        "davejamesmiller/laravel-breadcrumbs": "^5.3",
         "doctrine/dbal": "^2.9",
         "fideloper/proxy": "^4.0",
         "fzaninotto/faker": "^1.4",

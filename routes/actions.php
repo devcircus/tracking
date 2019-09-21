@@ -70,7 +70,6 @@ Route::group(['middleware' => ['auth', 'is_admin'], 'as' => 'items.', 'prefix' =
 // Reports
 Route::group(['middleware' => ['auth'], 'as' => 'reports.', 'prefix' => 'reports'], function ($router) {
     $router->get('/', Report\Index::class)->middleware(['auth'])->name('list');
-    $router->get('/create', Report\CreateReport::class)->name('create');
     $router->get('/{type}/{date}', Report\ShowIndividualReport::class)->middleware(['date'])->name('individual.show');
     $router->get('/{date}', Report\ShowComprehensiveReport::class)->middleware(['date'])->name('comprehensive.show');
 });
