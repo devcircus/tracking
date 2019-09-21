@@ -1,13 +1,5 @@
 <template>
     <layout :title="type">
-        <h1 class="mb-8 font-bold text-xl lg:text-2xl">
-            <inertia-link class="text-blue-500 hover:text-blue-800 uppercase" :href="route('dashboard')">Reports</inertia-link>
-            <span class="text-blue-800 text-2xl lg:text-3xl font-medium">/</span>
-            <inertia-link class="text-blue-500 hover:text-blue-800" :href="route('reports.comprehensive.show', timestamp)">{{ displayDate(date) }}</inertia-link>
-            <span class="text-blue-800 text-2xl lg:text-3xl font-medium">/</span>
-            <span class="text-blue-800 text-2xl lg:text-3xl">{{ type | ucase }}</span>
-        </h1>
-
         <individual-report :data="report" :type="type" :timestamp="timestamp" :group="false" />
     </layout>
 </template>
@@ -15,13 +7,11 @@
 <script>
 import moment from 'moment';
 import Layout from '@/Shared/Layout';
-import { InertiaLink } from '@inertiajs/inertia-vue';
 import IndividualReport from '@/Partials/Reports/IndividualReport';
 
 export default {
     components: {
         Layout,
-        InertiaLink,
         IndividualReport,
     },
     props: {

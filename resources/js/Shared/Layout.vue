@@ -66,6 +66,10 @@
                 </div>
                 <div class="flex flex-grow w-full relative">
                     <div class="overflow-hidden px-4 py-8 lg:p-12 w-full">
+                        <ol v-if="$page.breadcrumbs" class="breadcrumb">
+                            <li v-for="crumb in breadcrumbTrail" :key="crumb.title" class="breadcrumb-item"><inertia-link :href="crumb.url">{{ crumb.title }}</inertia-link></li>
+                            <li class="breadcrumb-item active">{{ breadcrumbCurrent.title }}</li>
+                        </ol>
                         <slot />
                     </div>
                 </div>
@@ -112,6 +116,14 @@ export default {
             return {
                 inner: this.title,
             }
+        },
+    },
+    computed: {
+        breadcrumbTrail () {
+            return this.$page.breadcrumbs ? this.$page.breadcrumbs.slice(0, -1): null;
+        },
+        breadcrumbCurrent () {
+            return this.$page.breadcrumbs ? this.$page.breadcrumbs[this.$page.breadcrumbs.length -1] : null;
         },
     },
 }

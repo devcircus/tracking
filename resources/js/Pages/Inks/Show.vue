@@ -1,10 +1,5 @@
 <template>
     <layout :title="`Ink - ${ink.version}`">
-        <h1 class="mb-8 font-bold text-3xl">
-            <inertia-link class="text-blue-300 hover:text-blue-700" :href="route('materials.list')">Materials</inertia-link>
-            <span class="text-blue-300 font-medium">/</span>
-            <span class="text-blue-700">{{ ink.manufacturer }} {{ ink.version }} {{ ink.type }}</span>
-        </h1>
         <div class="w-full md:w-2/5 flex bg-blue-800 p-4 mb-2">
             <h1 class="text-white text-lg lg:text-xl font-semibold uppercase">{{ ink.manufacturer }} {{ ink.version }} {{ ink.type }}</h1>
             <icon-base icon-fill="fill-white" view="20 32" icon-name="ink" classes="ml-2">

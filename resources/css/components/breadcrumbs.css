@@ -1,0 +1,24 @@
+ol.breadcrumb {
+    @apply flex mb-4;
+}
+
+ol.breadcrumb li {
+    @apply text-2xl font-semibold text-blue-700 mr-2;
+}
+
+ol.breadcrumb li a{
+    @apply text-blue-400;
+}
+
+ol.breadcrumb li a:hover {
+    @apply text-blue-700;
+}
+
+ol.breadcrumb li::after {
+  content: ">";
+  margin-left: 12px;
+}
+
+ol.breadcrumb li.active::after {
+  content: "";
+}

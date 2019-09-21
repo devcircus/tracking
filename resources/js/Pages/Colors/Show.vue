@@ -1,10 +1,5 @@
 <template>
     <layout :title="`Color - ${color.name}`">
-        <h1 class="mb-8 font-bold text-3xl">
-            <inertia-link class="text-blue-300 hover:text-blue-700" :href="route('materials.list')">Materials</inertia-link>
-            <span class="text-blue-300 font-medium">/</span>
-            <span class="text-blue-700">{{ color.name }}</span>
-        </h1>
         <div class="w-full flex bg-blue-800 p-4 mb-2">
             <h1 class="text-white text-lg lg:text-xl font-semibold uppercase">{{ color.name }}</h1>
             <icon-base icon-fill="fill-white" view="32 32" :height="18" :width="18" icon-name="artist" classes="ml-2">

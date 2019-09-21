@@ -2,6 +2,7 @@
 
 namespace App\Http\Responders\Dashboard;
 
+use Breadcrumbs;
 use Inertia\Inertia;
 use PerfectOblivion\Responder\Responder;
 

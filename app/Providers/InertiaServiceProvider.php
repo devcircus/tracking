@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use Breadcrumbs;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
@@ -32,6 +34,8 @@ class InertiaServiceProvider extends ServiceProvider
         $this->shareFlashMessages();
 
         $this->shareFormErrors();
+
+        $this->shareBreadcrumbs();
     }
 
     /**
@@ -133,6 +137,24 @@ class InertiaServiceProvider extends ServiceProvider
                 }
 
                 return (object) [];
+            },
+        ]);
+    }
+
+    /**
+     * Share breadcrumbs.
+     */
+    private function shareBreadcrumbs(): void
+    {
+        Inertia::share([
+            'breadcrumbs' => static function () {
+                $breadcrumbs = Breadcrumbs::generate();
+
+                if (count($breadcrumbs)) {
+                    return $breadcrumbs;
+                }
+
+                return [];
             },
         ]);
     }
