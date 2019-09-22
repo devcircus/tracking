@@ -31,7 +31,7 @@ class BatchUpdateInfo extends Action
      */
     public function __invoke(Request $request)
     {
-        $result = BatchUpdateInfoService::call($request->info);
+        $result = BatchUpdateInfoService::call($request->info, $request->date);
 
         return $this->responder->withPayload($result)->respond();
     }

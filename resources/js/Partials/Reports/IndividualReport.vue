@@ -203,7 +203,7 @@ export default {
                 this.sendingInfoUpdate = true;
                 this.$inertia.post(
                     this.route('orders.info.batch.update'),
-                    { info: this.updatedInfo },
+                    { info: this.updatedInfo, date: this.timestamp },
                     { replace: false, preserveScroll: true, preserveState: true }).then( () => {
                         this.sendingInfoUpdate = false;
                         this.showUpdateInfoButton = false;

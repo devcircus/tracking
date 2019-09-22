@@ -28,7 +28,7 @@ class BatchArtCompleteService
      *
      * @param  array  $artwork
      */
-    public function run(array $artwork): Collection
+    public function run(array $artwork): array
     {
         $orders = collect($artwork)->map(function ($item, $key) {
             return $this->orders->find($key);

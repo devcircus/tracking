@@ -87,7 +87,7 @@ Route::group(['middleware' => ['auth', 'is_admin'], 'as' => 'orders.', 'prefix' 
     $router->delete('/{order}', Order\DeleteOrder::class)->name('delete');
     $router->post('/{order}/complete', Order\CompleteOrder::class)->name('complete');
     $router->patch('/{order}', Order\UpdateOrder::class)->name('update');
-    $router->post('/batch/info', Order\BatchUpdateInfo::class)->name('info.batch.update');
+    $router->post('/batch/info', Order\BatchUpdateInfo::class)->middleware(['date'])->name('info.batch.update');
 });
 
 // Summary
