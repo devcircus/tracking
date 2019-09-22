@@ -27,9 +27,10 @@ class BatchUpdateInfoService
      * Handle the call to the service.
      *
      * @param  array  $info
+     * @param  string  $date
      */
-    public function run(array $info): Collection
+    public function run(array $info, string $date): Collection
     {
-        return $this->orders->batchUpdateInfo($info);
+        return $this->orders->batchUpdateInfo($info, $date);
     }
 }

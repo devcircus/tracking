@@ -4,6 +4,8 @@ namespace App\Services\Report;
 
 use App\Models\Type;
 use App\Models\Order;
+use Illuminate\Support\Facades\Cache;
+use App\Services\Cache\CacheForeverService;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class FetchAllOrdersByDate
@@ -37,8 +39,10 @@ class FetchAllOrdersByDate
      */
     public function run(string $date)
     {
-        return $this->types->all()->keyBy('type')->map(function ($model, $key) use ($date) {
-            return $this->orders->with('types')->type($key)->forDate($date)->get();
+        return CacheForeverService::call('reports', $date, function() use ($date) {
+            return $this->types->all()->keyBy('type')->map(function ($model, $key) use ($date) {
+                return $this->orders->with('types')->type($key)->forDate($date)->get();
+            });
         });
     }
 }

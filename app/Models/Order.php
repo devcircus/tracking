@@ -8,6 +8,7 @@ use App\Models\Traits\QueriesOrders;
 use App\Models\Traits\FormatsOrderDates;
 use Illuminate\Database\Eloquent\Builder;
 use App\Services\OrderTypes\SetOrderTypes;
+use App\Services\Cache\CacheForgetService;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -33,6 +34,7 @@ class Order extends Model
     /** @var array */
     protected $dates = [
         'art_complete',
+        'print_complete',
     ];
 
     /** @var array */
@@ -121,6 +123,8 @@ class Order extends Model
      */
     public function saveOrder(array $data): Order
     {
+        CacheForgetService::call('reports', $data['report_created']);
+
         $order = $this->updateOrCreate([
             'order_number' => $data['order_number'],
             'voucher' => $data['voucher'],
@@ -155,6 +159,8 @@ class Order extends Model
      */
     public function updateOrder(array $data): Order
     {
+        CacheForgetService::call('reports', $this->report_created);
+
         return tap($this, function ($instance) use ($data) {
             $instance->info = $data['info'];
             if (Str::contains($instance->info, $instance::COMPLETE)) {
@@ -173,6 +179,8 @@ class Order extends Model
      */
     public function markAsComplete(): Order
     {
+        CacheForgetService::call('reports', $this->report_created);
+
         return tap($this, function ($instance) {
             $start = now();
             $instance->print_start = $start;
@@ -190,6 +198,8 @@ class Order extends Model
      */
     public function toggleArtComplete()
     {
+        CacheForgetService::call('reports', $this->report_created);
+
         $current = $this->art_complete;
         $this->art_complete = $current ? null : now();
         $this->save();
@@ -202,6 +212,8 @@ class Order extends Model
      */
     public function deleteOrder(): Order
     {
+        CacheForgetService::call('reports', $this->report_created);
+
         return tap($this, function ($instance) {
             $instance->delete();
         });
@@ -227,9 +239,12 @@ class Order extends Model
      * Update info for the given vouchers.
      *
      * @param  array  $info
+     * @param  string  $date
      */
-    public function batchUpdateInfo(array $info): Collection
+    public function batchUpdateInfo(array $info, string $date): Collection
     {
+        CacheForgetService::call('reports', $date);
+
         return collect($info)->each(function ($item, $key) {
             $this->find($key)->update(['info' => $item]);
         });

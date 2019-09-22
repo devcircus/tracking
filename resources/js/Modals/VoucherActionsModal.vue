@@ -59,7 +59,7 @@ export default {
         },
         markAsComplete () {
             this.sendingComplete = true;
-            this.$inertia.post(this.route('orders.complete', { id: this.voucher.id }), this.form)
+            this.$inertia.post(this.route('orders.complete', { id: this.voucher.id }), this.form, { replace: false, preserveScroll: true, preserveState: false })
             .then(() => {
                 this.sendingComplete = false;
                 this.$modal.hide('voucherActions');
