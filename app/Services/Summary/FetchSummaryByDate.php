@@ -4,6 +4,7 @@ namespace App\Services\Summary;
 
 use App\Models\Type;
 use App\Models\Order;
+use App\Services\Cache\CacheForeverService;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class FetchSummaryByDate
@@ -37,13 +38,15 @@ class FetchSummaryByDate
      */
     public function run(string $date)
     {
-        return $this->types->all()->keyBy('type')->toBase()->only(['prototype', 'ninas'])->map(function ($model, $key) use ($date) {
-            $query = $this->orders->type($key)->forDate($date)->notComplete($key);
+        return CacheForeverService::call('summary', $date, function() use ($date) {
+            return $this->types->all()->keyBy('type')->toBase()->only(['prototype', 'ninas'])->map(function ($model, $key) use ($date) {
+                $query = $this->orders->type($key)->forDate($date)->notComplete($key);
 
-            return [
-                'summary' => $query->weeklyVouchers(),
-                'total' => $query->count(),
-            ];
+                return [
+                    'summary' => $query->weeklyVouchers(),
+                    'total' => $query->count(),
+                ];
+            });
         });
     }
 }

@@ -124,6 +124,7 @@ class Order extends Model
     public function saveOrder(array $data): Order
     {
         CacheForgetService::call('reports', $data['report_created']);
+        CacheForgetService::call('summary', $data['report_created']);
 
         $order = $this->updateOrCreate([
             'order_number' => $data['order_number'],
@@ -160,6 +161,7 @@ class Order extends Model
     public function updateOrder(array $data): Order
     {
         CacheForgetService::call('reports', $this->report_created);
+        CacheForgetService::call('summary', $this->report_created);
 
         return tap($this, function ($instance) use ($data) {
             $instance->info = $data['info'];
@@ -180,6 +182,7 @@ class Order extends Model
     public function markAsComplete(): Order
     {
         CacheForgetService::call('reports', $this->report_created);
+        CacheForgetService::call('summary', $this->report_created);
 
         return tap($this, function ($instance) {
             $start = now();
@@ -213,6 +216,7 @@ class Order extends Model
     public function deleteOrder(): Order
     {
         CacheForgetService::call('reports', $this->report_created);
+        CacheForgetService::call('summary', $this->report_created);
 
         return tap($this, function ($instance) {
             $instance->delete();
@@ -244,6 +248,7 @@ class Order extends Model
     public function batchUpdateInfo(array $info, string $date): Collection
     {
         CacheForgetService::call('reports', $date);
+        CacheForgetService::call('summary', $date);
 
         return collect($info)->each(function ($item, $key) {
             $this->find($key)->update(['info' => $item]);
