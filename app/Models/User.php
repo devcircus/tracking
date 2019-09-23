@@ -3,10 +3,9 @@
 namespace App\Models;
 
 use App\Authorization\Policies;
-use App\Policies\ItemPolicy;
-use App\Policies\InventoryPolicy;
-use App\Policies\MaterialsPolicy;
 use Illuminate\Notifications\Notifiable;
+use App\Services\Cache\CacheForgetService;
+use App\Services\Cache\CacheForeverService;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -179,6 +178,8 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
      */
     public function updateUserData(array $data): User
     {
+        CacheForgetService::call('policies', $this->email);
+
         return tap($this, function ($user) use ($data) {
             return $user->update($data);
         })->fresh();
@@ -200,14 +201,16 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
 
     public function getAuthorizationDetails()
     {
-        $policies = resolve(Policies::class)->getPolicies();
+        return CacheForeverService::call('policies', function () {
+            $policies = resolve(Policies::class)->getPolicies();
 
-        $can = [];
+            $can = [];
 
-        foreach ($policies as $key => $policy) {
-            $can[$policy] = $this->can($policy);
-        }
+            foreach ($policies as $key => $policy) {
+                $can[$policy] = $this->can($policy);
+            }
 
-        return $can;
+            return $can;
+        }, $this->email);
     }
 }
