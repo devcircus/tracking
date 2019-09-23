@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Cache\CacheForgetService;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Fabric extends Model
@@ -20,6 +21,8 @@ class Fabric extends Model
      */
     public function addFabric(array $data): Fabric
     {
+        CacheForgetService::call('fabrics');
+
         return $this->create($data);
     }
 
@@ -30,6 +33,8 @@ class Fabric extends Model
      */
     public function updateFabric(array $data): Fabric
     {
+        CacheForgetService::call('fabrics');
+
         return tap($this, function ($instance) use ($data) {
             return $instance->update($data);
         })->fresh();
@@ -40,6 +45,8 @@ class Fabric extends Model
      */
     public function deleteFabric(): Fabric
     {
+        CacheForgetService::call('fabrics');
+
         return tap($this, function ($instance) {
             return $instance->delete();
         });
@@ -50,6 +57,8 @@ class Fabric extends Model
      */
     public function restoreFabric(): Fabric
     {
+        CacheForgetService::call('fabrics');
+
         return tap($this, function ($instance) {
             return $instance->restore();
         });

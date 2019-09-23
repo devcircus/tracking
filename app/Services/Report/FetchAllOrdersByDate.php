@@ -39,10 +39,10 @@ class FetchAllOrdersByDate
      */
     public function run(string $date)
     {
-        return CacheForeverService::call('reports', $date, function() use ($date) {
+        return CacheForeverService::call('reports', function() use ($date) {
             return $this->types->all()->keyBy('type')->map(function ($model, $key) use ($date) {
                 return $this->orders->with('types')->type($key)->forDate($date)->get();
             });
-        });
+        }, $date);
     }
 }

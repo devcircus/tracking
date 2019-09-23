@@ -38,7 +38,7 @@ class FetchSummaryByDate
      */
     public function run(string $date)
     {
-        return CacheForeverService::call('summary', $date, function() use ($date) {
+        return CacheForeverService::call('summary', function() use ($date) {
             return $this->types->all()->keyBy('type')->toBase()->only(['prototype', 'ninas'])->map(function ($model, $key) use ($date) {
                 $query = $this->orders->type($key)->forDate($date)->notComplete($key);
 
@@ -47,6 +47,6 @@ class FetchSummaryByDate
                     'total' => $query->count(),
                 ];
             });
-        });
+        }, $date);
     }
 }

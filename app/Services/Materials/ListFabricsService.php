@@ -3,6 +3,7 @@
 namespace App\Services\Materials;
 
 use App\Models\Fabric;
+use App\Services\Cache\CacheForeverService;
 use Illuminate\Database\Eloquent\Collection;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
@@ -32,6 +33,8 @@ class ListFabricsService
      */
     public function run(bool $withTrashed = true): Collection
     {
-        return $this->fabrics->withTrashed($withTrashed)->get();
+        return CacheForeverService::call('fabrics', function() use ($withTrashed) {
+            return $this->fabrics->withTrashed($withTrashed)->get();
+        });
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Cache\CacheForgetService;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -33,6 +34,8 @@ class Ink extends Model
      */
     public function addInk(array $data): Ink
     {
+        CacheForgetService::call('inks');
+
         return $this->create($data);
     }
 
@@ -43,6 +46,8 @@ class Ink extends Model
      */
     public function updateInk(array $data): Ink
     {
+        CacheForgetService::call('inks');
+
         return tap($this, function ($instance) use ($data) {
             return $instance->update($data);
         })->fresh();
@@ -53,6 +58,8 @@ class Ink extends Model
      */
     public function deleteInk(): Ink
     {
+        CacheForgetService::call('inks');
+
         return tap($this, function ($instance) {
             return $instance->delete();
         });
@@ -63,6 +70,8 @@ class Ink extends Model
      */
     public function restoreInk(): Ink
     {
+        CacheForgetService::call('inks');
+
         return tap($this, function ($instance) {
             return $instance->restore();
         });

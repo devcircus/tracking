@@ -34,11 +34,7 @@ class SetColorService
     {
         $this->validator->validate($data);
 
-        if ($printer->colors->contains($color)) {
-            $printer->colors()->updateExistingPivot($color->id, $data);
-        } else {
-            $printer->colors()->attach($color->id, $data);
-        }
+        $printer->setPrinterColor($color, $data);
 
         activity()
             ->causedBy(auth()->user())

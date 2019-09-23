@@ -3,6 +3,7 @@
 namespace App\Services\Materials;
 
 use App\Models\Printer;
+use App\Services\Cache\CacheForeverService;
 use Illuminate\Database\Eloquent\Collection;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
@@ -27,11 +28,16 @@ class ListPrintersService
      * Handle the call to the service.
      *
      * @param  string|null  $type
+     * @param  bool  $withTrashed
      */
-    public function run(?string $type = null): Collection
+    public function run(?string $type = null, bool $withTrashed = true): Collection
     {
-        return $type ? $this->printers->whereHas('ink', function ($query) use ($type) {
-            return $query->where('type', $type);
-        })->get() : $this->printers->withTrashed()->get();
+        return $type
+        ? $this->printers->whereHas('ink', function ($query) use ($type, $withTrashed) {
+            return $query->withTrashed($withTrashed)->where('type', $type);
+        })->get()
+        : CacheForeverService::call('printers', function() use ($withTrashed) {
+            return $this->printers->withTrashed($withTrashed)->get();
+        });
     }
 }

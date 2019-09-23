@@ -11,11 +11,11 @@ class CacheForgetService extends CacheService
     /**
      * Handle the call to the service.
      *
-     * @param  string  $prefix
-     * @param  string  $rawSuffix
+     * @param  string  $type
+     * @param  string|null  $rawSuffix
      */
-    public function run(string $prefix, string $rawSuffix): bool
+    public function run(string $type, ?string $rawSuffix = null): bool
     {
-        return $this->forget($this->getCacheKey($prefix, $rawSuffix));
+        return $this->forget($this->getCacheKey($type, $rawSuffix));
     }
 }
