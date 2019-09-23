@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Cache\CacheForgetService;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -80,6 +81,8 @@ class Printer extends Model
      */
     public function addPrinter(array $data): Printer
     {
+        CacheForgetService::call('printers');
+
         $printer = $this->create([
             'name' => $data['name'],
             'model' => $data['model'],
@@ -111,6 +114,8 @@ class Printer extends Model
      */
     public function updatePrinter(array $data): Printer
     {
+        CacheForgetService::call('printers');
+
         return tap($this, function ($instance) use ($data) {
             return $instance->update($data);
         })->fresh();
@@ -121,6 +126,8 @@ class Printer extends Model
      */
     public function deletePrinter(): Printer
     {
+        CacheForgetService::call('printers');
+
         return tap($this, function ($instance) {
             return $instance->delete();
         });
@@ -131,8 +138,27 @@ class Printer extends Model
      */
     public function restorePrinter(): Printer
     {
+        CacheForgetService::call('printers');
+
         return tap($this, function ($instance) {
             return $instance->restore();
         });
+    }
+
+    /**
+     * Set the values for the given color for the printer.
+     *
+     * @param  \App\Models\Color  $color
+     * @param  array  $data
+     */
+    public function setPrinterColor(Color $color, array $data): void
+    {
+        CacheForgetService::call('printer-colors', $this->name);
+
+        if ($this->colors->contains($color)) {
+            $this->colors()->updateExistingPivot($color->id, $data);
+        } else {
+            $this->colors()->attach($color->id, $data);
+        }
     }
 }

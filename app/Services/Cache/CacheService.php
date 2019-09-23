@@ -10,14 +10,14 @@ class CacheService
     /**
      * Get the cache key.
      *
-     * @param  string  $prefix
-     * @param  string  $suffix
+     * @param  string  $type
+     * @param  string|null  $rawSuffix
      */
-    protected function getCacheKey(string $prefix, string $suffix): string
+    protected function getCacheKey(string $type, ?string $rawSuffix = null): string
     {
-        $hashed = md5($suffix);
+        $hashed = $rawSuffix ? md5($rawSuffix) : null;
 
-        return "{$prefix}-{$hashed}";
+        return $hashed ? "{$type}-{$hashed}" : $type;
     }
 
     /**

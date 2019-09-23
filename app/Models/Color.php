@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Cache\CacheForgetService;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -37,6 +38,8 @@ class Color extends Model
      */
     public function addColor(array $data): Color
     {
+        CacheForgetService::call('colors');
+
         return $this->create($data);
     }
 
@@ -47,6 +50,8 @@ class Color extends Model
      */
     public function updateColor(array $data): Color
     {
+        CacheForgetService::call('colors');
+
         return tap($this, function ($instance) use ($data) {
             return $instance->update($data);
         })->fresh();
@@ -57,6 +62,8 @@ class Color extends Model
      */
     public function deleteColor(): Color
     {
+        CacheForgetService::call('colors');
+
         return tap($this, function ($instance) {
             return $instance->delete();
         });
@@ -67,6 +74,8 @@ class Color extends Model
      */
     public function restoreColor(): Color
     {
+        CacheForgetService::call('colors');
+
         return tap($this, function ($instance) {
             return $instance->restore();
         });

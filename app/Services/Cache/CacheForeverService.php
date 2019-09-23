@@ -12,13 +12,14 @@ class CacheForeverService extends CacheService
     /**
      * Handle the call to the service.
      *
-     * @param  string  $prefix
-     * @param  string  $rawSuffix
+     * @param  string  $type
+     * @param  \Closure  $callback
+     * @param  string|null  $rawSuffix
      *
      * @return mixed
      */
-    public function run(string $prefix, string $rawSuffix, Closure $callback)
+    public function run(string $type, Closure $callback, ?string $rawSuffix = null)
     {
-        return $this->forever($this->getCacheKey($prefix, $rawSuffix), $callback);
+        return $this->forever($this->getCacheKey($type, $rawSuffix), $callback);
     }
 }

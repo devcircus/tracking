@@ -3,6 +3,7 @@
 namespace App\Services\Materials;
 
 use App\Models\Color;
+use App\Services\Cache\CacheForeverService;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class ListColorsService
@@ -25,10 +26,14 @@ class ListColorsService
     /**
      * Handle the call to the service.
      *
+     * @param  bool  $withTrashed
+     *
      * @return mixed
      */
-    public function run()
+    public function run(bool $withTrashed = true)
     {
-        return $this->colors->withTrashed()->get();
+        return CacheForeverService::call('colors', function() use ($withTrashed) {
+            return $this->colors->withTrashed($withTrashed)->get();
+        });
     }
 }
