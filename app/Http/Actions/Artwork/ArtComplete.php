@@ -5,9 +5,10 @@ namespace App\Http\Actions\Artwork;
 use App\Models\User;
 use App\Models\Order;
 use PerfectOblivion\Actions\Action;
+use Illuminate\Http\RedirectResponse;
 use App\Services\Artwork\ArtCompleteService;
 use App\Http\Responders\Artwork\ArtCompleteResponder;
-use App\Notifications\ArtComplete as ArtCompleteNotification;
+use App\Services\Notifications\ArtworkCompleteNotificationService;
 
 class ArtComplete extends Action
 {
@@ -31,11 +32,13 @@ class ArtComplete extends Action
 
     /**
      * Execute the action.
+     *
+     * @param  \App\Models\Order  $order
      */
-    public function __invoke(Order $order)
+    public function __invoke(Order $order): RedirectResponse
     {
         if ($complete = ArtCompleteService::call($order)) {
-            $this->users->superAdministrator()->notify(new ArtCompleteNotification($order, auth()->user()));
+            ArtworkCompleteNotificationService::call($order, auth()->user());
         }
 
         return $this->responder->withPayload($complete)->respond();
