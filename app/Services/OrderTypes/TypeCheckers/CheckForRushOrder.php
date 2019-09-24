@@ -21,7 +21,7 @@ class CheckForRushOrder
         if (null === $model->rush_date) return false;
         if ('00/00/00' === $model->rush_date) return false;
         if ('NS' === $model->sew_house) {
-            if (null === $model->print_complete || 0 === (int)$model->print_complete) {
+            if (null === $model->print_complete || '' === $model->print_complete) {
                 return true;
             }
         }

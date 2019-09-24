@@ -18,7 +18,7 @@ class CheckForLateOrder
      */
     public function run(Model $model)
     {
-        if (date_is_valid($model->schedule_date) && now() > $model->schedule_date && 'NS' === $model->print_house && ($model->print_complete === '' || (int)$model->print_complete === 0)) {
+        if (date_is_valid($model->schedule_date) && now() > $model->schedule_date && 'NS' === $model->print_house && ($model->print_complete === '' || $model->print_complete === null)) {
             return true;
         }
         if (date_is_valid($model->schedule_date) && now()->addWeek() >= $this->getScheduleDate($model) && '34' === $model->sew_house && 'SU' === $model->cut_house) {

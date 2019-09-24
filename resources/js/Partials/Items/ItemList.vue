@@ -85,16 +85,14 @@ export default {
             this.$inertia.visit(this.route('items.create'));
         },
         restoreItem (id) {
-            this.$showDialog('warning', 'item', 'restore',
-                () => {
+            this.$showDialog('warning', 'item', 'restore', () => {
                     this.$inertia.put(this.route('items.restore', id), null, { replace: false, preserveScroll: true, preserveState: true });
                     this.$modal.hide('dialogModal');
                 }
             );
         },
         destroyItem (id) {
-            this.$showDialog('warning', 'item', 'delete',
-                () => {
+            this.$showDialog('warning', 'item', 'delete', () => {
                     this.$inertia.delete(this.route('items.destroy', id), { replace: false, preserveScroll: true, preserveState: true });
                     this.$modal.hide('dialogModal');
                 }

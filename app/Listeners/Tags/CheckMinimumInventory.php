@@ -6,7 +6,7 @@ use App\Events\Tags\TagFinished;
 use App\Events\Items\ItemNeedsReordered;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Services\Notifications\SendReorderNotificationService;
+use App\Services\Notifications\ReorderNotificationService;
 
 class CheckMinimumInventory implements ShouldQueue
 {
@@ -23,7 +23,7 @@ class CheckMinimumInventory implements ShouldQueue
     public function handle(TagFinished $event): void
     {
         if ($event->tag->item->reachedMinimumInventory()) {
-            SendReorderNotificationService::call($event->tag->item);
+            ReorderNotificationService::call($event->tag->item);
             ItemNeedsReordered::broadcast($event->tag->item);
         }
     }

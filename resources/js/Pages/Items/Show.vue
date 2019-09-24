@@ -71,22 +71,19 @@ export default {
     methods: {
         submit () {
             this.sending = true;
-            this.$inertia.put(this.route('items.update', this.item.id), this.form)
-            .then(() => {
+            this.$inertia.put(this.route('items.update', this.item.id), this.form).then(() => {
                 this.sending = false;
              });
         },
         restore () {
-            this.$showDialog('warning', 'item', 'restore',
-                () => {
+            this.$showDialog('warning', 'item', 'restore', () => {
                     this.$inertia.put(this.route('items.restore', this.item.id), null, { replace: false, preserveScroll: true, preserveState: true });
                     this.$modal.hide('dialogModal');
                 }
             );
         },
         destroy () {
-            this.$showDialog('warning', 'item', 'delete',
-                () => {
+            this.$showDialog('warning', 'item', 'delete', () => {
                     this.$inertia.delete(this.route('items.destroy', this.item.id), { replace: false, preserveScroll: true, preserveState: true });
                     this.$modal.hide('dialogModal');
                 }

@@ -49,7 +49,7 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
                 'days' => $row['inprocs'],
                 'remake' => 'R' == $row['orrmk'] ? 1 : 0,
                 'print_start' => $row['sntdte'],
-                'print_complete' => $print_complete,
+                'print_complete' => $print_complete == 0 ? null ? $print_complete,
                 'received_date' => $row['rcddt'],
                 'cut_date' => $row['cutdt'],
                 'rush_date' => $row['rshdt'],
