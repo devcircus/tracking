@@ -49,7 +49,7 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
                 'days' => $row['inprocs'],
                 'remake' => 'R' == $row['orrmk'] ? 1 : 0,
                 'print_start' => $row['sntdte'],
-                'print_complete' => $print_complete == 0 ? null : $print_complete,
+                'print_complete' => 0 == $print_complete ? null : $print_complete,
                 'received_date' => $row['rcddt'],
                 'cut_date' => $row['cutdt'],
                 'rush_date' => $row['rshdt'],
@@ -108,7 +108,7 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
      */
     private function rowShouldBeIgnored($item): bool
     {
-        return preg_match('/(^g?id)|(^cm)[a-z]?+[A-Z]?+[0-9]?+\s*?/i', $item);
+        return preg_match('/(^g?id)|(^cm)|(^cg)|(^mf)[a-z]?+[A-Z]?+[0-9]?+\s*?/i', $item);
     }
 
     /**
