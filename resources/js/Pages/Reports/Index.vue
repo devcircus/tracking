@@ -14,11 +14,12 @@
                         <th class="text-white font-bold px-6 pt-6 pb-4">SP</th>
                         <th class="text-white font-bold px-6 pt-6 pb-4">RF</th>
                         <th class="text-white font-bold px-6 pt-6 pb-4">Bags</th>
+                        <th class="text-white font-bold px-6 pt-6 pb-4">HJ</th>
                         <th class="text-white font-bold px-6 pt-6 pb-4">&nbsp;</th>
                     </tr>
                     <tr v-if="inProgress" class="bg-white hover:bg-gray-100 focus-within:bg-gray-100">
                         <td class="border-t" colspan="9">
-                            <span class="px-6 py-4 text-green-600 font-semibold">Uploading New Report. Data will refresh shortly...</span>
+                            <span class="px-6 py-4 text-green-600 font-semibold">Report generation started. Data will refresh shortly...</span>
                             <img class="inline-block py-4" src="images/loader-on-white.gif" />
                         </td>
                     </tr>
@@ -72,6 +73,11 @@
                         <td class="border-t">
                             <inertia-link class="px-6 py-4 flex items-center" :href="route('reports.comprehensive.show', report.timestamp)" tabindex="-1">
                                 {{ report.quantities.bag }}
+                            </inertia-link>
+                        </td>
+                        <td class="border-t">
+                            <inertia-link class="px-6 py-4 flex items-center" :href="route('reports.comprehensive.show', report.timestamp)" tabindex="-1">
+                                {{ report.quantities.hj }}
                             </inertia-link>
                         </td>
                         <td class="border-t w-px">
