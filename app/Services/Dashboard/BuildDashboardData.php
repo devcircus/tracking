@@ -56,6 +56,7 @@ class BuildDashboardData
                     ->where('report_created', $date)
                     ->selectRaw('count(*) as total')
                     ->selectRaw("count(case when sew_house = 'NS' and print_house = '' then 1 end) as new")
+                    ->selectRaw("count(case when sew_house = 'SU' and cut_house = 'SU' and style = 'HJPOLY' then 1 end) as hj")
                     ->selectRaw("count(case when sew_house = 'NS' and print_complete is null then 1 end) as prototype")
                     ->selectRaw("count(case when (print_house = 'NS' and CURDATE() > schedule_date) or (sew_house = '34' and cut_house = 'SU' and date_add(CURDATE(), INTERVAL 7 DAY) >= schedule_date) then 1 end) as late")
                     ->selectRaw("count(case when sew_house = 'NS' and print_complete is null and rush_date is not null then 1 end) as rush")

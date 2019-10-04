@@ -46,6 +46,7 @@
                                 <th class="hidden xl:table-cell text-blue-900 font-bold px-6 pt-6 pb-4">SP</th>
                                 <th class="hidden xl:table-cell text-blue-900 font-bold px-6 pt-6 pb-4">RF</th>
                                 <th class="hidden xl:table-cell text-blue-900 font-bold px-6 pt-6 pb-4">Bags</th>
+                                <th class="hidden xl:table-cell text-blue-900 font-bold px-6 pt-6 pb-4">HJ</th>
                                 <th class="text-blue-900 font-bold px-6 pt-6 pb-4">&nbsp;</th>
                             </tr>
                             <tr v-for="report in reports" :key="report.timestamp" class="bg-white hover:bg-gray-100 focus-within:bg-gray-100 cursor-pointer" @click.stop="showReport(report.timestamp)">
@@ -98,6 +99,11 @@
                                 <td class="hidden xl:table-cell border-t px-6 py-4">
                                     <span class="flex items-center" tabindex="-1">
                                         {{ report.quantities.bag }}
+                                    </span>
+                                </td>
+                                <td class="hidden xl:table-cell border-t px-6 py-4">
+                                    <span class="flex items-center" tabindex="-1">
+                                        {{ report.quantities.hj }}
                                     </span>
                                 </td>
                                 <td class="border-t w-px">

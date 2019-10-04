@@ -12,7 +12,7 @@ class DebugbarServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Debugbar::disable();
+        Debugbar::disable();
 
         if (! config('app.debug')) {
             Debugbar::disable();
