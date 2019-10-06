@@ -1,6 +1,6 @@
 <template>
     <div class="relative">
-        <loading-button v-if="showUpdateInfoButton" class="btn btn-blue fixed bottom-0 right-0 mb-4 mr-4" type="button" :loading="sendingInfoUpdate" @clicked="batchUpdateInfo()">Batch Update</loading-button>
+        <loading-button v-if="showUpdateInfoButton" class="btn btn-blue fixed bottom-0 right-0 mb-4 mr-4 z-10" type="button" :loading="sendingInfoUpdate" @clicked="batchUpdateInfo()">Batch Update</loading-button>
         <div class="flex bg-blue-900">
             <div class="p-4">
                 <h1 class="text-2xl text-white font-semibold">{{ type | capitalize }} Orders</h1>
