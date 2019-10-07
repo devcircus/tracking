@@ -14,10 +14,10 @@ class ShowPrinterColorsPdf extends Action
     private $responder;
 
     /**
-    * Construct a new ShowPrinterColorsPdf action.
-    *
-    * @param  \App\Http\Responders\Color\Pdf\ShowPrinterColorsPdfResponder  $responder
-    */
+     * Construct a new ShowPrinterColorsPdf action.
+     *
+     * @param  \App\Http\Responders\Color\Pdf\ShowPrinterColorsPdfResponder  $responder
+     */
     public function __construct(ShowPrinterColorsPdfResponder $responder)
     {
         $this->responder = $responder;

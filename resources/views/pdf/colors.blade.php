@@ -2,7 +2,7 @@
 
 @section('content')
 <table class="table table-striped">
-    <caption class="heading">{{ ucfirst($printer->name) }} Colors ({{ $printer->ink->type }})</caption>
+    <caption class="heading">{{ ucfirst($printer->model) }} ({{ $printer->ink->type }}) Colors</caption>
     <thead>
         <tr>
             <th>Code</th>
@@ -15,8 +15,8 @@
         @forelse($colors as $color)
             <tr>
                 <td>{{ $color->code }}</td>
-                <td>{{ $color->type }}</td>
-                <td>{{ $color->pivot->approved }}</td>
+                <td>{{ $color->name }}</td>
+                <td>{{ $color->pivot->approved ? 'yes' : 'no' }}</td>
                 <td>{{ $color->pivot->cyan }}-{{ $color->pivot->magenta }}-{{ $color->pivot->yellow }}-{{ $color->pivot->black }}</td>
             </tr>
         @empty
