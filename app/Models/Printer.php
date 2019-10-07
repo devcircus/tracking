@@ -71,7 +71,7 @@ class Printer extends Model
      */
     public function getColors(): Collection
     {
-        return $this->colors()->get();
+        return $this->colors()->orderBy('code', 'asc')->get();
     }
 
     /**
@@ -92,7 +92,7 @@ class Printer extends Model
 
         if ($existing_id = $data['copy_printer_id']) {
             $existingPrinter = $this->find($existing_id);
-            foreach($existingPrinter->colors as $color) {
+            foreach ($existingPrinter->colors as $color) {
                 $printer->colors()->attach($color->id, [
                     'approved' => $color->pivot->approved,
                     'cyan' => $color->pivot->cyan,
