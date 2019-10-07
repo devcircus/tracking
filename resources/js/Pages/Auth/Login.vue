@@ -8,7 +8,7 @@
                         <h1 class="text-center text-gray-800 font-bold text-2xl">Welcome Back!</h1>
                         <div class="mx-auto mt-6 w-24 border-b-2" />
                         <text-input v-model="form.email" :errors="getErrors('email')" class="mt-10" label="Email" type="email" autofocus autocapitalize="off" />
-                        <text-input v-model="form.password" class="mt-6" label="Password" type="password" />
+                        <text-input v-model="form.password" :errors="getErrors('password')" class="mt-6" label="Password" type="password" />
                         <label class="mt-6 select-none flex items-center" for="remember">
                             <input id="remember" v-model="form.remember" class="mr-1" type="checkbox">
                             <span class="text-sm">Remember Me</span>

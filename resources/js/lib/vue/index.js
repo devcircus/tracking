@@ -6,7 +6,6 @@ import Dates from 'Mixins/Dates';
 import VueStash from 'vue-stash';
 import VModal from 'vue-js-modal';
 import PortalVue from 'portal-vue';
-import Objects from '@/plugins/Objects';
 import Dialogs from '@/plugins/Dialogs';
 import GetsErrors from 'Mixins/GetsErrors';
 import ParsesUrls from 'Mixins/ParsesUrls';
@@ -42,9 +41,6 @@ Vue.use(Dispatcher);
 
 // Use Dialogs
 Vue.use(Dialogs);
-
-// Use Objects
-Vue.use(Objects);
 
 // Use VueHead
 Vue.use(VueHead, {

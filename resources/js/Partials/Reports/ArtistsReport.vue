@@ -30,7 +30,7 @@
                 </div>
                 <template slot="table-row" slot-scope="props">
                     <span v-if="props.column.field == 'actions'" class="flex justify-between px-3">
-                        <checkbox v-if="showCheckboxes" class="mb-2" :width="6" :height="6" :checked="selected[props.row.id]" @input="selectVoucher(props.row)" />
+                        <checkbox v-if="showCheckboxes" class="mb-2" :width="6" :height="6" :checked="selected[props.row.id] ? selected[props.row.id]['selected'] : false" @input="selectVoucher(props.row)" />
                         <toggle v-if="userCanToggleArt()"
                                 :value="props.row.art_complete ? true : false"
                                 on-text="Complete"
@@ -49,7 +49,7 @@
             </vue-good-table>
         </div>
         <div v-else>
-            <div v-if="notEmpty" class="flex flex-col w-full mx-auto">
+            <div v-if="vouchersNotEmpty" class="flex flex-col w-full mx-auto">
                 <div v-for="voucher in rows" :key="voucher.id" class="flex flex-col bg-white px-3 py-3 border-b">
                     <div class="flex mb-4 mt-4">
                         <span class="w-160p font-semibold text-lg uppercase text-gray-700">Schedule Date: </span>
@@ -132,17 +132,17 @@ export default {
         rows () {
             return this.vouchers;
         },
-        notEmpty () {
-            return this.vouchers.length > 0;
+        vouchersNotEmpty () {
+            return this.isEmpty(this.vouchers);
         },
-        isEmpty () {
-            return ! this.notEmpty;
+        vouchersEmpty () {
+            return ! this.vouchersNotEmpty;
         },
     },
     watch: {
         selected: {
             handler (newValue) {
-                if (this.$collection(this.selected).count() > 0) {
+                if (this.count(this.selected) > 0) {
                     this.showBatchUpdateButton = true;
                 } else {
                     this.showBatchUpdateButton = false;
@@ -168,10 +168,14 @@ export default {
             this.$refs['table'].globalSearchTerm = '';
         },
         selectVoucher (row) {
+            // if the row is already selected, set to false, otherwise true
             row.selected = row.selected ? false : true;
-            let selectedCollection = this.$collection(this.selected);
 
-            if (selectedCollection.where('id', row.id).first() !== undefined) {
+            // check to see if this row is already selected
+            let first = this.firstWhere(this.selected, ['id', row.id]);
+
+            // if row is already selected, remove from the 'selected' collection, otherwise add it to the selected collection
+            if (first !== undefined) {
                 this.$delete(this.selected, row.id);
             } else {
                 this.selected = Object.assign({}, this.selected, {
@@ -180,7 +184,7 @@ export default {
             }
         },
         batchUpdateArtwork () {
-            if (this.$collection(this.selected).count() > 0) {
+            if (this.count(this.selected) > 0) {
                 this.sendingArtworkUpdate = true;
                 this.$inertia.post(
                     this.route('vouchers.art.batch'),
