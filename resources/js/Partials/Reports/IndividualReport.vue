@@ -50,7 +50,7 @@
                     Info
                 </span>
             </div>
-            <template v-if="notEmpty">
+            <template v-if="vouchersNotEmpty">
                 <div v-for="item in data" :key="item.id" class="flex flex-wrap justify-between items-center border-l border-r border-b border-blue-300 p-4 hover:bg-gray-300 cursor-pointer" @click.prevent.stop="showActionModal(type, item)">
                     <span class="hidden xl:block lg:w-120p text-base xl:text-lg font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
                         {{ shortDate(item.schedule_date) }}
@@ -121,11 +121,11 @@ export default {
         }
     },
     computed: {
-        notEmpty () {
-            return this.data.length > 0;
+        vouchersNotEmpty () {
+            return this.count(this.data) > 0;
         },
-        isEmpty () {
-            return ! this.notEmpty;
+        vouchersEmpty () {
+            return ! this.vouchersNotEmpty;
         },
     },
     watch: {
@@ -184,22 +184,22 @@ export default {
         },
         setNewInfo (event) {
             const key = parseInt(event.target.id);
-            const voucher = this.$collection(this.data).where('id', key).first();
+            const voucher = this.firstWhere(this.data, ['id', key]);
             let currentValue = this.updatedInfo[key];
             let newValue = event.target.value;
 
-            if (newValue === voucher.info && this.$collection(this.updatedInfo).has(key)) {
+            if (newValue === voucher.info && this.contains(this.updatedInfo, key)) {
                 delete this.updatedInfo[key];
             } else if (newValue != voucher.info && newValue != currentValue) {
                 this.updatedInfo[key] = newValue;
             }
 
-            if (this.$collection(this.updatedInfo).count() === 0) {
+            if (this.count(this.updatedInfo) === 0) {
                 this.showUpdateInfoButton = false;
             }
         },
         batchUpdateInfo () {
-            if (this.$collection(this.updatedInfo).count() > 0) {
+            if (this.count(this.updatedInfo) > 0) {
                 this.sendingInfoUpdate = true;
                 this.$inertia.post(
                     this.route('orders.info.batch.update'),

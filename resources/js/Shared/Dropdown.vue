@@ -3,7 +3,7 @@
         <slot />
         <portal v-if="show" to="dropdown">
             <div>
-                <div style="position: fixed; top: 0; right: 0; left: 0; bottom: 0; z-index: 99998; background: black; opacity: .2" @click="toggle" />
+                <div style="position: fixed; top: 0; right: 0; left: 0; bottom: 0; z-index: 99998; background: black; opacity: .2" @click="close()" />
                 <div ref="dropdown" style="position: absolute; z-index: 99999;" @click.stop>
                     <slot name="dropdown" />
                 </div>

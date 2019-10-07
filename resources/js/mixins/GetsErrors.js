@@ -1,3 +1,5 @@
+import { has, get } from 'lodash';
+
 export default {
     data () {
         return {
@@ -6,11 +8,12 @@ export default {
     },
     methods: {
         getErrors (field) {
-            let errors = this.$collection(this.$page.errors);
-            if (errors.has(this.errorBag)) {
-                let errorBag = this.$collection(errors.get(this.errorBag));
-                if (errorBag.has(field)) {
-                    return errorBag.get(field);
+            let errors = this.$page.errors;
+
+            if (has(errors, this.errorBag)) {
+                let errorBag = get(errors, this.errorBag);
+                if (has(errorBag, field)) {
+                    return get(errorBag, field);
                 }
             }
 
