@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notification as IlluminateNotification;
 class NotificationService
 {
     /** @var \App\Models\User */
-    private $users;
+    protected $users;
 
     /**
      * Construct a new ReorderNotificationService.
