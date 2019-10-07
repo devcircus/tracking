@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Services\Order\SetTypesForOrdersService;
 use App\Services\Report\MarkReportsReadyService;
 use App\Services\Upload\StoreUploadInDatabaseService;
+use App\Services\Order\CopyManuallyAddedOrdersService;
 
 class ProcessNewSpreadsheet implements ShouldQueue
 {
@@ -23,6 +24,7 @@ class ProcessNewSpreadsheet implements ShouldQueue
      */
     public function handle(SpreadsheetUploaded $event): void
     {
+        CopyManuallyAddedOrdersService::call($event->date);
         StoreUploadInDatabaseService::call($event->date, $event->user);
         SetTypesForOrdersService::call($event->date);
         MarkReportsReadyService::call($event->date);

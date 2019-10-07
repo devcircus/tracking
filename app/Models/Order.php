@@ -7,8 +7,8 @@ use Illuminate\Support\Collection;
 use App\Models\Traits\QueriesOrders;
 use App\Models\Traits\FormatsOrderDates;
 use Illuminate\Database\Eloquent\Builder;
-use App\Services\OrderTypes\SetOrderTypes;
 use App\Services\Cache\CacheForgetService;
+use App\Services\OrderTypes\SetOrderTypes;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -29,6 +29,7 @@ class Order extends Model
     /** @var bool */
     protected $casts = [
         'complete' => 'boolean',
+        'manually_added' => 'boolean',
     ];
 
     /** @var array */
@@ -129,6 +130,7 @@ class Order extends Model
         $order = $this->updateOrCreate([
             'order_number' => $data['order_number'],
             'voucher' => $data['voucher'],
+            'report_created' => $data['report_created'],
         ], [
             'schedule_date' => $data['schedule_date'],
             'sew_house' => $data['sew_house'],
@@ -144,8 +146,8 @@ class Order extends Model
             'cut_date' => $data['cut_date'],
             'style' => $data['style'],
             'cut_house' => $data['cut_house'],
-            'report_created' => $data['report_created'],
             'info' => $data['info'],
+            'manually_added' => true,
         ]);
 
         SetOrderTypes::call($order);
