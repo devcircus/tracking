@@ -27,7 +27,7 @@
                                 <span class="text-blue-800 font-semibold group-hover:text-blue-500 focus:text-blue-500 mr-1 whitespace-no-wrap">
                                     {{ $page.auth.user.name }}
                                 </span>
-                                <icon-base icon-fill="fill-blue-800" classes="group-hover:fill-blue-500 focus:fill-blue-500">
+                                <icon-base view="24 24" icon-fill="fill-blue-800" classes="group-hover:fill-blue-500 focus:fill-blue-500">
                                     <cheveron-down />
                                 </icon-base>
                             </div>

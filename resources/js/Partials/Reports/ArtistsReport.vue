@@ -19,7 +19,7 @@
                             <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
                                 <span class="inline text-sm">Options</span>
                             </div>
-                            <icon-base icon-fill="fill-blue-900" icon-name="cheveron-down" classes="group-hover:fill-blue-700 focus:fill-blue-700 ml-2 mt-1">
+                            <icon-base view="24 24" icon-fill="fill-blue-900" icon-name="cheveron-down" classes="group-hover:fill-blue-700 focus:fill-blue-700 ml-2 mt-1">
                                 <cheveron-down />
                             </icon-base>
                         </div>

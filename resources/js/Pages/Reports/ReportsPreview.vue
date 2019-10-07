@@ -108,7 +108,7 @@
                                 </td>
                                 <td class="border-t w-px">
                                     <span class="px-4 flex items-center" tabindex="-1">
-                                        <icon-base icon-fill="fill-gray-500" classes="ml-2">
+                                        <icon-base view="24 24" icon-fill="fill-gray-500" classes="ml-2">
                                             <cheveron-right />
                                         </icon-base>
                                     </span>
