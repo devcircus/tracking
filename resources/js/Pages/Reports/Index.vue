@@ -18,7 +18,7 @@
                         <th class="text-white font-bold px-6 pt-6 pb-4">&nbsp;</th>
                     </tr>
                     <tr v-if="inProgress" class="bg-white hover:bg-gray-100 focus-within:bg-gray-100">
-                        <td class="border-t" colspan="9">
+                        <td class="border-t" colspan="11">
                             <span class="px-6 py-4 text-green-600 font-semibold">Report generation started. Data will refresh shortly...</span>
                             <img class="inline-block py-4" src="images/loader-on-white.gif" />
                         </td>
