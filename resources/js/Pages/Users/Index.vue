@@ -36,7 +36,7 @@
                     </td>
                     <td class="border-t w-px">
                         <inertia-link class="px-4 flex items-center" :href="route('users.edit', user.id)" tabindex="-1">
-                            <icon-base icon-fill="fill-gray-500" classes="ml-2">
+                            <icon-base view="24 24" icon-fill="fill-gray-500" classes="ml-2">
                                 <cheveron-right />
                             </icon-base>
                         </inertia-link>

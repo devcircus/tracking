@@ -34,7 +34,7 @@ export default {
         },
         view: {
             type: String,
-            default: '24 24',
+            default: '20 20',
         },
     },
     computed: {
