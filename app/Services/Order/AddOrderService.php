@@ -12,7 +12,7 @@ class AddOrderService
     use SelfCallingService;
 
     /** @var \App\Models\Order */
-    private $order;
+    private $orders;
 
     /** @var \App\Services\Order\Validation\AddOrderServiceValidation */
     private $validator;
@@ -20,12 +20,12 @@ class AddOrderService
     /**
      * Construct a new AddOrderService.
      *
-     * @param  \App\Models\Order  $order
+     * @param  \App\Models\Order  $orders
      * @param  \App\Services\Order\Validation\AddOrderServiceValidation  $validator
      */
-    public function __construct(Order $order, AddOrderServiceValidation $validator)
+    public function __construct(Order $orders, AddOrderServiceValidation $validator)
     {
-        $this->order = $order;
+        $this->orders = $orders;
         $this->validator = $validator;
     }
 
@@ -39,7 +39,7 @@ class AddOrderService
     public function run(OrderData $order)
     {
         $this->validator->validate($order->toArray());
-        $order = $this->order->saveOrder($order->toArray());
+        $order = $this->orders->saveOrder($order->toArray());
 
         activity()
             ->causedBy(auth()->user())
