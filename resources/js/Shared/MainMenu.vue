@@ -2,7 +2,7 @@
     <div :class="display">
         <div :class="margin">
             <inertia-link class="flex items-center group py-3" :href="route('dashboard')">
-                <icon-base :width="20" :height="20" :dynamic-classes="isPath('dashboard') ? 'fill-blue-300' : 'fill-white group-hover:fill-blue-300'" icon-name="dashboard" classes="mt-1 mr-2">
+                <icon-base view="24 24" :width="20" :height="20" :dynamic-classes="isPath('dashboard') ? 'fill-blue-300' : 'fill-white group-hover:fill-blue-300'" icon-name="dashboard" classes="mt-1 mr-2">
                     <dashboard />
                 </icon-base>
                 <div :class="isPath('dashboard') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-xl">Dashboard</div>
