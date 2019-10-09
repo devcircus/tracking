@@ -11,7 +11,7 @@
                 <h1 class="mb-4 font-semibold text-lg text-gray-800 uppercase">Upload Report</h1>
                 <div v-if="$page.auth.user.can.administerReports" class="mb-6 flex items-center">
                     <file-upload v-model="file" class="mr-8" prompt="Choose a file" button-classes="btn">
-                        <icon-base icon-fill="fill-white" icon-name="folder-add" classes="mr-2 flex-no-shrink">
+                        <icon-base view="24 24" icon-fill="fill-white" icon-name="folder-add" classes="mr-2 flex-no-shrink">
                             <folder-add />
                         </icon-base>
                     </file-upload>
