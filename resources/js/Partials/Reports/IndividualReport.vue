@@ -6,21 +6,28 @@
                 <h1 class="text-2xl text-white font-semibold">{{ type | capitalize }} Orders</h1>
             </div>
             <div class="ml-auto p-4 whitespace-no-wrap">
-                <portal-target :name="`dropdown-${type}`" slim />
-                <dropdown class="block" placement="bottom-end" :name="`dropdown-${type}`">
-                    <svg class="fill-white w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
-                    <div slot="dropdown" class="flex flex-col justify-between mt-2 px-8 py-4 shadow-lg bg-white border-2 border-blue-500 rounded">
-                        <span v-if="type === 'prototype' && $page.auth.user.can.administerReports" class="uppercase text-base text-blue-900 font-semibold hover:text-blue-400 px-2 py-1 cursor-pointer" @click="addVoucher()">
-                            Add Voucher
-                        </span>
-                        <inertia-link v-if="group" :href="route('reports.individual.show', { type: type, date: timestamp })" class="uppercase text-base text-blue-900 font-semibold hover:text-blue-400 px-2 py-1">
-                            View
+                <new-dropdown class="block" width="180">
+                    <div slot="trigger">
+                        <svg class="fill-white w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
+                    </div>
+                    <div slot="dropdown" class="flex flex-col justify-between mt-2 py-2 shadow-lg bg-white rounded">
+                        <div v-if="type === 'prototype' && $page.auth.user.can.administerReports" class="flex group hover:bg-blue-500 px-8" @click="addVoucher()">
+                            <span class="uppercase text-base text-blue-900 font-semibold py-1 cursor-pointer group-hover:text-white">
+                                Add Voucher
+                            </span>
+                        </div>
+                        <inertia-link :href="route('reports.individual.show', { type: type, date: timestamp })" class="flex group hover:bg-blue-500 px-8">
+                            <span v-if="group" class="uppercase text-base text-blue-900 font-semibold py-1 group-hover:text-white">
+                                View
+                            </span>
                         </inertia-link>
-                        <a :href="route('pdf.show', { type: type, date: timestamp })" target="_blank" class="uppercase text-base text-blue-900 font-semibold hover:text-blue-400 px-2 py-1" @click="hideDropdown()">
-                            Pdf
+                        <a :href="route('pdf.show', { type: type, date: timestamp })" target="_blank" class="flex group hover:bg-blue-500 px-8" @click="hideDropdown()">
+                            <span class="uppercase text-base text-blue-900 font-semibold py-1 group-hover:text-white">
+                                Pdf
+                            </span>
                         </a>
                     </div>
-                </dropdown>
+                </new-dropdown>
             </div>
         </div>
         <div class="flex flex-col">
@@ -106,11 +113,11 @@
 <script>
 import { map } from 'lodash';
 import moment from 'moment';
-import Dropdown from '@/Shared/Dropdown.vue';
+import NewDropdown from '@/Shared/NewDropdown.vue';
 import LoadingButton from '@/Shared/LoadingButton.vue';
 
 export default {
-    components: { Dropdown, LoadingButton },
+    components: { NewDropdown, LoadingButton },
     props: ['data', 'type', 'date', 'timestamp', 'group'],
     data () {
         return {

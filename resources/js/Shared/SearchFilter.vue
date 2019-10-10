@@ -1,8 +1,8 @@
 <template>
     <div class="flex items-center">
         <div class="flex w-full bg-white shadow rounded">
-            <dropdown class="px-4 md:px-6 rounded-l border-r hover:bg-gray-100 focus:border-white focus:z-10" placement="bottom-start">
-                <div class="flex items-baseline">
+            <new-dropdown class="px-4 md:px-6 rounded-l border-r hover:bg-gray-100 focus:border-white focus:z-10" right="10">
+                <div slot="trigger" class="flex items-baseline">
                     <span class="text-gray-900 hidden md:inline">Filter</span>
                     <svg class="w-2 h-2 fill-gray-800 md:ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 961.243 599.998">
                         <path d="M239.998 239.999L0 0h961.243L721.246 240c-131.999 132-240.28 240-240.624 239.999-.345-.001-108.625-108.001-240.624-240z" />
@@ -11,7 +11,7 @@
                 <div slot="dropdown" class="mt-2 px-4 py-6 w-screen shadow-lg bg-white rounded" :style="{ maxWidth: `${maxWidth}px` }">
                     <slot />
                 </div>
-            </dropdown>
+            </new-dropdown>
             <input class="relative w-full px-6 py-3 rounded-r" autocomplete="off" type="text" name="search" placeholder="Search…" :value="value" @input="$emit('input', $event.target.value)">
         </div>
         <button class="ml-3 text-sm text-gray-700 hover:text-gray-800 focus:text-blue-500" type="button" @click="$emit('reset')">Reset</button>
@@ -19,11 +19,11 @@
 </template>
 
 <script>
-import Dropdown from '@/Shared/Dropdown';
+import NewDropdown from '@/Shared/NewDropdown';
 
 export default {
     components: {
-        Dropdown,
+        NewDropdown,
     },
     props: {
         value: String,

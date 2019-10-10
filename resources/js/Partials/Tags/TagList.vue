@@ -1,18 +1,18 @@
 <script>
+import Plus from '@/Shared/Icons/Plus';
 import IconBase from '@/Shared/IconBase';
 import { filter, concat } from 'lodash';
 import Checkbox from '@/Shared/Checkbox';
-import Dropdown from '@/Shared/Dropdown';
-import ListAdd from '@/Shared/Icons/ListAdd';
 import { VueGoodTable } from 'vue-good-table';
+import NewDropdown from '@/Shared/NewDropdown';
 import CheveronDown from '@/Shared/Icons/CheveronDown';
 
 export default {
     components: {
-        ListAdd,
+        Plus,
         IconBase,
-        Dropdown,
         Checkbox,
+        NewDropdown,
         VueGoodTable,
         CheveronDown,
     },
@@ -116,8 +116,8 @@ export default {
     <div>
         <div class="w-full flex bg-blue-800 p-4">
             <h1 class="text-white text-lg md:text-xl font-semibold uppercase">Recently Added</h1>
-            <icon-base icon-fill="fill-white" icon-name="list-add" classes="ml-2">
-                <list-add />
+            <icon-base view="24 24 " icon-fill="fill-white" icon-name="add" classes="ml-2">
+                <plus />
             </icon-base>
         </div>
         <div>
@@ -125,10 +125,10 @@ export default {
                 <div slot="emptystate">
                     No tags found.
                 </div>
-                <div slot="table-actions" class="flex justify-between">
+                <div slot="table-actions" class="flex items-center justify-between">
                     <span class="text-blue-500 text-sm font-semibold leading-loose mr-2 inline-block mt-tenth cursor-pointer" @click="clearSearch()">Clear</span>
-                    <dropdown class="mr-1" placement="bottom-end">
-                        <div class="flex items-center cursor-pointer select-none group">
+                    <new-dropdown class="mr-1" right="10" width="180">
+                        <div slot="trigger" class="flex items-center cursor-pointer select-none group">
                             <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
                                 <span class="inline text-gray-800 text-sm font-semibold">Options</span>
                             </div>
@@ -141,7 +141,7 @@ export default {
                             <checkbox v-model="showFinished" class="mb-2" label="Include finished tags: " :width="4" :height="4" :checked="showFinished" @input="hideDropdown()" />
                             <checkbox v-if="$page.auth.user.can.deleteTags" v-model="showTrashed" class="mb-2" label="Include deleted tags: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
                         </div>
-                    </dropdown>
+                    </new-dropdown>
                 </div>
                 <template slot="table-row" slot-scope="props">
                     <span v-if="props.column.field == 'actions'" class="flex justify-between px-3">
