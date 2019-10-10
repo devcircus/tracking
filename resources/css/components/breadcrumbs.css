@@ -3,7 +3,7 @@ ol.breadcrumb {
 }
 
 ol.breadcrumb li {
-    @apply text-2xl font-semibold text-blue-700 mr-2;
+    @apply text-lg font-semibold text-blue-700 mr-2;
 }
 
 ol.breadcrumb li a{
@@ -15,10 +15,22 @@ ol.breadcrumb li a:hover {
 }
 
 ol.breadcrumb li::after {
-  content: ">";
-  margin-left: 12px;
+    content: ">";
+    margin-left: 12px;
 }
 
 ol.breadcrumb li.active::after {
-  content: "";
+    content: "";
+}
+
+@screen md {
+    ol.breadcrumb li {
+        @apply text-xl;
+    }
+}
+
+@screen lg {
+    ol.breadcrumb li {
+        @apply text-2xl;
+    }
 }
