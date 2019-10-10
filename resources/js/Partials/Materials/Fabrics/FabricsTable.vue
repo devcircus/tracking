@@ -12,39 +12,57 @@
             No fabrics found.
         </div>
         <template slot="table-actions">
-            <span class="text-blue-500 text-sm font-semibold leading-loose mr-2 inline-block mt-tenth cursor-pointer" @click="clearSearch()">Clear</span>
-            <dropdown class="mt-1 mr-1" placement="bottom-end">
-                <div class="flex items-center cursor-pointer select-none group">
-                    <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
-                        <span class="inline text-sm">Options</span>
+            <div class="flex">
+                <span class="text-blue-500 text-sm font-semibold leading-loose mr-2 inline-block mt-tenth cursor-pointer" @click="clearSearch()">Clear</span>
+                <new-dropdown class="mt-1 mr-1" right="10" width="180">
+                    <div slot="trigger" class="flex items-center cursor-pointer select-none group">
+                        <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
+                            <span class="inline text-sm">Options</span>
+                        </div>
+                        <icon-base view="24 24" icon-fill="fill-blue-900" icon-name="cheveron-down" classes="group-hover:fill-blue-700 focus:fill-blue-700">
+                            <cheveron-down />
+                        </icon-base>
                     </div>
-                    <icon-base view="24 24" icon-fill="fill-blue-900" icon-name="cheveron-down" classes="group-hover:fill-blue-700 focus:fill-blue-700">
-                        <cheveron-down />
-                    </icon-base>
-                </div>
-                <div slot="dropdown" class="flex flex-col mt-2 p-2 shadow-lg bg-white rounded">
-                    <checkbox v-model="showTrashed" class="mb-2" label="Include deleted fabrics: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
-                    <inertia-link v-if="$page.auth.user.can.createFabrics" :href="route('fabrics.create')" class="text-blue-600 text-sm font-semibold uppercase hover:text-blue-800 mb-2">New Fabric</inertia-link>
-                    <a :href="route('fabrics.pdf')" target="_blank" class="text-red-500 font-semibold text-sm uppercase cursor-pointer" @click="hideDropdown()">View PDF</a>
-                </div>
-            </dropdown>
+                    <div slot="dropdown" class="flex flex-col mt-2 shadow-lg bg-white rounded">
+                        <span class="px-6">
+                            <checkbox v-model="showTrashed" class="mb-2 text-gray-700" label="Include deleted: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
+                        </span>
+                        <inertia-link v-if="$page.auth.user.can.createFabrics" class="flex px-6 py-2 text-gray-700 hover:bg-blue-500 hover:text-white group" :href="route('fabrics.create')">
+                            <icon-base view="24 24 " icon-fill="fill-gray-700" icon-name="add fabric" classes="mr-2 group-hover:fill-white">
+                                <plus />
+                            </icon-base>
+                            New Fabric
+                        </inertia-link>
+                        <a :href="route('fabrics.pdf')" target="_blank" class="flex px-6 py-2 text-gray-700 hover:bg-blue-500 hover:text-white group" @click="hideDropdown()">
+                            <icon-base width="14" height="14" icon-fill="fill-gray-700" icon-name="printable" classes="mr-2 group-hover:fill-white">
+                                <printer />
+                            </icon-base>
+                            View PDF
+                        </a>
+                    </div>
+                </new-dropdown>
+            </div>
         </template>
     </vue-good-table>
 </template>
 
 <script>
 import { filter } from 'lodash';
-import Dropdown from '@/Shared/Dropdown';
+import Plus from '@/Shared/Icons/Plus';
 import IconBase from '@/Shared/IconBase';
 import Checkbox from '@/Shared/Checkbox';
+import Printer from '@/Shared/Icons/Printer';
 import { VueGoodTable } from 'vue-good-table';
+import NewDropdown from '@/Shared/NewDropdown';
 import CheveronDown from '@/Shared/Icons/CheveronDown';
 
 export default {
     components: {
-        Dropdown,
+        Plus,
+        Printer,
         IconBase,
         Checkbox,
+        NewDropdown,
         VueGoodTable,
         CheveronDown,
     },

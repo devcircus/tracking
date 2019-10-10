@@ -11,10 +11,10 @@
                 <div slot="emptystate">
                     No items found.
                 </div>
-                <div slot="table-actions" class="flex justify-between">
+                <div slot="table-actions" class="flex items-center justify-between">
                     <span class="text-blue-500 text-sm font-semibold leading-loose mr-2 inline-block mt-tenth cursor-pointer" @click="clearSearch()">Clear</span>
-                    <dropdown v-if="$page.auth.user.can.administerItems" class="mr-1" placement="bottom-end">
-                        <div class="flex items-center cursor-pointer select-none group">
+                    <new-dropdown v-if="$page.auth.user.can.administerItems" class="mr-1" right="10" width="180">
+                        <div slot="trigger" class="flex items-center cursor-pointer select-none group">
                             <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
                                 <span class="inline text-gray-800 text-sm font-semibold">Options</span>
                             </div>
@@ -22,11 +22,18 @@
                                 <cheveron-down />
                             </icon-base>
                         </div>
-                        <div slot="dropdown" class="mt-2 p-2 shadow-lg bg-white rounded">
-                            <checkbox v-model="showTrashed" class="mb-2" label="Include deleted items: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
-                            <span class="text-blue-500 font-semibold text-xs uppercase py-2 cursor-pointer" @click="newItem()">New Item</span>
+                        <div slot="dropdown" class="flex flex-col mt-2 pt-2 shadow-lg bg-white rounded">
+                            <span class="px-6">
+                                <checkbox v-model="showTrashed" class="mb-2" label="Include deleted: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
+                            </span>
+                            <span v-if="$page.auth.user.can.createFabrics" class="flex px-6 py-2 text-gray-700 hover:bg-blue-500 hover:text-white group cursor-pointer" @click="newItem()">
+                                <icon-base view="24 24" icon-fill="fill-gray-700" icon-name="add fabric" classes="mr-2 group-hover:fill-white">
+                                    <plus />
+                                </icon-base>
+                                New Item
+                            </span>
                         </div>
-                    </dropdown>
+                    </new-dropdown>
                 </div>
                 <template slot="table-row" slot-scope="props">
                     <span v-if="props.column.field == 'actions'" class="flex justify-between px-3">
@@ -49,9 +56,10 @@
 <script>
 import { filter } from 'lodash';
 import Book from '@/Shared/Icons/Book';
+import Plus from '@/Shared/Icons/Plus';
 import IconBase from '@/Shared/IconBase';
-import Dropdown from '@/Shared/Dropdown';
 import Checkbox from '@/Shared/Checkbox';
+import NewDropdown from '@/Shared/NewDropdown';
 import { VueGoodTable } from 'vue-good-table';
 import CheveronDown from '@/Shared/Icons/CheveronDown';
 import WatchesForErrors from 'Mixins/WatchesForErrors';
@@ -59,9 +67,10 @@ import WatchesForErrors from 'Mixins/WatchesForErrors';
 export default {
     components: {
         Book,
+        Plus,
         IconBase,
-        Dropdown,
         Checkbox,
+        NewDropdown,
         CheveronDown,
         VueGoodTable,
     },

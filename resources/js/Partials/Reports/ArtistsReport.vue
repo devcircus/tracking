@@ -13,20 +13,22 @@
                     No prototype vouchers found.
                 </div>
                 <div slot="table-actions">
-                    <span class="text-blue-500 text-sm font-semibold leading-loose mr-2 inline-block mt-tenth cursor-pointer" @click="clearSearch()">Clear</span>
-                    <dropdown class="mt-1 mr-1" placement="bottom-end">
-                        <div class="flex items-center cursor-pointer select-none group">
-                            <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
-                                <span class="inline text-sm">Options</span>
+                    <div class="flex items-center justify-between">
+                        <span class="text-blue-500 text-sm font-semibold leading-loose mr-2 inline-block mt-tenth cursor-pointer" @click="clearSearch()">Clear</span>
+                        <new-dropdown right="10">
+                            <div slot="trigger" class="flex items-center cursor-pointer select-none group">
+                                <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
+                                    <span class="inline text-sm">Options</span>
+                                </div>
+                                <icon-base view="24 24" icon-fill="fill-blue-900" icon-name="cheveron-down" classes="group-hover:fill-blue-700 focus:fill-blue-700 ml-2">
+                                    <cheveron-down />
+                                </icon-base>
                             </div>
-                            <icon-base view="24 24" icon-fill="fill-blue-900" icon-name="cheveron-down" classes="group-hover:fill-blue-700 focus:fill-blue-700 ml-2 mt-1">
-                                <cheveron-down />
-                            </icon-base>
-                        </div>
-                        <div slot="dropdown" class="mt-2 p-2 shadow-lg bg-white rounded">
-                            <checkbox v-model="showCheckboxes" class="mb-2" label="Select multiple" :width="4" :height="4" :checked="showCheckboxes" @input="hideDropdown()" />
-                        </div>
-                    </dropdown>
+                            <div slot="dropdown" class="mt-2 p-2 shadow-lg bg-white rounded">
+                                <checkbox v-model="showCheckboxes" class="mb-2" label="Select multiple" :width="4" :height="4" :checked="showCheckboxes" @input="hideDropdown()" />
+                            </div>
+                        </new-dropdown>
+                    </div>
                 </div>
                 <template slot="table-row" slot-scope="props">
                     <span v-if="props.column.field == 'actions'" class="flex justify-between px-3">
@@ -99,10 +101,10 @@
 import moment from 'moment';
 import Toggle from '@/Shared/Toggle';
 import Checkbox from '@/Shared/Checkbox';
-import Dropdown from '@/Shared/Dropdown';
 import IconBase from '@/Shared/IconBase';
 import Vector from '@/Shared/Icons/Vector';
 import { VueGoodTable } from 'vue-good-table';
+import NewDropdown from '@/Shared/NewDropdown';
 import LoadingButton from '@/Shared/LoadingButton';
 import CheveronDown from '@/Shared/Icons/CheveronDown';
 
@@ -111,8 +113,8 @@ export default {
         Vector,
         Toggle,
         Checkbox,
-        Dropdown,
         IconBase,
+        NewDropdown,
         VueGoodTable,
         CheveronDown,
         LoadingButton,
