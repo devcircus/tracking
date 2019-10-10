@@ -117,7 +117,7 @@
                         </table>
                     </div>
                     <div class="flex flex-col lg:hidden -px-6">
-                        <div class="flex mb-4 bg-gray-400 border-b-4 border-blue-500 px-4 py-4">
+                        <div class="flex justify-center mb-4 bg-gray-400 border-b-4 border-blue-500 px-4 py-4">
                             <div v-for="date in results.data" :key="date.date" class="flex flex-col mr-2 cursor-pointer items-center" :class="accentDate(date.date)" @click="setCurrentDate(date.date)">
                                 <span class="text-xs uppercase mb-1">
                                     {{ getDayOfWeek(date.date) }}
