@@ -40,10 +40,7 @@
         <!-- Main Content -->
         <div class="flex flex-grow w-full relative mt-140p">
             <div class="overflow-hidden px-4 py-8 lg:py-12 w-full">
-                <ol v-if="$page.breadcrumbs" class="breadcrumb">
-                    <li v-for="crumb in breadcrumbTrail" :key="crumb.title" class="breadcrumb-item"><inertia-link :href="crumb.url">{{ crumb.title }}</inertia-link></li>
-                    <li class="breadcrumb-item active">{{ breadcrumbCurrent.title }}</li>
-                </ol>
+                <breadcrumbs />
                 <slot />
             </div>
         </div>
@@ -61,6 +58,7 @@ import IconBase from '@/Shared/IconBase';
 import MainMenu from '@/Shared/MainMenu';
 import UserMenu from '@/Shared/UserMenu';
 import SiteFooter from '@/Shared/SiteFooter';
+import Breadcrumbs from '@/Shared/Breadcrumbs';
 import NewDropdown from '@/Shared/NewDropdown';
 import FlashMessage from '@/Shared/FlashMessage';
 import CheveronDown from '@/Shared/Icons/CheveronDown';
@@ -74,6 +72,7 @@ export default {
         UserMenu,
         MainMenu,
         SiteFooter,
+        Breadcrumbs,
         NewDropdown,
         FlashMessage,
         CheveronDown,
@@ -86,14 +85,6 @@ export default {
             return {
                 inner: this.title,
             }
-        },
-    },
-    computed: {
-        breadcrumbTrail () {
-            return this.$page.breadcrumbs ? this.$page.breadcrumbs.slice(0, -1): null;
-        },
-        breadcrumbCurrent () {
-            return this.$page.breadcrumbs ? this.$page.breadcrumbs[this.$page.breadcrumbs.length -1] : null;
         },
     },
 }

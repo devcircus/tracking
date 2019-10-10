@@ -84,7 +84,7 @@
                     <span v-else class="hidden lg:block lg:w-160p text-base xl:text-lg font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
                         {{ item.style }}
                     </span>
-                    <div v-if="type === 'prototype' && $page.auth.user.can.administerReports" class="text-base xl:text-lg text-gray-800 font-normal w-260p" @click.stop>
+                    <div v-if="type === 'prototype' && $page.auth.user.can.administerReports" class="text-base xl:text-lg text-gray-800 font-normal w-260p mt-3" @click.stop>
                         <input :id="`${item.id}`"
                                v-model="info[item.id]"
                                class="border border-blue p-1 h-12 w-full"
