@@ -27,7 +27,7 @@
                             <div slot="dropdown" class="mt-2 p-2 shadow-lg bg-white rounded">
                                 <checkbox v-model="showCheckboxes" class="mb-2" label="Select multiple" :width="4" :height="4" :checked="showCheckboxes" @input="hideDropdown()" />
                             </div>
-                        </new-dropdown>
+                        </dropdown>
                     </div>
                 </div>
                 <template slot="table-row" slot-scope="props">

@@ -11,7 +11,7 @@
                 <div slot="dropdown" class="mt-2 px-4 py-6 w-screen shadow-lg bg-white rounded" :style="{ maxWidth: `${maxWidth}px` }">
                     <slot />
                 </div>
-            </new-dropdown>
+            </dropdown>
             <input class="relative w-full px-6 py-3 rounded-r" autocomplete="off" type="text" name="search" placeholder="Search…" :value="value" @input="$emit('input', $event.target.value)">
         </div>
         <button class="ml-3 text-sm text-gray-700 hover:text-gray-800 focus:text-blue-500" type="button" @click="$emit('reset')">Reset</button>

@@ -33,7 +33,7 @@
                     <div slot="dropdown" class="mt-2 shadow-lg bg-white rounded text-sm">
                         <user-menu />
                     </div>
-                </new-dropdown>
+                </dropdown>
             </div>
         </div>
 

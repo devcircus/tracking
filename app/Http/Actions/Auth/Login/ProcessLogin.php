@@ -3,7 +3,6 @@
 namespace App\Http\Actions\Auth\Login;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use PerfectOblivion\Actions\Action;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
@@ -23,8 +22,10 @@ class ProcessLogin extends Action
      * Log in the user.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
+     * @return mixed
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $request)
     {
         $this->validateLogin($request);
 

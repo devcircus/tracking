@@ -32,7 +32,7 @@
                             New Ink
                         </inertia-link>
                     </div>
-                </new-dropdown>
+                </dropdown>
             </div>
         </template>
     </vue-good-table>

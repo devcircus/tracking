@@ -40,7 +40,7 @@
                             View PDF
                         </a>
                     </div>
-                </new-dropdown>
+                </dropdown>
             </div>
         </template>
     </vue-good-table>

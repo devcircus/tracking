@@ -36,7 +36,7 @@
                             </span>
                         </a>
                     </div>
-                </new-dropdown>
+                </dropdown>
             </div>
         </div>
         <div class="flex flex-col">
