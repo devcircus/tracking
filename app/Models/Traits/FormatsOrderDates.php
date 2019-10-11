@@ -2,16 +2,16 @@
 
 namespace App\Models\Traits;
 
-use Illuminate\Support\Carbon;
-
 trait FormatsOrderDates
 {
     /**
      * Return the schedule date as a FormattedDateString.
      *
      * @param  string  $date
+     *
+     * @return mixed
      */
-    public function getReportCreatedAttribute(string $date): string
+    public function getReportCreatedAttribute(string $date)
     {
         return $date;
     }
@@ -20,8 +20,10 @@ trait FormatsOrderDates
      * Return the schedule date as a FormattedDateString.
      *
      * @param  string  $date
+     *
+     * @return mixed
      */
-    public function getScheduleDateAttribute(string $date): Carbon
+    public function getScheduleDateAttribute(string $date)
     {
         return display_date($date);
     }
