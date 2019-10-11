@@ -19,6 +19,7 @@ class CheckForPxOrder
         if ('SU' === $model->cut_house && 'PX' === $model->sew_house) {
             return true;
         }
+
         return false;
     }
 }

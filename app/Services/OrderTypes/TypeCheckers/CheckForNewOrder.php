@@ -19,6 +19,7 @@ class CheckForNewOrder
         if ((null === $model->print_house || '' === $model->print_house) && 'NS' === $model->sew_house) {
             return true;
         }
+
         return false;
     }
 }

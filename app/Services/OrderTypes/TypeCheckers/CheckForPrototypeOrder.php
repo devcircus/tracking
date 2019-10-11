@@ -17,5 +17,7 @@ class CheckForPrototypeOrder
     public function run(Model $model): bool
     {
         if ('NS' === $model->sew_house) return true;
+
+        return false;
     }
 }
