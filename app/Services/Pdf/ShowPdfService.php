@@ -13,7 +13,7 @@ class ShowPdfService
     private $orders;
 
     /**
-     * Construct a new FetchAllOrdersByDate service.
+     * Construct a new ShowPdfService service.
      *
      * @param  \App\Models\Order  $orders
      */

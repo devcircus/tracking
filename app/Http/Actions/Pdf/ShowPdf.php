@@ -4,8 +4,8 @@ namespace App\Http\Actions\Pdf;
 
 use Illuminate\Http\Request;
 use PerfectOblivion\Actions\Action;
-use App\Http\Responders\Pdf\ShowPdfResponder;
 use App\Services\Pdf\ShowPdfService;
+use App\Http\Responders\Pdf\ShowPdfResponder;
 
 class ShowPdf extends Action
 {
