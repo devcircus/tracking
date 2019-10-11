@@ -13,10 +13,8 @@ class CheckForNewOrder
      * Check if the order is new.
      *
      * @param  \App\Models\Order  $order
-     *
-     * @return bool
      */
-    public function run(Model $model)
+    public function run(Model $model): bool
     {
         if ((null === $model->print_house || '' === $model->print_house) && 'NS' === $model->sew_house) {
             return true;

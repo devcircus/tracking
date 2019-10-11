@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Authorization\Policies;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 use App\Services\Cache\CacheForgetService;
 use App\Services\Cache\CacheForeverService;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -45,10 +47,8 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
 
     /**
      * A user has many posts.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function posts()
+    public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
@@ -57,12 +57,10 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
      * Order query by user name.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeOrderByName($builder)
+    public function scopeOrderByName($builder): Builder
     {
-        $builder->orderBy('name');
+        return $builder->orderBy('name');
     }
 
     /**
@@ -71,7 +69,7 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
      * @param  \Illuminate\Database\Eloquent\Builder  $builder
      * @param  array  $filters
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return mixed
      */
     public function scopeFilter($builder, array $filters)
     {
@@ -133,10 +131,8 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
      * Create a user with the provided data.
      *
      * @param  array  $user
-     *
-     * @return \App\Models\User
      */
-    public function createUser(array $user)
+    public function createUser(array $user): User
     {
         return $this->create([
             'name' => $user['name'],
@@ -149,25 +145,21 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
 
     /**
      * Delete a user.
-     *
-     * @return \App\Models\User
      */
-    public function deleteUser()
+    public function deleteUser(): User
     {
         return tap($this, function ($instance) {
-            return $this->delete();
+            return $instance->delete();
         });
     }
 
     /**
      * Restore a deleted user.
-     *
-     * @return \App\Models\User
      */
-    public function restoreUser()
+    public function restoreUser(): User
     {
         return tap($this, function ($instance) {
-            return $this->restore();
+            return $instance->restore();
         });
     }
 
@@ -199,7 +191,10 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
         })->fresh();
     }
 
-    public function getAuthorizationDetails()
+    /**
+     * Get the authorization details for the User.
+     */
+    public function getAuthorizationDetails(): array
     {
         return CacheForeverService::call('policies', function () {
             $policies = resolve(Policies::class)->getPolicies();

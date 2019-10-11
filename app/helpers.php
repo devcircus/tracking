@@ -47,10 +47,8 @@ if (! function_exists('display_date')) {
      * Convert a date to a displayable format.
      *
      * @param  string  $date
-     *
-     * @return \Illuminate\Support\Carbon
      */
-    function display_date($date)
+    function display_date($date): Carbon
     {
         return $date ? to_date_string($date) : '';
     }
@@ -62,10 +60,8 @@ if (! function_exists('display_date_time')) {
      *
      * @param  string  $date
      * @param  string  $from
-     *
-     * @return \Illuminate\Support\Carbon
      */
-    function display_date_time($date, string $from = 'Y-m-d H:i:s')
+    function display_date_time($date, string $from = 'Y-m-d H:i:s'): Carbon
     {
         return $date ? Carbon::createFromFormat($from, $date)->format('m/d/y g:i a') : '';
     }
@@ -77,10 +73,8 @@ if (! function_exists('to_date_string')) {
      *
      * @param  string  $date
      * @param  string  $from
-     *
-     * @return string
      */
-    function to_date_string($date, string $from = 'Y-m-d H:i:s')
+    function to_date_string($date, string $from = 'Y-m-d H:i:s'): string
     {
         return Carbon::createFromFormat($from, $date)->toDateString();
     }
@@ -92,10 +86,8 @@ if (! function_exists('to_timestamp')) {
      *
      * @param  string  $date
      * @param  string  $from
-     *
-     * @return int
      */
-    function to_timestamp($date, string $from = 'Y-m-d H:i:s')
+    function to_timestamp($date, string $from = 'Y-m-d H:i:s'): int
     {
         return Carbon::createFromFormat($from, $date)->timestamp;
     }
@@ -107,10 +99,8 @@ if (! function_exists('full_date_time_string')) {
      *
      * @param  string  $date
      * @param  string  $from
-     *
-     * @return string
      */
-    function full_date_time_string($date, $from = 'Y-m-d H:i:s')
+    function full_date_time_string($date, $from = 'Y-m-d H:i:s'): string
     {
         $date = Carbon::createFromFormat($from, $date);
         $date->setTimezone('America/Chicago');
@@ -124,10 +114,8 @@ if (! function_exists('date_is_valid')) {
      * Check if the given date is considered valid for a report.
      *
      * @param  string  $date
-     *
-     * @return bool
      */
-    function date_is_valid($date)
+    function date_is_valid($date): bool
     {
         if ('0' == $date || '00/00/00' == $date || null == $date) {
             return false;
@@ -143,10 +131,8 @@ if (! function_exists('array_key')) {
      *
      * @param  mixed  $element
      * @param  string  $key
-     *
-     * @return array
      */
-    function array_key($element, string $key)
+    function array_key($element, string $key): array
     {
         return [$key => $element];
     }
@@ -157,10 +143,8 @@ if (! function_exists('key_by_values')) {
      * Wrap an item in an array with the given key.
      *
      * @param  mixed  $element
-     *
-     * @return array
      */
-    function key_by_values($array)
+    function key_by_values($array): array
     {
         return array_combine($array, $array);
     }

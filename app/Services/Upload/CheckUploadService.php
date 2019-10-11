@@ -22,10 +22,8 @@ class CheckUploadService
 
     /**
      * Handle the call to the service.
-     *
-     * @return mixed
      */
-    public function run()
+    public function run(): bool
     {
         return $this->uploads->latestUploadInProgress();
     }

@@ -2,13 +2,13 @@
 
 namespace App\Providers;
 
-use App\Authorization\Policies;
 use App\Models\User;
 use ReflectionClass;
+use Illuminate\Support\Str;
+use App\Authorization\Policies;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Str;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,7 +21,7 @@ class AuthServiceProvider extends ServiceProvider
     /**
      * Register any authentication / authorization services.
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerPolicies();
 
@@ -36,10 +36,8 @@ class AuthServiceProvider extends ServiceProvider
      * Check if the currently authenticated user is an administrator.
      *
      * @param  \App\Models\User  $authenticated
-     *
-     * @return bool
      */
-    public function checkAdmins(User $authenticated)
+    public function checkAdmins(User $authenticated): bool
     {
         return in_array($authenticated->email, [
             Config::get('auth.admin.email'),

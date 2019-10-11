@@ -4,6 +4,7 @@ namespace App\Http\Actions\InventoryItem;
 
 use App\Models\InventoryItem;
 use PerfectOblivion\Actions\Action;
+use Illuminate\Http\RedirectResponse;
 use App\Services\Item\DeleteInventoryItemService;
 use App\Http\Responders\InventoryItem\DeleteInventoryItemResponder;
 
@@ -26,10 +27,8 @@ class DeleteInventoryItem extends Action
      * Execute the action.
      *
      * @param  \App\Models\InventoryItem  $item
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(InventoryItem $item)
+    public function __invoke(InventoryItem $item): RedirectResponse
     {
         DeleteInventoryItemService::call($item);
 

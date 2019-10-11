@@ -8,6 +8,7 @@ use App\Notifications\ArtComplete;
 use PerfectOblivion\Actions\Action;
 use App\Services\Artwork\BatchArtCompleteService;
 use App\Http\Responders\Artwork\BatchArtCompleteResponder;
+use Illuminate\Http\RedirectResponse;
 
 class BatchArtComplete extends Action
 {
@@ -33,10 +34,8 @@ class BatchArtComplete extends Action
      * Execute the action.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): RedirectResponse
     {
         $orders = BatchArtCompleteService::call($request->artwork);
         $this->users->superAdministrator()->notify(new ArtComplete(collect($orders), $request->user()));

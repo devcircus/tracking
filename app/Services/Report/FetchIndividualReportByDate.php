@@ -3,6 +3,7 @@
 namespace App\Services\Report;
 
 use App\Models\Order;
+use Illuminate\Support\Collection;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class FetchIndividualReportByDate
@@ -27,10 +28,8 @@ class FetchIndividualReportByDate
      *
      * @param  string  $type
      * @param  string  $date
-     *
-     * @return \Illuminate\Support\Collection
      */
-    public function run(string $type, string $date)
+    public function run(string $type, string $date): Collection
     {
         return $this->orders->with('types')->type($type)->notComplete()->forDate($date)->get();
     }

@@ -4,7 +4,9 @@ namespace App\Http\Actions\Auth\PasswordResetRequest;
 
 use Illuminate\Http\Request;
 use PerfectOblivion\Actions\Action;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Contracts\Auth\PasswordBroker;
 
 class SendEmail extends Action
 {
@@ -39,10 +41,8 @@ class SendEmail extends Action
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  string  $response
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    protected function sendResetLinkResponse(Request $request, $response)
+    protected function sendResetLinkResponse(Request $request, $response): RedirectResponse
     {
         return redirect()->back()->with(['success' => trans($response)]);
     }
@@ -52,20 +52,16 @@ class SendEmail extends Action
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  string  $response
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    protected function sendResetLinkFailedResponse(Request $request, $response)
+    protected function sendResetLinkFailedResponse(Request $request, $response): RedirectResponse
     {
         return redirect()->back()->withErrors(['email' => trans($response)]);
     }
 
     /**
      * Get the broker to be used during password reset.
-     *
-     * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
-    public function broker()
+    public function broker(): PasswordBroker
     {
         return Password::broker();
     }

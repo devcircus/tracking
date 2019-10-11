@@ -13,10 +13,8 @@ class CheckForBagOrder
      * Check if the order is for a bag.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     *
-     * @return bool
      */
-    public function run(Model $model)
+    public function run(Model $model): bool
     {
         return 'RY' === $model->sew_house && 'SU' === $model->cut_house ? true : false;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Actions\Dashboard;
 
+use Inertia\Response;
 use PerfectOblivion\Actions\Action;
 use App\Http\Responders\Dashboard\IndexResponder;
 use App\Services\Report\IndexService as ReportIndexService;
@@ -24,10 +25,8 @@ class Index extends Action
 
     /**
      * Show the application home page.
-     *
-     * @return \Illuminate\View\View
      */
-    public function __invoke()
+    public function __invoke(): Response
     {
         return $this->responder->withPayload([
             'orders' => ReportIndexService::call(),

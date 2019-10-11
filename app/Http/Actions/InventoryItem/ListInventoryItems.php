@@ -2,7 +2,7 @@
 
 namespace App\Http\Actions\InventoryItem;
 
-use Illuminate\Http\Request;
+use Inertia\Response;
 use PerfectOblivion\Actions\Action;
 use App\Services\Item\ListInventoryItemsService;
 use App\Http\Responders\InventoryItem\ListInventoryItemsResponder;
@@ -24,10 +24,8 @@ class ListInventoryItems extends Action
 
     /**
      * Execute the action.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke()
+    public function __invoke(): Response
     {
         $items = ListInventoryItemsService::call();
 

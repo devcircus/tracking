@@ -8,10 +8,8 @@ class SetColorValidationService extends ValidationService
 {
     /**
      * Get the validation rules that apply to the data.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'approved' => ['required', 'boolean'],

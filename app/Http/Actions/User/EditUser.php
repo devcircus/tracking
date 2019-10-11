@@ -3,6 +3,7 @@
 namespace App\Http\Actions\User;
 
 use App\Models\User;
+use Inertia\Response;
 use PerfectOblivion\Actions\Action;
 use App\Http\Responders\User\EditUserResponder;
 
@@ -25,10 +26,8 @@ class EditUser extends Action
      * Show the form to edit a user.
      *
      * @param  \App\Models\User  $user
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(User $user)
+    public function __invoke(User $user): Response
     {
         return $this->responder->withPayload($user)->respond();
     }

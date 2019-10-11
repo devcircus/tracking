@@ -13,10 +13,8 @@ class CheckForNinasOrder
      * Check if the order is for Ninas.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     *
-     * @return bool
      */
-    public function run(Model $model)
+    public function run(Model $model): bool
     {
         if ('SU' === $model->cut_house && '34' === $model->sew_house) {
             return true;

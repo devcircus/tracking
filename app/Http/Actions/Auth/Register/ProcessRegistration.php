@@ -6,10 +6,13 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Auth\AuthManager;
 use PerfectOblivion\Actions\Action;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Hashing\Hasher;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Validation\Factory as Validator;
+use Illuminate\Contracts\Validation\Validator as IlluminateValidator;
 
 class ProcessRegistration extends Action
 {
@@ -45,10 +48,8 @@ class ProcessRegistration extends Action
      * Execute the action to register a new user.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): RedirectResponse
     {
         $this->validator($request->all())->validate();
 
@@ -64,10 +65,8 @@ class ProcessRegistration extends Action
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
-     *
-     * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
+    protected function validator(array $data): IlluminateValidator
     {
         return $this->validator->make($data, [
             'name' => ['required', 'string', 'max:255'],
@@ -80,10 +79,8 @@ class ProcessRegistration extends Action
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     *
-     * @return \App\Models\User
      */
-    protected function create(array $data)
+    protected function create(array $data): User
     {
         return User::create([
             'name' => $data['name'],
@@ -94,10 +91,8 @@ class ProcessRegistration extends Action
 
     /**
      * Get the guard to be used during registration.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
-    protected function guard()
+    protected function guard(): StatefulGuard
     {
         return $this->auth->guard();
     }
@@ -107,10 +102,8 @@ class ProcessRegistration extends Action
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  mixed  $user
-     *
-     * @return mixed
      */
-    protected function registered(Request $request, $user)
+    protected function registered(Request $request, $user):RedirectResponse
     {
         parent::registered();
 

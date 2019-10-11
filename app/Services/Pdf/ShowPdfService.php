@@ -3,6 +3,7 @@
 namespace App\Services\Pdf;
 
 use App\Models\Order;
+use Illuminate\Database\Eloquent\Collection;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class ShowPdfService
@@ -27,10 +28,8 @@ class ShowPdfService
      *
      * @param  array  $request
      * @param  string  $type
-     *
-     * @return mixed
      */
-    public function run(array $request, string $type)
+    public function run(array $request, string $type): Collection
     {
         return $this->orders->with('types')->type($type)->forDate($request['date'])->get();
     }

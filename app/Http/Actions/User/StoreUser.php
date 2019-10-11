@@ -5,6 +5,7 @@ namespace App\Http\Actions\User;
 use App\Http\DTO\UserData;
 use Illuminate\Http\Request;
 use PerfectOblivion\Actions\Action;
+use Illuminate\Http\RedirectResponse;
 use App\Services\User\StoreUserService;
 use App\Http\Responders\User\StoreUserResponder;
 
@@ -27,10 +28,8 @@ class StoreUser extends Action
      * Store a mew user from the provided data.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illluminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): RedirectResponse
     {
         $created = StoreUserService::call(UserData::fromRequest($request));
 

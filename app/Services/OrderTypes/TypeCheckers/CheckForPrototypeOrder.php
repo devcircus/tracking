@@ -13,10 +13,8 @@ class CheckForPrototypeOrder
      * Check if the order is for a prototype.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     *
-     * @return bool
      */
-    public function run(Model $model)
+    public function run(Model $model): bool
     {
         if ('NS' === $model->sew_house) return true;
     }

@@ -13,10 +13,8 @@ class CompleteOrderService
      * Handle the call to the service.
      *
      * @param  \App\Models\Order  $order
-     *
-     * @return mixed
      */
-    public function run(Order $order)
+    public function run(Order $order): Order
     {
         $completed = $order->markAsComplete();
 

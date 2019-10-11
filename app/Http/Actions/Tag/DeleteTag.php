@@ -4,6 +4,7 @@ namespace App\Http\Actions\Tag;
 
 use App\Models\Tag;
 use PerfectOblivion\Actions\Action;
+use Illuminate\Http\RedirectResponse;
 use App\Services\Tag\DeleteTagService;
 use App\Http\Responders\Tag\DeleteTagResponder;
 
@@ -26,10 +27,8 @@ class DeleteTag extends Action
      * Execute the action.
      *
      * @param  \App\Models\Tag  $tag
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(Tag $tag)
+    public function __invoke(Tag $tag): RedirectResponse
     {
         DeleteTagService::call($tag);
 

@@ -3,6 +3,7 @@
 namespace App\Services\Item;
 
 use App\Models\InventoryItem;
+use Illuminate\Support\Collection;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class ListInventoryItemsService
@@ -24,10 +25,8 @@ class ListInventoryItemsService
 
     /**
      * Handle the call to the service.
-     *
-     * @return \Illuminate\Support\Collection
      */
-    public function run()
+    public function run(): Collection
     {
         return $this->items->retrieveAllItems($withTrashed = true);
     }

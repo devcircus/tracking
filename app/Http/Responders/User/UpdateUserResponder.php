@@ -9,8 +9,6 @@ class UpdateUserResponder extends Responder
 {
     /**
      * Send a response.
-     *
-     * @return mixed
      */
     public function respond(): RedirectResponse
     {

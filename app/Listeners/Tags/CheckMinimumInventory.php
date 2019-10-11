@@ -30,10 +30,8 @@ class CheckMinimumInventory implements ShouldQueue
 
     /**
      * Get the tags that should be assigned to the job.
-     *
-     * @return array
      */
-    public function tags()
+    public function tags(): array
     {
         return ['inventory', 'reorder:'.$this->item->name];
     }

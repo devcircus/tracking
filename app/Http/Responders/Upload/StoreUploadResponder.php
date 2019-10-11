@@ -2,16 +2,15 @@
 
 namespace App\Http\Responders\Upload;
 
+use Illuminate\Http\RedirectResponse;
 use PerfectOblivion\Responder\Responder;
 
 class StoreUploadResponder extends Responder
 {
     /**
      * Send a response.
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function respond()
+    public function respond(): RedirectResponse
     {
         $this->request->session()->flash('success', 'Report generation started.');
 

@@ -4,6 +4,7 @@ namespace App\Http\Actions\User;
 
 use App\Models\User;
 use PerfectOblivion\Actions\Action;
+use Illuminate\Http\RedirectResponse;
 use App\Services\User\DeleteUserService;
 use App\Http\Responders\User\DeleteUserResponder;
 
@@ -26,10 +27,8 @@ class DeleteUser extends Action
      * Execute the action to delete a user.
      *
      * @param  \App\Models\User  $user
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(User $user)
+    public function __invoke(User $user): RedirectResponse
     {
         $deleted = DeleteUserService::call($user);
 

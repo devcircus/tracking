@@ -3,16 +3,15 @@
 namespace App\Http\Responders\Fabric;
 
 use PDF;
+use Illuminate\Http\Response;
 use PerfectOblivion\Responder\Responder;
 
 class ListFabricsPdfResponder extends Responder
 {
     /**
      * Send a response.
-     *
-     * @return mixed
      */
-    public function respond()
+    public function respond(): Response
     {
         $pdf = PDF::loadView('pdf.fabrics', $this->payload)->setPaper('letter', 'landscape');
 

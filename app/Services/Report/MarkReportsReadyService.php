@@ -26,10 +26,8 @@ class MarkReportsReadyService
      * Handle the call to the service.
      *
      * @param  string  $date
-     *
-     * @return mixed
      */
-    public function run(string $date)
+    public function run(string $date): Upload
     {
         $this->uploads->reportsReady($date);
     }

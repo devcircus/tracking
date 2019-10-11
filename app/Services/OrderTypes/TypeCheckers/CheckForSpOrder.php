@@ -13,10 +13,8 @@ class CheckForSpOrder
      * Check if the order is for Sp.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     *
-     * @return bool
      */
-    public function run(Model $model)
+    public function run(Model $model): bool
     {
         if ('SU' === $model->cut_house && 'SP' === $model->sew_house) {
             return true;

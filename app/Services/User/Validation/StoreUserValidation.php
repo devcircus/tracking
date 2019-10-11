@@ -9,10 +9,8 @@ class StoreUserValidation extends ValidationService
 {
     /**
      * Get the validation rules that apply to the data.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => ['required'],
@@ -24,10 +22,8 @@ class StoreUserValidation extends ValidationService
 
     /**
      * Get the sanitization filters that apply to the data.
-     *
-     * @return array
      */
-    public function filters()
+    public function filters(): array
     {
         return [
             'name' => ['strip_tags', 'trim'],

@@ -4,6 +4,7 @@ namespace App\Http\Actions\Order;
 
 use App\Models\Order;
 use PerfectOblivion\Actions\Action;
+use Illuminate\Http\RedirectResponse;
 use App\Services\Order\DeleteOrderService;
 use App\Http\Responders\Order\DeleteOrderResponder;
 
@@ -26,10 +27,8 @@ class DeleteOrder extends Action
      * Delete an order.
      *
      * @param  \App\Models\Order  $order
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(Order $order)
+    public function __invoke(Order $order): RedirectResponse
     {
         return $this->responder->withPayload(DeleteOrderService::call($order))->respond();
     }

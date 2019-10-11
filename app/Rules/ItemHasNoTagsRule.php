@@ -12,10 +12,8 @@ class ItemHasNoTagsRule extends CustomRule
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     *
-     * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         $item = InventoryItem::find($value);
 
@@ -24,10 +22,8 @@ class ItemHasNoTagsRule extends CustomRule
 
     /**
      * Get the validation error message.
-     *
-     * @return string
      */
-    public function message()
+    public function message(): string
     {
         return 'Item has tags associated with it and cannot be deleted.';
     }

@@ -83,8 +83,6 @@ class VoucherImport implements ToModel, WithHeadingRow, WithEvents, WithBatchIns
 
     /**
      * Set the batch size for importing.
-     *
-     * @return int
      */
     public function batchSize(): int
     {

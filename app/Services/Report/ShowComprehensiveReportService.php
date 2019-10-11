@@ -2,7 +2,6 @@
 
 namespace App\Services\Report;
 
-use App\Models\Upload;
 use App\Services\Summary\FetchSummaryByDate;
 use App\Services\Report\FetchAllOrdersByDate;
 use PerfectOblivion\Services\Traits\SelfCallingService;
@@ -15,10 +14,8 @@ class ShowComprehensiveReportService
      * Handle the call to the service.
      *
      * @param  string  $date
-     *
-     * @return mixed
      */
-    public function run(string $date)
+    public function run(string $date): array
     {
         return [
             'reports' => FetchAllOrdersByDate::call($date),

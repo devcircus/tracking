@@ -15,9 +15,8 @@ class UniqueInRangeRule extends CustomRule
      *
      * @param  string  $attribute
      * @param  mixed  $value
-     * @return bool
      */
-    public function passes($attribute, $value)
+    public function passes($attribute, $value): bool
     {
         $data = $this->validator->getData();
         $start = $data['starting_package_number'];
@@ -35,10 +34,8 @@ class UniqueInRangeRule extends CustomRule
 
     /**
      * Get the validation error message.
-     *
-     * @return string
      */
-    public function message()
+    public function message(): string
     {
         return "Package number {$this->exists} already exists. Exclude this package from the given range.";
     }

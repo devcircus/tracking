@@ -11,10 +11,8 @@ class IndexService
 
     /**
      * Handle the call to the service.
-     *
-     * @return mixed
      */
-    public function run()
+    public function run(): array
     {
         return BuildDashboardData::call();
     }

@@ -4,16 +4,15 @@ namespace App\Http\Responders\Dashboard;
 
 use Breadcrumbs;
 use Inertia\Inertia;
+use Inertia\Response;
 use PerfectOblivion\Responder\Responder;
 
 class IndexResponder extends Responder
 {
     /**
      * Send a response.
-     *
-     * @return \Illuminate\View\View
      */
-    public function respond()
+    public function respond(): Response
     {
         return Inertia::render('Dashboard/Index', $this->payload);
     }

@@ -13,10 +13,8 @@ class CheckForLateOrder
      * Check if the order is late to schedule.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     *
-     * @return bool
      */
-    public function run(Model $model)
+    public function run(Model $model): bool
     {
         if (date_is_valid($model->schedule_date) && now() > $model->schedule_date && 'NS' === $model->print_house && ($model->print_complete === '' || $model->print_complete === null)) {
             return true;
@@ -29,10 +27,8 @@ class CheckForLateOrder
      * Get a formatted schedule date to be used for date comparison.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     *
-     * @return string
      */
-    public function getScheduleDate(Model $model)
+    public function getScheduleDate(Model $model): string
     {
         return date('Y-m-d H:i:s', strtotime($model->schedule_date));
     }

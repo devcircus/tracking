@@ -9,10 +9,8 @@ class UpdateUserValidation extends ValidationService
 {
     /**
      * Get the validation rules that apply to the data.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'id' => ['required', 'numeric'],
@@ -20,17 +18,6 @@ class UpdateUserValidation extends ValidationService
             'email' => ['required', 'max:50', 'email', Rule::unique('users')->ignore($this->validationData()['id'])],
             'is_admin' => ['required', 'boolean'],
             'password' => ['nullable'],
-        ];
-    }
-
-    /**
-     * Get the sanitization filters that apply to the data.
-     *
-     * @return array
-     */
-    public function filters()
-    {
-        return [
         ];
     }
 }

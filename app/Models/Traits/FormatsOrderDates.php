@@ -2,16 +2,16 @@
 
 namespace App\Models\Traits;
 
+use Illuminate\Support\Carbon;
+
 trait FormatsOrderDates
 {
     /**
      * Return the schedule date as a FormattedDateString.
      *
      * @param  string  $date
-     *
-     * @return string
      */
-    public function getReportCreatedAttribute(string $date)
+    public function getReportCreatedAttribute(string $date): string
     {
         return $date;
     }
@@ -20,10 +20,8 @@ trait FormatsOrderDates
      * Return the schedule date as a FormattedDateString.
      *
      * @param  string  $date
-     *
-     * @return string
      */
-    public function getScheduleDateAttribute(string $date)
+    public function getScheduleDateAttribute(string $date): Carbon
     {
         return display_date($date);
     }
@@ -33,7 +31,7 @@ trait FormatsOrderDates
      *
      * @param  mixed  $value
      */
-    public function setPrintStartAttribute($value)
+    public function setPrintStartAttribute($value): void
     {
         $this->attributes['print_start'] = date_is_valid($value)
             ? date('Y-m-d H:i:s', strtotime($value))
@@ -45,7 +43,7 @@ trait FormatsOrderDates
      *
      * @param  mixed  $value
      */
-    public function setPrintCompleteAttribute($value)
+    public function setPrintCompleteAttribute($value): void
     {
         $this->attributes['print_complete'] = date_is_valid($value)
             ? date('Y-m-d H:i:s', strtotime($value))
@@ -57,7 +55,7 @@ trait FormatsOrderDates
      *
      * @param  mixed  $value
      */
-    public function setReceivedDateAttribute($value)
+    public function setReceivedDateAttribute($value): void
     {
         $this->attributes['received_date'] = date_is_valid($value)
             ? date('Y-m-d H:i:s', strtotime($value))
@@ -69,7 +67,7 @@ trait FormatsOrderDates
      *
      * @param  mixed  $value
      */
-    public function setCutDateAttribute($value)
+    public function setCutDateAttribute($value): void
     {
         $this->attributes['cut_date'] = date_is_valid($value)
             ? date('Y-m-d H:i:s', strtotime($value))
@@ -81,7 +79,7 @@ trait FormatsOrderDates
      *
      * @param  mixed  $value
      */
-    public function setRushDateAttribute($value)
+    public function setRushDateAttribute($value): void
     {
         $this->attributes['rush_date'] = date_is_valid($value)
             ? date('Y-m-d H:i:s', strtotime($value))
@@ -93,7 +91,7 @@ trait FormatsOrderDates
      *
      * @param  mixed  $value
      */
-    public function setScheduleDateAttribute($value)
+    public function setScheduleDateAttribute($value): void
     {
         $this->attributes['schedule_date'] = date_is_valid($value)
             ? date('Y-m-d H:i:s', strtotime($value))

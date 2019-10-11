@@ -29,10 +29,8 @@ class UpdateInventoryItemService
      *
      * @param  \App\Models\InventoryItem  $item
      * @param  \App\Http\DTO\InventoryItemData  $data
-     *
-     * @return \App\Models\InventoryItem
      */
-    public function run(InventoryItem $item, InventoryItemData $data)
+    public function run(InventoryItem $item, InventoryItemData $data): InventoryItem
     {
         $this->validator->validate($data->toArray());
 

@@ -3,16 +3,15 @@
 namespace App\Http\Responders\User;
 
 use Inertia\Inertia;
+use Inertia\Response;
 use PerfectOblivion\Responder\Responder;
 
 class EditUserResponder extends Responder
 {
     /**
      * Send a response.
-     *
-     * @return \Illuminate\View\Viow
      */
-    public function respond()
+    public function respond(): Response
     {
         return Inertia::render('Users/Edit', [
             'user' => [

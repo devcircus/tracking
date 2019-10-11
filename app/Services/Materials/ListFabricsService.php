@@ -28,8 +28,6 @@ class ListFabricsService
      * Handle the call to the service.
      *
      * @param  bool  $withTrashed
-     *
-     * @return mixed
      */
     public function run(bool $withTrashed = true): Collection
     {

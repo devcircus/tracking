@@ -3,6 +3,7 @@
 namespace App\Services\Tag;
 
 use App\Models\Tag;
+use Illuminate\Support\Collection;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class ListTagsService
@@ -24,10 +25,8 @@ class ListTagsService
 
     /**
      * Handle the call to the service.
-     *
-     * @return \Illuminate\Support\Collection
      */
-    public function run()
+    public function run(): Collection
     {
         return $this->tags->retrieveAllTags($withTrashed = true);
     }

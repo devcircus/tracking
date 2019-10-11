@@ -2,6 +2,7 @@
 
 namespace App\Macros;
 
+use Closure;
 use Illuminate\Support\Arr;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection as IlluminateCollection;
@@ -11,10 +12,8 @@ class Collection
     /**
      * Macro helper that will return all of the given keys from the collection.
      * If keys are passed, return those as well, even if they don't exist.
-     *
-     * @return \Illuminate\Support\Collection
      */
-    public function obtain()
+    public function obtain(): Closure
     {
         return function ($keys) {
             $items = $this->items;
@@ -35,12 +34,8 @@ class Collection
 
     /**
      * Paginate a Collection.
-     *
-     * @param  int  $perpage
-     *
-     * @return array
      */
-    public function paginate()
+    public function paginate(): Closure
     {
         return function (int $perPage = 5) {
             $items = $this->all();
@@ -65,14 +60,8 @@ class Collection
 
     /**
      * Create a new collection with a range of elements, with optional step.
-     *
-     * @param  mixed  $start
-     * @param  mixed  $end
-     * @param  float|int  $step
-     *
-     * @return \Illuminate\Support\Collection
      */
-    public function range()
+    public function range(): Closure
     {
         return function ($start, $end, $step = 1) {
             return new IlluminateCollection(range($start, $end, $step));

@@ -9,10 +9,8 @@ class AddOrderServiceValidation extends ValidationService
 {
     /**
      * Get the validation rules that apply to the data.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'schedule_date' => ['required', 'date'],
@@ -45,17 +43,6 @@ class AddOrderServiceValidation extends ValidationService
             ],
             'report_created' => ['required', 'date'],
             'info' => ['string', 'min:3', 'nullable'],
-        ];
-    }
-
-    /**
-     * Get the sanitization filters that apply to the data.
-     *
-     * @return array
-     */
-    public function filters()
-    {
-        return [
         ];
     }
 }

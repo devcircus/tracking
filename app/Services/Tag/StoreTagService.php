@@ -33,10 +33,8 @@ class StoreTagService
      * Handle the call to the service.
      *
      * @param  \App\Http\DTO\TagData  $data
-     *
-     * @return mixed
      */
-    public function run(TagData $data)
+    public function run(TagData $data): Tag
     {
         $this->validator->validate($data->toArray());
 

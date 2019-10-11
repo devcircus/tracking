@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\DTO\UserData;
 use Illuminate\Http\Request;
 use PerfectOblivion\Actions\Action;
+use Illuminate\Http\RedirectResponse;
 use App\Services\User\UpdateUserService;
 use Illuminate\Contracts\Auth\Access\Gate;
 use App\Services\User\UpdateUserPasswordService;
@@ -36,10 +37,8 @@ class UpdateUser extends Action
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\User  $user
-     *
-     * @return \Illuminate\View\View
      */
-    public function __invoke(Request $request, User $user)
+    public function __invoke(Request $request, User $user): RedirectResponse
     {
         if (! $this->gate->allows('update-user', $user)) {
             return redirect()->back()->with(['warning' => 'You do not have permission to edit this user.']);

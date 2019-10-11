@@ -10,10 +10,8 @@ trait QueriesOrders
      * Get all vouchers for the specified date.
      *
      * @param  string  $date
-     *
-     * @return \Illuminate\Database\Eloquent\Builder;
      */
-    public function scopeForDate(Builder $query, string $date)
+    public function scopeForDate(Builder $query, string $date): Builder
     {
         return $query->where('report_created', $date)->orderBy('schedule_date', 'asc')->orderBy('order_number', 'asc')->orderBy('voucher', 'asc');
     }
@@ -23,10 +21,8 @@ trait QueriesOrders
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @param  string  $type
-     *
-     * @return \Illuminate\Database\Eloquent\Builder;
      */
-    public function scopeNotComplete(Builder $query, string $type)
+    public function scopeNotComplete(Builder $query, string $type): Builder
     {
         if ('prototype' === $type) {
             return $query->where('sew_house', 'NS')->whereNull('print_complete');
@@ -39,10 +35,8 @@ trait QueriesOrders
      * Get the order quantity for a given date.
      *
      * @param  string  $date
-     *
-     * @return int
      */
-    public function getQuantityForDate(string $date)
+    public function getQuantityForDate(string $date): int
     {
         return $this->forDate($date)->get()->sum('quantity');
     }
@@ -51,10 +45,8 @@ trait QueriesOrders
      * Does the given report_created date exist in the db?
      *
      * @param  string  $date
-     *
-     * @return bool
      */
-    public function hasDate(string $date)
+    public function hasDate(string $date): bool
     {
         return $this->where('report_created', $date)->exists();
     }
@@ -63,10 +55,8 @@ trait QueriesOrders
      * Calculate the totals, grouped by date.
      *
      * @param \Illuminate\Database\Eloquent\Builder
-     *
-     * @return array
      */
-    public function scopeWeeklyTotals(Builder $query)
+    public function scopeWeeklyTotals(Builder $query): array
     {
         return $query->get()->groupBy('schedule_date')->map(function ($group) {
             return $group->sum(function ($group) {
@@ -79,10 +69,8 @@ trait QueriesOrders
      * Count the number of vouchers, grouped by date.
      *
      * @param \Illuminate\Database\Eloquent\Builder
-     *
-     * @return array
      */
-    public function scopeWeeklyVouchers(Builder $query)
+    public function scopeWeeklyVouchers(Builder $query): array
     {
         return $query->get()->groupBy('schedule_date')->map(function ($group) {
             return $group->count();

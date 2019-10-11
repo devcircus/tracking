@@ -13,10 +13,8 @@ class DeleteUserService
      * Handle the call to the service.
      *
      * @param  \App\Models\User  $user
-     *
-     * @return \App\Models\User
      */
-    public function run(User $user)
+    public function run(User $user): User
     {
         $deleted = $user->deleteUser();
 

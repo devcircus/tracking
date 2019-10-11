@@ -22,7 +22,6 @@ class CreateAdminCommand extends Command
      * Create a new command instance.
      *
      * @param  \App\Models\User  $users
-     * @return void
      */
     public function __construct(User $users)
     {
@@ -32,10 +31,8 @@ class CreateAdminCommand extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): void
     {
         $this->comment('creating admin account...');
 
@@ -54,10 +51,8 @@ class CreateAdminCommand extends Command
 
     /**
      * Get the options for the command.
-     *
-     * @return array
      */
-    protected function getOptions()
+    protected function getOptions(): array
     {
         return [
             ['name', null, InputOption::VALUE_OPTIONAL, 'The name of the user.', config('auth.admin.name')],

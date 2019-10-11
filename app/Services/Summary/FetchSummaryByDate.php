@@ -4,6 +4,7 @@ namespace App\Services\Summary;
 
 use App\Models\Type;
 use App\Models\Order;
+use Illuminate\Support\Collection;
 use App\Services\Cache\CacheForeverService;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
@@ -33,10 +34,8 @@ class FetchSummaryByDate
      * Handle fetching all reports by the given date.
      *
      * @param  string  $date
-     *
-     * @return \Illuminate\Support\Collection
      */
-    public function run(string $date)
+    public function run(string $date): Collection
     {
         return CacheForeverService::call('summary', function() use ($date) {
             return $this->types->all()->keyBy('type')->toBase()->only(['prototype', 'ninas'])->map(function ($model, $key) use ($date) {

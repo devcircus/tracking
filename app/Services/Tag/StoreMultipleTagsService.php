@@ -34,10 +34,8 @@ class StoreMultipleTagsService
      * Handle the call to the service.
      *
      * @param  array  $data
-     *
-     * @return mixed
      */
-    public function run(array $data)
+    public function run(array $data): Collection
     {
         $this->validator->validate($data);
 

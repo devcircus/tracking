@@ -10,10 +10,8 @@ class ListMaterialsService
 
     /**
      * Handle the call to the service.
-     *
-     * @return array
      */
-    public function run()
+    public function run(): array
     {
         $fabrics = ListFabricsService::call();
         $printers = ListPrintersService::call();

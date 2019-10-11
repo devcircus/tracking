@@ -10,7 +10,7 @@ trait HasUuids
     /**
      * Boot the trait.
      */
-    protected static function bootHasUuids()
+    protected static function bootHasUuids(): void
     {
         static::creating(function (Model $model) {
             $model->generateUuid();
@@ -19,8 +19,6 @@ trait HasUuids
 
     /**
      * There is no Uuid associated with the instance.
-     *
-     * @return bool
      */
     public function hasUuid(): bool
     {
@@ -29,8 +27,6 @@ trait HasUuids
 
     /**
      * There is a Uuid associated with the instance.
-     *
-     * @return bool
      */
     public function needsUuid(): bool
     {
@@ -39,6 +35,8 @@ trait HasUuids
 
     /**
      * Generate a Uuid for a model.
+     *
+     * @return mixed
      */
     public function generateUuid()
     {
