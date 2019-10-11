@@ -39,23 +39,15 @@ export default {
             show: false,
         }
     },
+    beforeDestroy () {
+        document.removeEventListener('scroll', this.setTriggerZindex);
+        document.removeEventListener('keydown', this.hideDropdownOnEscape);
+    },
     mounted () {
-        document.addEventListener('keydown', (e) => {
-            if (e.keyCode === 27) {
-                this.close();
-            }
-        });
+        document.addEventListener('keydown', this.hideDropdownOnEscape);
+        document.addEventListener('scroll', this.setTriggerZindex);
         this.$listen('dropdown-should-close', () => {
             this.close();
-        });
-        document.addEventListener('scroll', (e) => {
-            let top = this.$refs.trigger.getBoundingClientRect().top;
-
-            if (top < 175 && ! this.nav) {
-                this.$refs.trigger.style.zIndex = 20;
-            } else {
-                this.$refs.trigger.style.zIndex = 70;
-            }
         });
     },
     methods: {
@@ -81,6 +73,20 @@ export default {
             });
 
             return `position: absolute; width:${mutatedProperties.width}; top:${mutatedProperties.top}; right:${mutatedProperties.right}; z-index: 9999;`;
+        },
+        setTriggerZindex (e) {
+            let top = this.$refs.trigger.getBoundingClientRect().top;
+
+            if (top < 175 && ! this.nav) {
+                this.$refs.trigger.style.zIndex = 20;
+            } else {
+                this.$refs.trigger.style.zIndex = 70;
+            }
+        },
+        hideDropdownOnEscape (e) {
+            if (e.keyCode === 27) {
+                this.close();
+            }
         },
     },
 }
