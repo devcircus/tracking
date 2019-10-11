@@ -112,7 +112,7 @@ module.exports = {
         fill: ['hover', 'focus', 'group-hover'],
         width: ['responsive'],
         margin: ['last-child', 'responsive'],
-        backgroundColor: ['responsive', 'hover', 'focus', 'group-hover'],
+        backgroundColor: ['responsive', 'hover', 'focus', 'group-hover', 'odd'],
     },
     plugins: [
         require('./resources/js/lib/tailwindcss/plugins/tables')(),

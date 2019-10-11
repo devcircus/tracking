@@ -139,7 +139,7 @@ export default {
                         <div slot="dropdown" class="mt-2 p-2 shadow-lg bg-white rounded">
                             <checkbox v-model="showActive" class="mb-2" label="Include active tags: " :width="4" :height="4" :checked="showActive" @input="hideDropdown()" />
                             <checkbox v-model="showFinished" class="mb-2" label="Include finished tags: " :width="4" :height="4" :checked="showFinished" @input="hideDropdown()" />
-                            <checkbox v-if="$page.auth.user.can.deleteTags" v-model="showTrashed" class="mb-2" label="Include deleted tags: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
+                            <checkbox v-if="$page.auth.user.can.deleteTags" v-model="showTrashed" class="mb-2" label="Include deleted: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
                         </div>
                     </new-dropdown>
                 </div>
