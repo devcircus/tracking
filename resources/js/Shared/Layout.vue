@@ -18,7 +18,7 @@
             <!-- TOP WHITE BAR -->
             <div class="flex justify-between items-center w-full text-sm md:text-base bg-white border-b shadow h-16 p-4 py-8">
                 <div class="mt-1 mr-4">&nbsp;</div>
-                <new-dropdown v-if="$page.auth.user" class="mt-1 md:ml-auto " width="180" :nav="true">
+                <dropdown v-if="$page.auth.user" class="mt-1 md:ml-auto " width="180" :nav="true">
                     <div slot="trigger" class="flex items-center cursor-pointer select-none group">
                         <div class="flex text-blue-800 group-hover:text-blue-500 focus:text-blue-500 mr-1 whitespace-no-wrap">
                             <icon-base icon-function="user" :width="14" :height="14" icon-fill="fill-blue-800" classes="mr-2 group-hover:fill-blue-500">
@@ -59,7 +59,7 @@ import MainMenu from '@/Shared/MainMenu';
 import UserMenu from '@/Shared/UserMenu';
 import SiteFooter from '@/Shared/SiteFooter';
 import Breadcrumbs from '@/Shared/Breadcrumbs';
-import NewDropdown from '@/Shared/NewDropdown';
+import Dropdown from '@/Shared/Dropdown';
 import FlashMessage from '@/Shared/FlashMessage';
 import CheveronDown from '@/Shared/Icons/CheveronDown';
 
@@ -73,7 +73,7 @@ export default {
         MainMenu,
         SiteFooter,
         Breadcrumbs,
-        NewDropdown,
+        Dropdown,
         FlashMessage,
         CheveronDown,
     },

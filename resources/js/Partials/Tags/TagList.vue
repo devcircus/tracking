@@ -4,7 +4,7 @@ import IconBase from '@/Shared/IconBase';
 import { filter, concat } from 'lodash';
 import Checkbox from '@/Shared/Checkbox';
 import { VueGoodTable } from 'vue-good-table';
-import NewDropdown from '@/Shared/NewDropdown';
+import Dropdown from '@/Shared/Dropdown';
 import CheveronDown from '@/Shared/Icons/CheveronDown';
 
 export default {
@@ -12,7 +12,7 @@ export default {
         Plus,
         IconBase,
         Checkbox,
-        NewDropdown,
+        Dropdown,
         VueGoodTable,
         CheveronDown,
     },
@@ -127,7 +127,7 @@ export default {
                 </div>
                 <div slot="table-actions" class="flex items-center justify-between">
                     <span class="text-blue-500 text-sm font-semibold leading-loose mr-2 inline-block mt-tenth cursor-pointer" @click="clearSearch()">Clear</span>
-                    <new-dropdown class="mr-1" right="10" width="180">
+                    <dropdown class="mr-1" right="10" width="180">
                         <div slot="trigger" class="flex items-center cursor-pointer select-none group">
                             <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
                                 <span class="inline text-gray-800 text-sm font-semibold">Options</span>
