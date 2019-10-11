@@ -19,6 +19,7 @@ class CheckForRfOrder
         if ('SU' === $model->cut_house && 'RF' === $model->sew_house) {
             return true;
         }
+
         return false;
     }
 }

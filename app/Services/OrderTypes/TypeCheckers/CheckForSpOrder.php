@@ -19,6 +19,7 @@ class CheckForSpOrder
         if ('SU' === $model->cut_house && 'SP' === $model->sew_house) {
             return true;
         }
+
         return false;
     }
 }

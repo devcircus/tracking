@@ -22,6 +22,8 @@ class CheckForLateOrder
         if (date_is_valid($model->schedule_date) && now()->addWeek() >= $this->getScheduleDate($model) && '34' === $model->sew_house && 'SU' === $model->cut_house) {
             return true;
         }
+
+        return false;
     }
     /**
      * Get a formatted schedule date to be used for date comparison.

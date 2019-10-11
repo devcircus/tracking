@@ -19,6 +19,7 @@ class CheckForNinasOrder
         if ('SU' === $model->cut_house && '34' === $model->sew_house) {
             return true;
         }
+
         return false;
     }
 }

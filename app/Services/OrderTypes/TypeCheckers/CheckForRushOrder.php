@@ -23,6 +23,7 @@ class CheckForRushOrder
                 return true;
             }
         }
+
         return false;
     }
 }
