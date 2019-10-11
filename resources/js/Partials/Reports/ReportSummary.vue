@@ -6,7 +6,7 @@
                 <h2 class="text-base lg:text:sm text-white font-semibold">By week</h2>
             </div>
             <div class="ml-auto p-4 whitespace-no-wrap">
-                <new-dropdown class="block" width="180">
+                <dropdown class="block" width="180">
                     <div slot="trigger">
                         <svg class="fill-white w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
                     </div>
@@ -64,14 +64,14 @@
 import IconBase from '@/Shared/IconBase';
 import Printer from '@/Shared/Icons/Printer';
 import ViewEye from '@/Shared/Icons/ViewEye';
-import NewDropdown from '@/Shared/NewDropdown.vue';
+import Dropdown from '@/Shared/Dropdown.vue';
 
 export default {
     components: {
         Printer,
         ViewEye,
         IconBase,
-        NewDropdown,
+        Dropdown,
     },
     props: ['data', 'type', 'timestamp', 'group'],
 }

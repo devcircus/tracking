@@ -15,7 +15,7 @@
                 <div slot="table-actions">
                     <div class="flex items-center justify-between">
                         <span class="text-blue-500 text-sm font-semibold leading-loose mr-2 inline-block mt-tenth cursor-pointer" @click="clearSearch()">Clear</span>
-                        <new-dropdown right="10">
+                        <dropdown right="10">
                             <div slot="trigger" class="flex items-center cursor-pointer select-none group">
                                 <div class="text-blue-900 group-hover:text-blue-700 focus:text-blue-700 mr-1 whitespace-no-wrap">
                                     <span class="inline text-sm">Options</span>
@@ -104,7 +104,7 @@ import Checkbox from '@/Shared/Checkbox';
 import IconBase from '@/Shared/IconBase';
 import Vector from '@/Shared/Icons/Vector';
 import { VueGoodTable } from 'vue-good-table';
-import NewDropdown from '@/Shared/NewDropdown';
+import Dropdown from '@/Shared/Dropdown';
 import LoadingButton from '@/Shared/LoadingButton';
 import CheveronDown from '@/Shared/Icons/CheveronDown';
 
@@ -114,7 +114,7 @@ export default {
         Toggle,
         Checkbox,
         IconBase,
-        NewDropdown,
+        Dropdown,
         VueGoodTable,
         CheveronDown,
         LoadingButton,
