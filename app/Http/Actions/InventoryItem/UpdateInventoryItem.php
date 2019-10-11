@@ -2,12 +2,13 @@
 
 namespace App\Http\Actions\InventoryItem;
 
-use App\Models\InventoryItem;
 use Illuminate\Http\Request;
+use App\Models\InventoryItem;
 use PerfectOblivion\Actions\Action;
+use App\Http\DTO\InventoryItemData;
+use Illuminate\Http\RedirectResponse;
 use App\Services\Item\UpdateInventoryItemService;
 use App\Http\Responders\InventoryItem\UpdateInventoryItemResponder;
-use App\Http\DTO\InventoryItemData;
 
 class UpdateInventoryItem extends Action
 {
@@ -29,10 +30,8 @@ class UpdateInventoryItem extends Action
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\InventoryItem  $item
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request, InventoryItem $item)
+    public function __invoke(Request $request, InventoryItem $item): RedirectResponse
     {
         $updated = UpdateInventoryItemService::call($item, InventoryItemData::fromRequest($request));
 

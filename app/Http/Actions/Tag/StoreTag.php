@@ -2,11 +2,12 @@
 
 namespace App\Http\Actions\Tag;
 
+use App\Http\DTO\TagData;
 use Illuminate\Http\Request;
 use PerfectOblivion\Actions\Action;
 use App\Services\Tag\StoreTagService;
+use Illuminate\Http\RedirectResponse;
 use App\Http\Responders\Tag\StoreTagResponder;
-use App\Http\DTO\TagData;
 
 class StoreTag extends Action
 {
@@ -27,10 +28,8 @@ class StoreTag extends Action
      * Execute the action.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): RedirectResponse
     {
         $data = TagData::fromRequest($request);
         StoreTagService::call($data);

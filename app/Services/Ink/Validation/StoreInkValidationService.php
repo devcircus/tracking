@@ -8,10 +8,8 @@ class StoreInkValidationService extends ValidationService
 {
     /**
      * Get the validation rules that apply to the data.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'manufacturer' => ['required', 'string', 'min:3'],
@@ -22,10 +20,8 @@ class StoreInkValidationService extends ValidationService
 
     /**
      * Get the sanitization filters that apply to the data.
-     *
-     * @return array
      */
-    public function filters()
+    public function filters(): array
     {
         return [
             'manufacturer' => ['trim', 'strip_tags'],

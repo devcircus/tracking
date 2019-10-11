@@ -2,6 +2,7 @@
 
 namespace App\Http\Actions\Report;
 
+use Inertia\Response;
 use Illuminate\Http\Request;
 use PerfectOblivion\Actions\Action;
 use App\Services\Report\ShowIndividualReportService;
@@ -26,10 +27,8 @@ class ShowIndividualReport extends Action
      * Execute the action.
      *
      * @param  \Illuminate\Http\Request
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
 
         return $this->responder->withPayload([

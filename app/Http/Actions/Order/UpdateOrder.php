@@ -3,9 +3,9 @@
 namespace App\Http\Actions\Order;
 
 use App\Models\Order;
-use App\Http\DTO\InfoData;
 use Illuminate\Http\Request;
 use PerfectOblivion\Actions\Action;
+use Illuminate\Http\RedirectResponse;
 use App\Services\Order\UpdateOrderService;
 use App\Http\Responders\Order\UpdateOrderResponder;
 
@@ -29,10 +29,8 @@ class UpdateOrder extends Action
      *
      * @param  \App\Models\Order  $order
      * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(Order $order, Request $request)
+    public function __invoke(Order $order, Request $request): RedirectResponse
     {
         $result = UpdateOrderService::call($order, $request->only(['info']));
 

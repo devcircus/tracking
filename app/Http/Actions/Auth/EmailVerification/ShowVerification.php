@@ -4,6 +4,7 @@ namespace App\Http\Actions\Auth\EmailVerification;
 
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use PerfectOblivion\Actions\Action;
 
 class ShowVerification extends Action
@@ -13,7 +14,7 @@ class ShowVerification extends Action
      *
      * @param  \Illuminate\Http\Request  $request
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
     public function __invoke(Request $request)
     {

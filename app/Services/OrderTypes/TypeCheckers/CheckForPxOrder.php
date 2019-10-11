@@ -13,10 +13,8 @@ class CheckForPxOrder
      * Check if the order is for Px.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     *
-     * @return bool
      */
-    public function run(Model $model)
+    public function run(Model $model): bool
     {
         if ('SU' === $model->cut_house && 'PX' === $model->sew_house) {
             return true;

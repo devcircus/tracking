@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class ListUsersService
@@ -26,10 +27,8 @@ class ListUsersService
      * Handle the call to the service.
      *
      * @param  array  $keys
-     *
-     * @return mixed
      */
-    public function run(array $keys)
+    public function run(array $keys): Collection
     {
         return $this->users->orderByName()->filter($keys)
             ->get()

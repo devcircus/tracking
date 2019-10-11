@@ -23,8 +23,6 @@ class ItemNeedsReordered implements ShouldBroadcast
      * Create a new event instance.
      *
      * @param  \App\Models\InventoryItem  $item
-     *
-     * @return void
      */
     public function __construct(InventoryItem $item)
     {
@@ -43,20 +41,16 @@ class ItemNeedsReordered implements ShouldBroadcast
 
     /**
      * Name of the Event to broadcast.
-     *
-     * @return string
      */
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
         return 'itemReorder';
     }
 
     /**
      * Get the tags that should be assigned to the job.
-     *
-     * @return array
      */
-    public function tags()
+    public function tags(): array
     {
         return ['inventory', 'reorder:'.$this->item->name];
     }

@@ -8,10 +8,8 @@ class UpdateOrderServiceValidation extends ValidationService
 {
     /**
      * Get the validation rules that apply to the data.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'info' => ['string', 'nullable'],
@@ -20,10 +18,8 @@ class UpdateOrderServiceValidation extends ValidationService
 
     /**
      * Get the sanitization filters that apply to the data.
-     *
-     * @return array
      */
-    public function filters()
+    public function filters(): array
     {
         return [
             'info' => ['trim', 'strip_tags'],

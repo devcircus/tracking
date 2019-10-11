@@ -3,10 +3,13 @@
 namespace App\Http\Actions\Auth\Login;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use PerfectOblivion\Actions\Action;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Auth\RedirectsUsers;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 
 class ProcessLogin extends Action
@@ -20,10 +23,8 @@ class ProcessLogin extends Action
      * Log in the user.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $this->validateLogin($request);
 
@@ -61,10 +62,8 @@ class ProcessLogin extends Action
      * Attempt to log the user into the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
-     * @return bool
      */
-    protected function attemptLogin(Request $request)
+    protected function attemptLogin(Request $request): bool
     {
         return $this->guard()->attempt(
             $request->credentials(),
@@ -77,7 +76,7 @@ class ProcessLogin extends Action
      *
      * @param  \Illuminate\Http\Request  $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     protected function sendLoginResponse(Request $request)
     {
@@ -94,10 +93,8 @@ class ProcessLogin extends Action
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  mixed  $user
-     *
-     * @return mixed
      */
-    protected function authenticated(Request $request, $user)
+    protected function authenticated(Request $request, $user): RedirectResponse
     {
         return redirect()->route('dashboard')->with(['success' => 'Logged in!']);
     }
@@ -108,10 +105,8 @@ class ProcessLogin extends Action
      * @param  \Illuminate\Http\Request  $request
      *
      * @throws \Illuminate\Validation\ValidationException
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function sendFailedLoginResponse(Request $request)
+    protected function sendFailedLoginResponse(Request $request): void
     {
         throw ValidationException::withMessages([
             $this->username() => [trans('auth.failed')],
@@ -120,20 +115,16 @@ class ProcessLogin extends Action
 
     /**
      * Get the login username to be used by the controller.
-     *
-     * @return string
      */
-    public function username()
+    public function username(): string
     {
         return 'email';
     }
 
     /**
      * Get the guard to be used during authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
-    protected function guard()
+    protected function guard(): StatefulGuard
     {
         return Auth::guard();
     }

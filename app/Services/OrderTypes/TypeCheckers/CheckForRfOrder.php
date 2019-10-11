@@ -13,10 +13,8 @@ class CheckForRfOrder
      * Check if the order is for Rf.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     *
-     * @return bool
      */
-    public function run(Model $model)
+    public function run(Model $model): bool
     {
         if ('SU' === $model->cut_house && 'RF' === $model->sew_house) {
             return true;

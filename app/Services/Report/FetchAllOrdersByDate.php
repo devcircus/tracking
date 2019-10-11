@@ -4,7 +4,7 @@ namespace App\Services\Report;
 
 use App\Models\Type;
 use App\Models\Order;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Collection;
 use App\Services\Cache\CacheForeverService;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
@@ -34,10 +34,8 @@ class FetchAllOrdersByDate
      * Handle fetching all reports by the given date.
      *
      * @param  string  $date
-     *
-     * @return \Illuminate\Support\Collection
      */
-    public function run(string $date)
+    public function run(string $date): Collection
     {
         return CacheForeverService::call('reports', function() use ($date) {
             return $this->types->all()->keyBy('type')->map(function ($model, $key) use ($date) {

@@ -29,10 +29,8 @@ class UpdateUserService
      *
      * @param  \App\Models\User  $user
      * @param  \App\Http\DTO\UserData  $data
-     *
-     * @return mixed
      */
-    public function run(User $user, UserData $data)
+    public function run(User $user, UserData $data): User
     {
         $this->validator->validate($data->toArray());
 

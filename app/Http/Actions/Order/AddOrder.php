@@ -5,6 +5,7 @@ namespace App\Http\Actions\Order;
 use App\Http\DTO\OrderData;
 use Illuminate\Http\Request;
 use PerfectOblivion\Actions\Action;
+use Illuminate\Http\RedirectResponse;
 use App\Services\Order\AddOrderService;
 use App\Http\Responders\Order\AddOrderResponder;
 
@@ -27,10 +28,8 @@ class AddOrder extends Action
      * Execute the action.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): RedirectResponse
     {
         $order = AddOrderService::call(OrderData::fromRequest($request));
 

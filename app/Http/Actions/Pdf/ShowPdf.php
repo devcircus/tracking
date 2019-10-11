@@ -3,6 +3,7 @@
 namespace App\Http\Actions\Pdf;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use PerfectOblivion\Actions\Action;
 use App\Services\Pdf\ShowPdfService;
 use App\Http\Responders\Pdf\ShowPdfResponder;
@@ -26,10 +27,8 @@ class ShowPdf extends Action
      * Execute the action.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         $payload = [
             'report' => ShowPdfService::call($request->only(['date', 'timestamp']), $request->route('type')),

@@ -15,7 +15,7 @@ class PaginationServiceProvider extends ServiceProvider implements DeferrablePro
     /**
      * Register services.
      */
-    public function register()
+    public function register(): void
     {
         $this->registerLengthAwarePaginator();
     }
@@ -23,7 +23,7 @@ class PaginationServiceProvider extends ServiceProvider implements DeferrablePro
     /**
      * Boot services.
      */
-    public function boot()
+    public function boot(): void
     {
         Paginator::defaultView('vendor.pagination.default');
     }
@@ -31,7 +31,7 @@ class PaginationServiceProvider extends ServiceProvider implements DeferrablePro
     /**
      * Configure LengthAwarePaginator to work with Inertia.
      */
-    private function registerLengthAwarePaginator()
+    private function registerLengthAwarePaginator(): void
     {
         $this->app->bind(LengthAwarePaginator::class, function ($app, $values) {
             return new class(...array_values($values)) extends LengthAwarePaginator {
@@ -105,10 +105,8 @@ class PaginationServiceProvider extends ServiceProvider implements DeferrablePro
 
     /**
      * Get the services provided by the provider.
-     *
-     * @return array
      */
-    public function provides()
+    public function provides(): array
     {
         return [LengthAwarePaginator::class];
     }

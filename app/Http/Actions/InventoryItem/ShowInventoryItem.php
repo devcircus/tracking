@@ -2,6 +2,7 @@
 
 namespace App\Http\Actions\InventoryItem;
 
+use Inertia\Response;
 use App\Models\InventoryItem;
 use PerfectOblivion\Actions\Action;
 use App\Http\Responders\InventoryItem\ShowInventoryItemResponder;
@@ -25,10 +26,8 @@ class ShowInventoryItem extends Action
      * Execute the action.
      *
      * @param  \App\Models\InventoryItem  $item
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(InventoryItem $item)
+    public function __invoke(InventoryItem $item): Response
     {
         return $this->responder->withPayload($item->withInStockCount()->withRecentTags()->withActiveTags())->respond();
     }

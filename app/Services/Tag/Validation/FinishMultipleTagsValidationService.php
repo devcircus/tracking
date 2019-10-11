@@ -11,10 +11,8 @@ class FinishMultipleTagsValidationService extends ValidationService
 
     /**
      * Get the validation rules that apply to the data.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'starting_package_number' => ['required', 'numeric', 'lt:ending_package_number'],

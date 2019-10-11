@@ -31,20 +31,16 @@ class BuildDashboardData
 
     /**
      * Build the data for the dashboard.
-     *
-     * @return array
      */
-    public function run()
+    public function run(): array
     {
         return $this->getPaginatedData();
     }
 
     /**
      * Retrieve paginated data for the dashboard.
-     *
-     * @return array
      */
-    private function getPaginatedData()
+    private function getPaginatedData(): array
     {
         $dates = key_by_values($this->orders->reportDates()->toArray());
 

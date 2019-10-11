@@ -2,16 +2,15 @@
 
 namespace App\Http\Responders\User;
 
+use Illuminate\Http\RedirectResponse;
 use PerfectOblivion\Responder\Responder;
 
 class DeleteUserResponder extends Responder
 {
     /**
      * Send a response.
-     *
-     * @return mixed
      */
-    public function respond()
+    public function respond(): RedirectResponse
     {
         $this->request->session()->flash('success', 'User deleted!');
 

@@ -13,10 +13,8 @@ class CheckForRushOrder
      * Check if the order is on rush status.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     *
-     * @return bool
      */
-    public function run(Model $model)
+    public function run(Model $model): bool
     {
         if (null === $model->rush_date) return false;
         if ('00/00/00' === $model->rush_date) return false;

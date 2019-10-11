@@ -12,10 +12,8 @@ class DeleteInventoryItemValidationService extends ValidationService
 
     /**
      * Get the validation rules that apply to the data.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'id' => [new ItemHasNoTagsRule],

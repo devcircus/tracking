@@ -2,8 +2,9 @@
 
 namespace App\Services\Report;
 
-use PerfectOblivion\Services\Traits\SelfCallingService;
+use Illuminate\Support\Collection;
 use App\Services\Report\FetchIndividualReportByDate;
+use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class ShowIndividualReportService
 {
@@ -13,10 +14,8 @@ class ShowIndividualReportService
      * Handle the call to the service.
      *
      * @param  array  $params
-     *
-     * @return mixed
      */
-    public function run(array $params)
+    public function run(array $params): Collection
     {
         return FetchIndividualReportByDate::call($params['type'], $params['date']);
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Actions\User;
 
+use Inertia\Response;
 use Illuminate\Http\Request;
 use PerfectOblivion\Actions\Action;
 use App\Services\User\ListUsersService;
@@ -26,10 +27,8 @@ class ListUsers extends Action
      * List the users.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): Response
     {
         return $this->responder->withPayload([
             'filters' => $request->all('search', 'trashed'),

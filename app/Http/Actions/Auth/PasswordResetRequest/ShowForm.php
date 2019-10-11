@@ -3,16 +3,15 @@
 namespace App\Http\Actions\Auth\PasswordResetRequest;
 
 use Inertia\Inertia;
+use Inertia\Response;
 use PerfectOblivion\Actions\Action;
 
 class ShowForm extends Action
 {
     /**
      * Show the password reset request form.
-     *
-     * @return \Illuminate\View\View
      */
-    public function __invoke()
+    public function __invoke(): Response
     {
         return Inertia::render('Auth/PasswordResetRequest');
     }

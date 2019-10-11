@@ -11,10 +11,8 @@ class StoreInventoryItemValidationService extends ValidationService
 
     /**
      * Get the validation rules that apply to the data.
-     *
-     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => ['required', 'string', 'min:3', 'unique:items,name'],
@@ -24,10 +22,8 @@ class StoreInventoryItemValidationService extends ValidationService
 
     /**
      * Get the sanitization filters that apply to the data.
-     *
-     * @return array
      */
-    public function filters()
+    public function filters(): array
     {
         return [
             'name' => ['trim', 'strip_tags'],

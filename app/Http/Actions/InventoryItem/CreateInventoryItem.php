@@ -2,6 +2,7 @@
 
 namespace App\Http\Actions\InventoryItem;
 
+use Inertia\Response;
 use PerfectOblivion\Actions\Action;
 use App\Http\Responders\InventoryItem\CreateInventoryItemResponder;
 
@@ -22,10 +23,8 @@ class CreateInventoryItem extends Action
 
     /**
      * Execute the action.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke()
+    public function __invoke(): Response
     {
         return $this->responder->respond();
     }

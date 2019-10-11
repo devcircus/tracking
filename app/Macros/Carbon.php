@@ -2,16 +2,15 @@
 
 namespace App\Macros;
 
+use Closure;
 use OpenPsa\Ranger\Ranger;
 
 class Carbon
 {
     /**
      * Carbon Macro to create date range.
-     *
-     * @return string
      */
-    public function range()
+    public function range(): Closure
     {
         return function ($to) {
             return (new Ranger('en'))->format(

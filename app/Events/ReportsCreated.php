@@ -33,20 +33,16 @@ class ReportsCreated implements ShouldBroadcast
 
     /**
      * Name of the Event to broadcast.
-     *
-     * @return string
      */
-    public function broadcastAs()
+    public function broadcastAs(): string
     {
         return 'reportsCreated';
     }
 
     /**
      * Get the tags that should be assigned to the job.
-     *
-     * @return array
      */
-    public function tags()
+    public function tags(): array
     {
         return ['orders', 'reports'];
     }

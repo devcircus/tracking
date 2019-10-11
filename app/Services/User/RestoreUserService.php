@@ -11,10 +11,8 @@ class RestoreUserService
 
     /**
      * Handle the call to the service.
-     *
-     * @return \App\Models\User
      */
-    public function run(User $user)
+    public function run(User $user): User
     {
         $restored = $user->restoreUser();
 

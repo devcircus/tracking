@@ -3,16 +3,15 @@
 namespace App\Http\Responders\Summary\Pdf;
 
 use PDF;
+use Illuminate\Http\Response;
 use PerfectOblivion\Responder\Responder;
 
 class ShowSummaryPdfResponder extends Responder
 {
     /**
      * Send a response.
-     *
-     * @return mixed
      */
-    public function respond()
+    public function respond(): Response
     {
         $pdf = PDF::loadView('pdf.summary', [
             'summary' => $this->payload,

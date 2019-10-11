@@ -12,15 +12,13 @@ trait HasSlug
 
     /**
      * Get the slug options.
-     *
-     * @return \App\Models\Traits\Slug\SlugOptions
      */
     abstract public function getSlugOptions(): SlugOptions;
 
     /**
      * Boot the trait.
      */
-    protected static function bootHasSlug()
+    protected static function bootHasSlug(): void
     {
         static::creating(function (Model $model) {
             $model->generateSlugOnCreate();
@@ -33,6 +31,8 @@ trait HasSlug
 
     /**
      * Generate the slug when creating the model.
+     *
+     * @return mixed
      */
     protected function generateSlugOnCreate()
     {
@@ -47,6 +47,8 @@ trait HasSlug
 
     /**
      * Generate the slug when updating the model.
+     *
+     * @return mixed
      */
     protected function generateSlugOnUpdate()
     {
@@ -62,7 +64,7 @@ trait HasSlug
     /**
      * Generate the slug.
      */
-    public function generateSlug()
+    public function generateSlug(): void
     {
         $this->slugOptions = $this->getSlugOptions();
         $this->addSlug();
@@ -71,7 +73,7 @@ trait HasSlug
     /**
      * Add the slug to the model.
      */
-    protected function addSlug()
+    protected function addSlug(): void
     {
         $this->ensureValidSlugOptions();
         $slug = $this->generateNonUniqueSlug();
@@ -168,7 +170,7 @@ trait HasSlug
      *
      * @throws \App\Models\Traits\Slug\InvalidOption
      */
-    protected function ensureValidSlugOptions()
+    protected function ensureValidSlugOptions(): void
     {
         if (is_array($this->slugOptions->generateSlugFrom) && ! count($this->slugOptions->generateSlugFrom)) {
             throw InvalidOption::missingFromField();

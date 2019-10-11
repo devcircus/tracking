@@ -2,16 +2,15 @@
 
 namespace App\Http\Responders\Tag;
 
+use Illuminate\Http\RedirectResponse;
 use PerfectOblivion\Responder\Responder;
 
 class ReactivateTagResponder extends Responder
 {
     /**
      * Send a response.
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function respond()
+    public function respond(): RedirectResponse
     {
         $this->request->session()->flash('success', 'Tag successfully reactivated!');
 

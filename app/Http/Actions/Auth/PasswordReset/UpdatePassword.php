@@ -6,12 +6,15 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Auth\AuthManager;
 use PerfectOblivion\Actions\Action;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\Hashing\Hasher;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Auth\Passwords\PasswordBroker;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\RedirectsUsers;
 use Illuminate\Auth\Passwords\PasswordBrokerManager;
+use Illuminate\Contracts\Auth\PasswordBroker as IlluminatePasswordBroker;
 
 class UpdatePassword extends Action
 {
@@ -52,10 +55,8 @@ class UpdatePassword extends Action
      * Reset the given user's password.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): RedirectResponse
     {
         $request->validate($this->rules(), $this->validationErrorMessages());
         $response = $this->broker()->reset(
@@ -72,10 +73,8 @@ class UpdatePassword extends Action
 
     /**
      * Get the password reset validation rules.
-     *
-     * @return array
      */
-    protected function rules()
+    protected function rules(): array
     {
         return [
             'token' => 'required',
@@ -86,10 +85,8 @@ class UpdatePassword extends Action
 
     /**
      * Get the password reset validation error messages.
-     *
-     * @return array
      */
-    protected function validationErrorMessages()
+    protected function validationErrorMessages(): array
     {
         return [
             'token' => 'Invalid token. Please restart the password reset process.',
@@ -124,10 +121,8 @@ class UpdatePassword extends Action
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  string  $response
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    protected function sendResetResponse(Request $request, $response)
+    protected function sendResetResponse(Request $request, $response): RedirectResponse
     {
         return redirect()->route('dashboard')->with(['success' => trans($response)]);
     }
@@ -137,10 +132,8 @@ class UpdatePassword extends Action
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  string  $response
-     *
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    protected function sendResetFailedResponse(Request $request, $response)
+    protected function sendResetFailedResponse(Request $request, $response): RedirectResponse
     {
         return redirect()->back()
             ->withInput($request->only('email'))
@@ -149,20 +142,16 @@ class UpdatePassword extends Action
 
     /**
      * Get the broker to be used during password reset.
-     *
-     * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
-    public function broker()
+    public function broker(): IlluminatePasswordBroker
     {
         return $this->brokerManager->broker();
     }
 
     /**
      * Get the guard to be used during password reset.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
-    protected function guard()
+    protected function guard(): StatefulGuard
     {
         return $this->auth->guard();
     }
@@ -171,10 +160,8 @@ class UpdatePassword extends Action
      * Translate the broker response into an errors array.
      *
      * @param  string  $response
-     *
-     * @return array
      */
-    public function translateResponseIntoErrors(string $response)
+    public function translateResponseIntoErrors(string $response): array
     {
         if ('passwords.token' === $response) {
             return ['token' => trans($response)];

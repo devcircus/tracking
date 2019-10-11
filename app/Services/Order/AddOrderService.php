@@ -33,10 +33,8 @@ class AddOrderService
      * Handle the call to the service.
      *
      * @param  \App\Http\DTO\OrderData  $order
-     *
-     * @return mixed
      */
-    public function run(OrderData $order)
+    public function run(OrderData $order): Order
     {
         $this->validator->validate($order->toArray());
         $order = $this->orders->saveOrder($order->toArray());

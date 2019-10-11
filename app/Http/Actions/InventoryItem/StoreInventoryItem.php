@@ -4,9 +4,10 @@ namespace App\Http\Actions\InventoryItem;
 
 use Illuminate\Http\Request;
 use PerfectOblivion\Actions\Action;
+use App\Http\DTO\InventoryItemData;
+use Illuminate\Http\RedirectResponse;
 use App\Services\Item\StoreInventoryItemService;
 use App\Http\Responders\InventoryItem\StoreInventoryItemResponder;
-use App\Http\DTO\InventoryItemData;
 
 class StoreInventoryItem extends Action
 {
@@ -27,10 +28,8 @@ class StoreInventoryItem extends Action
      * Execute the action.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): RedirectResponse
     {
         $created = StoreInventoryItemService::call(InventoryItemData::fromRequest($request));
 

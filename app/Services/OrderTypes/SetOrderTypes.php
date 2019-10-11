@@ -15,10 +15,8 @@ class SetOrderTypes
      * Get all order types for the given order.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $model
-     *
-     * @return array
      */
-    public function run(Model $model)
+    public function run(Model $model): array
     {
         $types = $this->determineTypesForModel($model);
 

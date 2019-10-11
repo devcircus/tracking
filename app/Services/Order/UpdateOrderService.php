@@ -3,7 +3,6 @@
 namespace App\Services\Order;
 
 use App\Models\Order;
-use App\Http\DTO\InfoData;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 use App\Services\Order\Validation\UpdateOrderServiceValidation;
 
@@ -29,10 +28,8 @@ class UpdateOrderService
      *
      * @param  \App\Models\Order  $order
      * @param  array  $info
-     *
-     * @return mixed
      */
-    public function run(Order $order, array $info)
+    public function run(Order $order, array $info): Order
     {
         $this->validator->validate($info);
 

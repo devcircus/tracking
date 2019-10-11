@@ -4,6 +4,7 @@ namespace App\Http\Actions\User;
 
 use App\Models\User;
 use PerfectOblivion\Actions\Action;
+use Illuminate\Http\RedirectResponse;
 use App\Services\User\RestoreUserService;
 use App\Http\Responders\User\RestoreUserResponder;
 
@@ -26,10 +27,8 @@ class RestoreUser extends Action
      * Restore a deleted user.
      *
      * @param  \App\Models\User  $user
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke(User $user)
+    public function __invoke(User $user): RedirectResponse
     {
         $restored = RestoreUserService::call($user);
 

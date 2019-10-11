@@ -2,6 +2,7 @@
 
 namespace App\Http\Actions\Auth\EmailVerification;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use PerfectOblivion\Actions\Action;
 
@@ -19,10 +20,8 @@ class ResendVerify extends Action
      * Resend the email verification email.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): RedirectResponse
     {
         $user = $request->user();
 

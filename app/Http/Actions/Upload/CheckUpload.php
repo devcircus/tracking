@@ -2,6 +2,7 @@
 
 namespace App\Http\Actions\Upload;
 
+use Illuminate\Http\JsonResponse;
 use PerfectOblivion\Actions\Action;
 use App\Services\Upload\CheckUploadService;
 use App\Http\Responders\Upload\CheckUploadResponder;
@@ -23,10 +24,8 @@ class CheckUpload extends Action
 
     /**
      * Execute the action.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function __invoke()
+    public function __invoke(): JsonResponse
     {
         return $this->responder->withPayload(CheckUploadService::call());
     }

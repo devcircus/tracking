@@ -2,6 +2,7 @@
 
 namespace App\Services\Summary;
 
+use Illuminate\Support\Collection;
 use App\Services\Summary\FetchSummaryByDate;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
@@ -11,10 +12,8 @@ class ShowSummaryService
 
     /**
      * Handle the call to the service.
-     *
-     * @return mixed
      */
-    public function run(array $params)
+    public function run(array $params): Collection
     {
         return FetchSummaryByDate::call($params['date']);
     }

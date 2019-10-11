@@ -2,14 +2,14 @@
 
 namespace App\Macros;
 
+use Closure;
+
 class Request
 {
     /**
      * Request macro to check if current path is active.
-     *
-     * @return bool
      */
-    public function isActive()
+    public function isActive(): Closure
     {
         return function (string $segment) {
             return $segment === explode('/', $this->path())[0];
@@ -18,10 +18,8 @@ class Request
 
     /**
      * Request macro to check if current request is an api request.
-     *
-     * @return bool
      */
-    public function isApi()
+    public function isApi(): Closure
     {
         return function () {
             return request()->isActive('api');
@@ -30,12 +28,8 @@ class Request
 
     /**
      * Request macro to get the login credentials from the request.
-     *
-     * @param  string  ...$fields
-     *
-     * @return array
      */
-    public function credentials()
+    public function credentials(): Closure
     {
         return function (...$fields) {
             if (! $fields) {
@@ -48,10 +42,8 @@ class Request
 
     /**
      * Request macro to verify that the user passed through the request is the currently authenticated user.
-     *
-     * @return bool
      */
-    public function targetUserIsSelf()
+    public function targetUserIsSelf(): Closure
     {
         return function () {
             $routeId = request()->route('user')

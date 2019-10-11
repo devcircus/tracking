@@ -13,10 +13,8 @@ class DeleteOrderService
      * Handle the call to the service.
      *
      * @param  \App\Models\Order  $order
-     *
-     * @return mixed
      */
-    public function run(Order $order)
+    public function run(Order $order): Order
     {
         $deleted = $order->deleteOrder();
 

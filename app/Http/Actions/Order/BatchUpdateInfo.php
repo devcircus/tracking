@@ -4,6 +4,7 @@ namespace App\Http\Actions\Order;
 
 use Illuminate\Http\Request;
 use PerfectOblivion\Actions\Action;
+use Illuminate\Http\RedirectResponse;
 use App\Services\Order\BatchUpdateInfoService;
 use App\Http\Responders\Order\BatchUpdateInfoResponder;
 
@@ -26,10 +27,8 @@ class BatchUpdateInfo extends Action
      * Execute the action.
      *
      * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): RedirectResponse
     {
         $result = BatchUpdateInfoService::call($request->info, $request->date);
 

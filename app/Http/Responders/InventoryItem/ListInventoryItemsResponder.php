@@ -3,16 +3,15 @@
 namespace App\Http\Responders\InventoryItem;
 
 use Inertia\Inertia;
+use Inertia\Response;
 use PerfectOblivion\Responder\Responder;
 
 class ListInventoryItemsResponder extends Responder
 {
     /**
      * Send a response.
-     *
-     * @return \Illuminate\View\View
      */
-    public function respond()
+    public function respond(): Response
     {
         return Inertia::render('Items/Index', [
             'items' => $this->payload,

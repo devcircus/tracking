@@ -2,6 +2,7 @@
 
 namespace App\Http\Actions\User;
 
+use Inertia\Response;
 use PerfectOblivion\Actions\Action;
 use App\Http\Responders\User\CreateUserResponder;
 
@@ -22,10 +23,8 @@ class CreateUser extends Action
 
     /**
      * Show the create user form.
-     *
-     * @return \Illuminate\View\View
      */
-    public function __invoke()
+    public function __invoke(): Response
     {
         return $this->responder->respond();
     }

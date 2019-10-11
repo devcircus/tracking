@@ -2,16 +2,15 @@
 
 namespace App\Http\Responders\Printer;
 
+use Illuminate\Http\RedirectResponse;
 use PerfectOblivion\Responder\Responder;
 
 class UpdatePrinterResponder extends Responder
 {
     /**
      * Send a response.
-     *
-     * @return mixed
      */
-    public function respond()
+    public function respond(): RedirectResponse
     {
         $this->request->session()->flash('success', 'Printer updated successfully!');
 

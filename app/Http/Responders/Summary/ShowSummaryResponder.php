@@ -3,16 +3,15 @@
 namespace App\Http\Responders\Summary;
 
 use Inertia\Inertia;
+use Inertia\Response;
 use PerfectOblivion\Responder\Responder;
 
 class ShowSummaryResponder extends Responder
 {
     /**
      * Send a response.
-     *
-     * @return mixed
      */
-    public function respond()
+    public function respond(): Response
     {
         return Inertia::render('Summary/Show', [
             'summary' => $this->payload,
