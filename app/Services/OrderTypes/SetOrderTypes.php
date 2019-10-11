@@ -3,26 +3,13 @@
 namespace App\Services\OrderTypes;
 
 use App\Models\Type;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
 class SetOrderTypes
 {
     use SelfCallingService;
-
-    /** @var array */
-    public $checkers = [
-        'bag' => TypeCheckers\CheckForBagOrder::class,
-        'late' => TypeCheckers\CheckForLateOrder::class,
-        'rush' => TypeCheckers\CheckForRushOrder::class,
-        'new' => TypeCheckers\CheckForNewOrder::class,
-        'prototype' => TypeCheckers\CheckForPrototypeOrder::class,
-        'ninas' => TypeCheckers\CheckForNinasOrder::class,
-        'px' => TypeCheckers\CheckForPxOrder::class,
-        'sp' => TypeCheckers\CheckForSpOrder::class,
-        'rf' => TypeCheckers\CheckForRfOrder::class,
-        'hj' => TypeCheckers\CheckForHjOrder::class,
-    ];
 
     /**
      * Get all order types for the given order.
@@ -33,13 +20,32 @@ class SetOrderTypes
      */
     public function run(Model $model)
     {
-        $found = collect($this->checkers)->filter(function ($checker) use ($model) {
-            return $checker::call($model);
-        })->keys()->toArray();
+        $types = $this->determineTypesForModel($model);
 
-        return $model->types()->sync(collect($found)->map(function ($type) {
+        return $model->types()->sync($this->translateTypesToModels($types));
+    }
+
+    /**
+     * Determine the types for the given Model.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $model
+     */
+    private function determineTypesForModel(Model $model): Collection
+    {
+        return collect(config('sublimation.type_checkers'))->filter(function ($checker) use ($model) {
+            return $checker::call($model);
+        })->keys();
+    }
+
+    /**
+     * Translate the types to the associated Type model.
+     *
+     * @param  \Illuminate\Support\Collection  $types
+     */
+    private function translateTypesToModels(Collection $types): Collection
+    {
+        return $types->map(function ($type) {
             return Type::whereType($type)->first()->id;
-        })
-        );
+        });
     }
 }
