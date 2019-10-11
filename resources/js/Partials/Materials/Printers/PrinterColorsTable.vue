@@ -24,7 +24,7 @@
                     <div slot="dropdown" class="mt-2 p-2 shadow-lg bg-white rounded">
                         <a :href="route('colors.printer.pdf', printer.id)" target="_blank" class="text-red-500 font-semibold text-xs uppercase py-2 cursor-pointer" @click="hideDropdown()">View PDF</a>
                     </div>
-                </new-dropdown>
+                </dropdown>
             </div>
         </template>
     </vue-good-table>

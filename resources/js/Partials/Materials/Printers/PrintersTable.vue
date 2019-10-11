@@ -40,7 +40,7 @@
                             New Printer
                         </inertia-link>
                     </div>
-                </new-dropdown>
+                </dropdown>
             </div>
         </template>
     </vue-good-table>

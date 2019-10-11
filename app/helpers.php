@@ -47,8 +47,10 @@ if (! function_exists('display_date')) {
      * Convert a date to a displayable format.
      *
      * @param  string  $date
+     *
+     * @return mixed
      */
-    function display_date($date): Carbon
+    function display_date($date)
     {
         return $date ? to_date_string($date) : '';
     }
@@ -60,8 +62,10 @@ if (! function_exists('display_date_time')) {
      *
      * @param  string  $date
      * @param  string  $from
+     *
+     * @return mixed
      */
-    function display_date_time($date, string $from = 'Y-m-d H:i:s'): Carbon
+    function display_date_time($date, string $from = 'Y-m-d H:i:s')
     {
         return $date ? Carbon::createFromFormat($from, $date)->format('m/d/y g:i a') : '';
     }

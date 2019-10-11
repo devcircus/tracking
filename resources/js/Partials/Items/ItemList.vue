@@ -33,7 +33,7 @@
                                 New Item
                             </span>
                         </div>
-                    </new-dropdown>
+                    </dropdown>
                 </div>
                 <template slot="table-row" slot-scope="props">
                     <span v-if="props.column.field == 'actions'" class="flex justify-between px-3">
