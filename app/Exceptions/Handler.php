@@ -41,8 +41,10 @@ class Handler extends ExceptionHandler
      * Render an exception into an HTTP response.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
+     * @return mixed
      */
-    public function render($request, Exception $exception): Response
+    public function render($request, Exception $exception)
     {
         return parent::render($request, $exception);
     }
