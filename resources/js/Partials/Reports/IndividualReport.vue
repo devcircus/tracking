@@ -11,17 +11,26 @@
                         <svg class="fill-white w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
                     </div>
                     <div slot="dropdown" class="flex flex-col justify-between mt-2 py-2 shadow-lg bg-white rounded">
-                        <div v-if="type === 'prototype' && $page.auth.user.can.administerReports" class="flex group hover:bg-blue-500 px-8" @click="addVoucher()">
+                        <div v-if="type === 'prototype' && $page.auth.user.can.administerReports" class="flex items-center px-3 py-2 text-gray-700 hover:bg-blue-500 hover:text-white group" @click="addVoucher()">
+                            <icon-base view="24 24" icon-fill="fill-gray-700" icon-name="add fabric" classes="mr-2 group-hover:fill-white">
+                                <plus />
+                            </icon-base>
                             <span class="uppercase text-base text-blue-900 font-semibold py-1 cursor-pointer group-hover:text-white">
                                 Add Voucher
                             </span>
                         </div>
-                        <inertia-link :href="route('reports.individual.show', { type: type, date: timestamp })" class="flex group hover:bg-blue-500 px-8">
+                        <inertia-link :href="route('reports.individual.show', { type: type, date: timestamp })" class="flex items-center px-3 py-2 text-gray-700 hover:bg-blue-500 hover:text-white group">
+                            <icon-base view="24 24" icon-fill="fill-gray-700" icon-name="view" classes="mr-2 group-hover:fill-white">
+                                <view-eye />
+                            </icon-base>
                             <span v-if="group" class="uppercase text-base text-blue-900 font-semibold py-1 group-hover:text-white">
                                 View
                             </span>
                         </inertia-link>
-                        <a :href="route('pdf.show', { type: type, date: timestamp })" target="_blank" class="flex group hover:bg-blue-500 px-8" @click="hideDropdown()">
+                        <a :href="route('pdf.show', { type: type, date: timestamp })" target="_blank" class="flex items-center px-3 py-2 text-gray-700 hover:bg-blue-500 hover:text-white group" @click="hideDropdown()">
+                            <icon-base width="14" height="14" icon-fill="fill-gray-700" icon-name="printable" classes="mr-2 group-hover:fill-white">
+                                <printer />
+                            </icon-base>
                             <span class="uppercase text-base text-blue-900 font-semibold py-1 group-hover:text-white">
                                 Pdf
                             </span>
@@ -111,13 +120,24 @@
 </template>
 
 <script>
-import { map } from 'lodash';
 import moment from 'moment';
+import { map } from 'lodash';
+import Plus from '@/Shared/Icons/Plus';
+import IconBase from '@/Shared/IconBase';
+import Printer from '@/Shared/Icons/Printer';
+import ViewEye from '@/Shared/Icons/ViewEye';
 import NewDropdown from '@/Shared/NewDropdown.vue';
 import LoadingButton from '@/Shared/LoadingButton.vue';
 
 export default {
-    components: { NewDropdown, LoadingButton },
+    components: {
+        Plus,
+        ViewEye,
+        Printer,
+        IconBase,
+        NewDropdown,
+        LoadingButton,
+    },
     props: ['data', 'type', 'date', 'timestamp', 'group'],
     data () {
         return {

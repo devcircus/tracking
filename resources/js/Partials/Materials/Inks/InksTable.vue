@@ -22,10 +22,10 @@
                         </icon-base>
                     </div>
                     <div slot="dropdown" class="flex flex-col mt-2 shadow-lg bg-white rounded">
-                        <span class="px-6">
+                        <span class="px-3">
                             <checkbox v-model="showTrashed" class="mb-2 text-gray-700" label="Include deleted: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
                         </span>
-                        <inertia-link v-if="$page.auth.user.can.createInks" class="flex px-6 py-2 text-gray-700 hover:bg-blue-500 hover:text-white group" :href="route('inks.create')">
+                        <inertia-link v-if="$page.auth.user.can.createInks" class="flex px-3 py-2 text-gray-700 hover:bg-blue-500 hover:text-white group" :href="route('inks.create')">
                             <icon-base view="24 24 " icon-fill="fill-gray-700" icon-name="add ink" classes="mr-2 group-hover:fill-white">
                                 <plus />
                             </icon-base>

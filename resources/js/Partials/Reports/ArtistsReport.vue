@@ -51,8 +51,8 @@
             </vue-good-table>
         </div>
         <div v-else>
-            <div v-if="vouchersNotEmpty" class="flex flex-col w-full mx-auto">
-                <div v-for="voucher in rows" :key="voucher.id" class="flex flex-col bg-white px-3 py-3 border-b">
+            <div v-if="vouchersNotEmpty" class="flex flex-col w-full mx-auto pb-3">
+                <div v-for="voucher in rows" :key="voucher.id" class="flex flex-col bg-white px-3 py-3 border-b odd:bg-gray-200">
                     <div class="flex mb-4 mt-4">
                         <span class="w-160p font-semibold text-lg uppercase text-gray-700">Schedule Date: </span>
                         <span class="text-lg text-gray-600 font-semibold">{{ voucher.schedule_date }}</span>
@@ -135,7 +135,7 @@ export default {
             return this.vouchers;
         },
         vouchersNotEmpty () {
-            return this.isEmpty(this.vouchers);
+            return ! this.isEmpty(this.vouchers);
         },
         vouchersEmpty () {
             return ! this.vouchersNotEmpty;

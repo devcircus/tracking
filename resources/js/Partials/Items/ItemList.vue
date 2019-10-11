@@ -23,10 +23,10 @@
                             </icon-base>
                         </div>
                         <div slot="dropdown" class="flex flex-col mt-2 pt-2 shadow-lg bg-white rounded">
-                            <span class="px-6">
+                            <span class="px-3">
                                 <checkbox v-model="showTrashed" class="mb-2" label="Include deleted: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
                             </span>
-                            <span v-if="$page.auth.user.can.createFabrics" class="flex px-6 py-2 text-gray-700 hover:bg-blue-500 hover:text-white group cursor-pointer" @click="newItem()">
+                            <span v-if="$page.auth.user.can.createFabrics" class="flex px-3 py-2 text-gray-700 hover:bg-blue-500 hover:text-white group cursor-pointer" @click="newItem()">
                                 <icon-base view="24 24" icon-fill="fill-gray-700" icon-name="add fabric" classes="mr-2 group-hover:fill-white">
                                     <plus />
                                 </icon-base>
