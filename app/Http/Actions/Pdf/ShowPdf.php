@@ -37,6 +37,6 @@ class ShowPdf extends Action
             'timestamp' => $request->timestamp,
         ];
 
-        return $this->responder->withPayload($payload);
+        return $this->responder->withPayload($payload)->respond();
     }
 }

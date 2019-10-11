@@ -27,6 +27,6 @@ class CheckUpload extends Action
      */
     public function __invoke(): JsonResponse
     {
-        return $this->responder->withPayload(CheckUploadService::call());
+        return $this->responder->withPayload(CheckUploadService::call())->respond();
     }
 }
