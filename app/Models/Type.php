@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\Builders\Type\TypeQueryBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Type extends Model
@@ -11,21 +11,22 @@ class Type extends Model
     protected $table = 'types';
 
     /**
+     * Create a new Eloquent query builder for the model.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
+    public function newEloquentBuilder($query)
+    {
+        return new TypeQueryBuilder($query);
+    }
+
+    /**
      * A Type belongs to many Orders.
      */
     public function orders(): BelongsToMany
     {
         return $this->belongsToMany(Order::class);
-    }
-
-    /**
-     * Scope the query to Types where type is the given type.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  $type
-     */
-    public function scopeWhereType(Builder $query, string $type): Builder
-    {
-        return $query->where('type', $type);
     }
 }

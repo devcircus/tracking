@@ -4,18 +4,16 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Collection;
-use App\Models\Traits\QueriesOrders;
 use App\Models\Traits\FormatsOrderDates;
-use Illuminate\Database\Eloquent\Builder;
 use App\Services\Cache\CacheForgetService;
 use App\Services\OrderTypes\SetOrderTypes;
 use Spatie\Activitylog\Traits\LogsActivity;
+use App\Models\Builders\Order\OrderQueryBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Order extends Model
 {
     use LogsActivity;
-    use QueriesOrders;
     use FormatsOrderDates;
 
     /** @var string */
@@ -42,6 +40,18 @@ class Order extends Model
     protected static $recordEvents = [];
 
     /**
+     * Create a new Eloquent query builder for the model.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
+    public function newEloquentBuilder($query)
+    {
+        return new OrderQueryBuilder($query);
+    }
+
+    /**
      * An Order belongs to many Types.
      */
     public function types(): BelongsToMany
@@ -58,50 +68,6 @@ class Order extends Model
     }
 
     /**
-     * Query scope for Order type.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  string  $type
-     */
-    public function scopeType(Builder $query, string $type): Builder
-    {
-        return $query->whereHas('types', function ($q) use ($type) {
-            $q->where('type', $type);
-        });
-    }
-
-    /**
-     * Scope to exclude a certain column.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     * @param  mixed  $value
-     */
-    public function scopeExclude($query, $value = []): Builder
-    {
-        return $query->select(array_diff($this->columns, (array) $value));
-    }
-
-    /**
-     * Scope to return only orders that are complete.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     */
-    public function scopeComplete($query): Builder
-    {
-        return $query->whereNotNull('print_complete');
-    }
-
-    /**
-     * Scope to return only orders that are NOT complete.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     */
-    public function scopeNotComplete($query): Builder
-    {
-        return $query->whereNull('print_complete');
-    }
-
-    /**
      * Fetch all dates on which orders were created.
      */
     public function reportDates(): Collection
@@ -115,6 +81,16 @@ class Order extends Model
     public function mostRecentReportCreatedDate(): string
     {
         return $this->reportDates()->first();
+    }
+
+    /**
+     * Does the given report_created date exist in the db?
+     *
+     * @param  string  $date
+     */
+    public function hasDate(string $date): bool
+    {
+        return $this->where('report_created', $date)->exists();
     }
 
     /**
@@ -257,6 +233,7 @@ class Order extends Model
         return collect($info)->each(function ($item, $key) {
             if (Str::startsWith($item, 'COMPLETE')) {
                 $date = trim(Str::after($item, '-')).'/'.date('y');
+
                 return $this->find($key)->markAsComplete($date);
             }
 
