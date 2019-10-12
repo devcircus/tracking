@@ -136,7 +136,7 @@ class InventoryItem extends Model
     /**
      * Delete Item.
      */
-    public function DeleteInventoryItem(): InventoryItem
+    public function deleteInventoryItem(): InventoryItem
     {
         return tap($this, function ($instance) {
             return $instance->delete();
@@ -146,7 +146,7 @@ class InventoryItem extends Model
     /**
      * Restore Item.
      */
-    public function RestoreInventoryItem(): InventoryItem
+    public function restoreInventoryItem(): InventoryItem
     {
         return tap($this, function ($instance) {
             return $instance->restore();
@@ -158,7 +158,7 @@ class InventoryItem extends Model
      *
      * @param  array  $data
      */
-    public function UpdateInventoryItem(array $data): InventoryItem
+    public function updateInventoryItem(array $data): InventoryItem
     {
         return tap($this, function ($instance) use ($data) {
             return $instance->update($data);

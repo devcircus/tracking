@@ -4,13 +4,12 @@ namespace App\Models;
 
 use App\Authorization\Policies;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Builder;
 use App\Services\Cache\CacheForgetService;
 use App\Services\Cache\CacheForeverService;
 use Spatie\Activitylog\Traits\LogsActivity;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\CausesActivity;
+use App\Models\Builders\User\UserQueryBuilder;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\Access\Authorizable;
@@ -46,45 +45,23 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
     protected static $recordEvents = [];
 
     /**
+     * Create a new Eloquent query builder for the model.
+     *
+     * @param  \Illuminate\Database\Query\Builder  $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder|static
+     */
+    public function newEloquentBuilder($query)
+    {
+        return new UserQueryBuilder($query);
+    }
+
+    /**
      * A user has many posts.
      */
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
-    }
-
-    /**
-     * Order query by user name.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     */
-    public function scopeOrderByName($builder): Builder
-    {
-        return $builder->orderBy('name');
-    }
-
-    /**
-     * Filter the query.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $builder
-     * @param  array  $filters
-     *
-     * @return mixed
-     */
-    public function scopeFilter($builder, array $filters)
-    {
-        $builder->when($filters['search'] ?? null, function ($builder, $search) {
-            $builder->where(function ($builder) use ($search) {
-                $builder->where('name', 'like', '%'.$search.'%')
-                    ->orWhere('email', 'like', '%'.$search.'%');
-            });
-        })->when($filters['trashed'] ?? null, function ($builder, $trashed) {
-            if ('with' === $trashed) {
-                $builder->withTrashed();
-            } elseif ('only' === $trashed) {
-                $builder->onlyTrashed();
-            }
-        });
     }
 
     /**
@@ -110,21 +87,11 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
     }
 
     /**
-     * Get all users who are administrators.
-     */
-    public function administrators(): Collection
-    {
-        return $this->where('is_admin', true)->get();
-    }
-
-    /**
      * Get the super-administrator.
      */
     public function superAdministrator(): User
     {
-        $administrators = $this->administrators();
-
-        return $administrators->where('is_super_admin', true)->first();
+        return $this->where('is_super_admin', true)->first();
     }
 
     /**
