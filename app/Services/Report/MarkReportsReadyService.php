@@ -29,6 +29,6 @@ class MarkReportsReadyService
      */
     public function run(string $date): Upload
     {
-        $this->uploads->reportsReady($date);
+        return $this->uploads->reportsReady($date);
     }
 }
