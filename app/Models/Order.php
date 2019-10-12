@@ -180,16 +180,18 @@ class Order extends Model
 
     /**
      * Mark an order as complete.
+     *
+     * @param  string|null  $date
      */
-    public function markAsComplete(): Order
+    public function markAsComplete(?string $date = null): Order
     {
         CacheForgetService::call('reports', $this->report_created);
         CacheForgetService::call('summary', $this->report_created);
+        $date = $date ?? now();
 
-        return tap($this, function ($instance) {
-            $start = now();
-            $instance->print_start = $start;
-            $instance->print_complete = $start;
+        return tap($this, function ($instance) use ($date) {
+            $instance->print_start = $date;
+            $instance->print_complete = $date;
             $instance->info = $instance::COMPLETE.' - '.$instance->print_complete->format('m/d');
             $instance->setCutHouseForCompletedOrder($instance);
             $instance->save();
@@ -253,7 +255,12 @@ class Order extends Model
         CacheForgetService::call('summary', $date);
 
         return collect($info)->each(function ($item, $key) {
-            $this->find($key)->update(['info' => $item]);
+            if (Str::startsWith($item, 'COMPLETE')) {
+                $date = trim(Str::after($item, '-')).'/'.date('y');
+                return $this->find($key)->markAsComplete($date);
+            }
+
+            return $this->find($key)->update(['info' => $item]);
         });
     }
 }
