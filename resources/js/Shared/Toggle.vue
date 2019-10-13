@@ -4,7 +4,7 @@
         <icon-base v-if="value" :height="14" :width="14" icon-fill="fill-white" icon-name="checkmark" classes="mr-2">
             <checkmark />
         </icon-base>
-        <icon-base v-else icon-fill="fill-white" :height="14" :width="14" icon-name="close" classes="mr-2">
+        <icon-base v-else view="24 24" icon-fill="fill-white" icon-name="close" classes="mr-2">
             <close />
         </icon-base>
         {{ buttonText }}

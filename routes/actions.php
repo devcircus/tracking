@@ -25,17 +25,17 @@ Route::group(['middleware' => ['guest'], 'as' => 'password.', 'prefix' => 'passw
 
 // Users
 Route::group(['middleware' => ['auth'], 'as' => 'users.', 'prefix' => 'users'], function ($router) {
-    $router->get('/', Actions\User\ListUsers::class)->middleware(['auth', 'is_admin'])->name('list');
-    $router->get('/create', Actions\User\CreateUser::class)->middleware(['auth', 'is_admin'])->name('create');
-    $router->post('/', Actions\User\StoreUser::class)->middleware(['auth', 'is_admin'])->name('store');
-    $router->delete('/{user}', Actions\User\DeleteUser::class)->middleware(['auth', 'is_admin'], 'selfdelete.prevent')->name('destroy');
+    $router->get('/', Actions\User\ListUsers::class)->middleware(['auth', 'can:administerUsers'])->name('list');
+    $router->get('/create', Actions\User\CreateUser::class)->middleware(['auth', 'can:administerUsers'])->name('create');
+    $router->post('/', Actions\User\StoreUser::class)->middleware(['auth', 'can:administerUsers'])->name('store');
+    $router->delete('/{user}', Actions\User\DeleteUser::class)->middleware(['auth', 'can:administerUsers'], 'selfdelete.prevent')->name('destroy');
     $router->get('/{user}/edit', Actions\User\EditUser::class)->middleware(['auth', 'is_target'])->name('edit');
     $router->put('/{user}', Actions\User\UpdateUser::class)->middleware(['auth', 'is_target'])->name('update');
-    $router->put('/{user}/restore', Actions\User\RestoreUser::class)->middleware(['auth', 'is_admin'])->name('restore');
+    $router->put('/{user}/restore', Actions\User\RestoreUser::class)->middleware(['auth', 'can:administerUsers'])->name('restore');
 });
 
 // Activities
-Route::get('/activities', Actions\Activity\ListActivities::class)->middleware(['auth', 'is_super_admin'])->name('activities.list');
+Route::get('/activities', Actions\Activity\ListActivities::class)->middleware(['auth', 'can:administerActivities'])->name('activities.list');
 
 /***************************************************************
  *# # # # # # # # # # # INVENTORY ROUTES # # # # # # # # # # # #*
@@ -46,17 +46,17 @@ Route::get('/inventory', Actions\Inventory\Index::class)->middleware(['auth'])->
 
 // Tags
 Route::group(['middleware' => ['auth'], 'as' => 'tags.', 'prefix' => 'tags'], function ($router) {
-    $router->post('/multiple', Actions\Tag\StoreMultipleTags::class)->name('store.multiple');
-    $router->delete('/{tag}/delete', Actions\Tag\DeleteTag::class)->middleware(['is_admin'])->name('destroy');
-    $router->put('/{tag}/restore', Actions\Tag\RestoreTag::class)->middleware(['is_admin'])->name('restore');
-    $router->put('/{tag}/finish', Actions\Tag\FinishTag::class)->name('finish');
-    $router->put('/finish/multiple', Actions\Tag\FinishMultipleTags::class)->name('finish.multiple');
-    $router->put('/{tag}/reactivate', Actions\Tag\ReactivateTag::class)->name('reactivate');
-    $router->post('/', Actions\Tag\StoreTag::class)->name('store');
+    $router->post('/multiple', Actions\Tag\StoreMultipleTags::class)->middleware(['can:activateTags'])->name('store.multiple');
+    $router->delete('/{tag}/delete', Actions\Tag\DeleteTag::class)->middleware(['can:deleteTags'])->name('destroy');
+    $router->put('/{tag}/restore', Actions\Tag\RestoreTag::class)->middleware(['can:restoreTags'])->name('restore');
+    $router->put('/{tag}/finish', Actions\Tag\FinishTag::class)->middleware(['can:finishTags'])->name('finish');
+    $router->put('/finish/multiple', Actions\Tag\FinishMultipleTags::class)->middleware(['can:finishTags'])->name('finish.multiple');
+    $router->put('/{tag}/reactivate', Actions\Tag\ReactivateTag::class)->middleware(['can:activateTags'])->name('reactivate');
+    $router->post('/', Actions\Tag\StoreTag::class)->middleware(['can:activateTags'])->name('store');
 });
 
 // Items
-Route::group(['middleware' => ['auth', 'is_admin'], 'as' => 'items.', 'prefix' => 'items'], function ($router) {
+Route::group(['middleware' => ['auth', 'can:administerItems'], 'as' => 'items.', 'prefix' => 'items'], function ($router) {
     $router->get('/create', Actions\InventoryItem\CreateInventoryItem::class)->name('create');
     $router->delete('/{item}/delete', Actions\InventoryItem\DeleteInventoryItem::class)->name('destroy');
     $router->put('/{item}/restore', Actions\InventoryItem\RestoreInventoryItem::class)->name('restore');
@@ -71,20 +71,20 @@ Route::group(['middleware' => ['auth', 'is_admin'], 'as' => 'items.', 'prefix' =
 
 // Reports
 Route::group(['middleware' => ['auth'], 'as' => 'reports.', 'prefix' => 'reports'], function ($router) {
-    $router->get('/', Actions\Report\Index::class)->middleware(['auth'])->name('list');
+    $router->get('/', Actions\Report\Index::class)->name('list');
     $router->get('/{type}/{date}', Actions\Report\ShowIndividualReport::class)->middleware(['date'])->name('individual.show');
     $router->get('/{date}', Actions\Report\ShowComprehensiveReport::class)->middleware(['date'])->name('comprehensive.show');
 });
 
 // Uploads
-Route::post('/uploads', Actions\Upload\StoreUpload::class)->middleware(['auth', 'is_admin'])->name('uploads.store');
-Route::get('/uploads/check', Actions\Upload\CheckUpload::class)->middleware(['auth', 'is_admin'])->name('uploads.check');
+Route::post('/uploads', Actions\Upload\StoreUpload::class)->middleware(['auth', 'can:administerReports'])->name('uploads.store');
+Route::get('/uploads/check', Actions\Upload\CheckUpload::class)->middleware(['auth', 'can:administerReports'])->name('uploads.check');
 
 // PDF
 Route::get('pdf/{type}/{date}', Actions\Pdf\ShowPdf::class)->middleware(['auth', 'date'])->name('pdf.show');
 
 // Orders
-Route::group(['middleware' => ['auth', 'is_admin'], 'as' => 'orders.', 'prefix' => 'orders'], function ($router) {
+Route::group(['middleware' => ['auth', 'can:administerReports'], 'as' => 'orders.', 'prefix' => 'orders'], function ($router) {
     $router->post('/', Actions\Order\AddOrder::class)->name('add');
     $router->delete('/{order}', Actions\Order\DeleteOrder::class)->name('delete');
     $router->post('/{order}/complete', Actions\Order\CompleteOrder::class)->name('complete');
@@ -116,13 +116,13 @@ Route::group(['middleware' => ['auth'], 'as' => 'materials.', 'prefix' => 'mater
 
 // Colors
 Route::group(['middleware' => ['auth'], 'as' => 'colors.', 'prefix' => 'colors'], function ($router) {
-    $router->get('/create', Actions\Color\CreateColor::class)->middleware(['is_admin'])->name('create');
-    $router->post('/', Actions\Color\StoreColor::class)->middleware(['is_admin'])->name('store');
-    $router->put('/{color}', Actions\Color\UpdateColor::class)->middleware(['is_admin'])->name('update');
-    $router->delete('/{color}', Actions\Color\DeleteColor::class)->middleware(['is_admin'])->name('destroy');
-    $router->put('/{color}/restore', Actions\Color\RestoreColor::class)->middleware(['is_admin'])->name('restore');
+    $router->get('/create', Actions\Color\CreateColor::class)->middleware(['can:createColors'])->name('create');
+    $router->post('/', Actions\Color\StoreColor::class)->middleware(['can:createColors'])->name('store');
+    $router->put('/{color}', Actions\Color\UpdateColor::class)->middleware(['can:administerColors'])->name('update');
+    $router->delete('/{color}', Actions\Color\DeleteColor::class)->middleware(['can:deleteColors'])->name('destroy');
+    $router->put('/{color}/restore', Actions\Color\RestoreColor::class)->middleware(['can:restoreColors'])->name('restore');
     $router->get('/{color}', Actions\Color\ShowColor::class)->name('show');
-    $router->put('/{color}/printer/{printer}', Actions\Color\SetColor::class)->middleware(['is_admin'])->name('set');
+    $router->put('/{color}/printer/{printer}', Actions\Color\SetColor::class)->middleware(['can:administerColors'])->name('set');
     $router->get('/printer/{printer}/colors', Actions\Color\ShowPrinterColors::class)->name('printer');
     $router->get('/printer/{printer}/colors/pdf', Actions\Color\Pdf\ShowPrinterColorsPdf::class)->name('printer.pdf');
 });
@@ -130,30 +130,30 @@ Route::group(['middleware' => ['auth'], 'as' => 'colors.', 'prefix' => 'colors']
 // Fabrics
 Route::group(['middleware' => ['auth'], 'as' => 'fabrics.', 'prefix' => 'fabrics'], function ($router) {
     $router->get('/', Actions\Fabric\ListFabricsPdf::class)->name('pdf');
-    $router->get('/create', Actions\Fabric\CreateFabric::class)->middleware(['is_admin'])->name('create');
+    $router->get('/create', Actions\Fabric\CreateFabric::class)->middleware(['can:createFabrics'])->name('create');
     $router->get('/{fabric}', Actions\Fabric\ShowFabric::class)->name('show');
-    $router->post('/', Actions\Fabric\StoreFabric::class)->middleware(['is_admin'])->name('store');
-    $router->put('/{fabric}', Actions\Fabric\UpdateFabric::class)->middleware(['is_admin'])->name('update');
-    $router->delete('/{fabric}', Actions\Fabric\DeleteFabric::class)->middleware(['is_admin'])->name('destroy');
-    $router->put('/{fabric}/restore', Actions\Fabric\RestoreFabric::class)->middleware(['is_admin'])->name('restore');
+    $router->post('/', Actions\Fabric\StoreFabric::class)->middleware(['can:createFabrics'])->name('store');
+    $router->put('/{fabric}', Actions\Fabric\UpdateFabric::class)->middleware(['can:administerFabrics'])->name('update');
+    $router->delete('/{fabric}', Actions\Fabric\DeleteFabric::class)->middleware(['can:deleteFabrics'])->name('destroy');
+    $router->put('/{fabric}/restore', Actions\Fabric\RestoreFabric::class)->middleware(['can:restoreFabrics'])->name('restore');
 });
 
 // Printers
 Route::group(['middleware' => ['auth'], 'as' => 'printers.', 'prefix' => 'printers'], function ($router) {
-    $router->post('/', Actions\Printer\StorePrinter::class)->middleware(['is_admin'])->name('store');
-    $router->get('/create', Actions\Printer\CreatePrinter::class)->middleware(['is_admin'])->name('create');
+    $router->post('/', Actions\Printer\StorePrinter::class)->middleware(['can:createPrinters'])->name('store');
+    $router->get('/create', Actions\Printer\CreatePrinter::class)->middleware(['can:createPrinters'])->name('create');
     $router->get('/{printer}', Actions\Printer\ShowPrinter::class)->name('show');
-    $router->put('/{printer}', Actions\Printer\UpdatePrinter::class)->middleware(['is_admin'])->name('update');
-    $router->delete('/{printer}', Actions\Printer\DeletePrinter::class)->middleware(['is_admin'])->name('destroy');
-    $router->put('/{printer}/restore', Actions\Printer\RestorePrinter::class)->middleware(['is_admin'])->name('restore');
+    $router->put('/{printer}', Actions\Printer\UpdatePrinter::class)->middleware(['can:administerPrinters'])->name('update');
+    $router->delete('/{printer}', Actions\Printer\DeletePrinter::class)->middleware(['can:deletePrinters'])->name('destroy');
+    $router->put('/{printer}/restore', Actions\Printer\RestorePrinter::class)->middleware(['can:restorePrinters'])->name('restore');
 });
 
 // Inks
 Route::group(['middleware' => ['auth'], 'as' => 'inks.', 'prefix' => 'inks'], function ($router) {
-    $router->get('/create', Actions\Ink\CreateInk::class)->middleware(['is_admin'])->name('create');
+    $router->get('/create', Actions\Ink\CreateInk::class)->middleware(['can:createInks'])->name('create');
     $router->get('/{ink}', Actions\Ink\ShowInk::class)->name('show');
-    $router->post('/', Actions\Ink\StoreInk::class)->middleware(['is_admin'])->name('store');
-    $router->put('/{ink}', Actions\Ink\UpdateInk::class)->middleware(['is_admin'])->name('update');
-    $router->delete('/{ink}', Actions\Ink\DeleteInk::class)->middleware(['is_admin'])->name('destroy');
-    $router->put('/{ink}/restore', Actions\Ink\RestoreInk::class)->middleware(['is_admin'])->name('restore');
+    $router->post('/', Actions\Ink\StoreInk::class)->middleware(['can:createInks'])->name('store');
+    $router->put('/{ink}', Actions\Ink\UpdateInk::class)->middleware(['can:administerInks'])->name('update');
+    $router->delete('/{ink}', Actions\Ink\DeleteInk::class)->middleware(['can:deleteInks'])->name('destroy');
+    $router->put('/{ink}/restore', Actions\Ink\RestoreInk::class)->middleware(['can:restoreInks'])->name('restore');
 });

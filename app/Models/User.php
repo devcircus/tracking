@@ -91,7 +91,9 @@ class User extends Authenticatable implements AuthorizableContract, MustVerifyEm
      */
     public function superAdministrator(): User
     {
-        return $this->where('is_super_admin', true)->first();
+        $administrators = $this->where('is_admin', true)->get();
+
+        return $administrators->where('is_super_admin', true)->first();
     }
 
     /**

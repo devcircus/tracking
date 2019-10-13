@@ -6,7 +6,7 @@
                 <shirt />
             </icon-base>
         </div>
-        <template v-if="$page.auth.user.can.administerFabrics">
+        <template v-if="can('administerFabrics')">
             <trashed-message v-if="fabricData.deleted_at" class="w-full md:w-2/5 mb-6" @restore="restore">
                 This fabric has been deleted.
             </trashed-message>

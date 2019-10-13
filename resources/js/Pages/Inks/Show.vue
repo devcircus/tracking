@@ -6,7 +6,7 @@
                 <ink />
             </icon-base>
         </div>
-        <template v-if="$page.auth.user.can.administerInks">
+        <template v-if="can('administerInks')">
             <trashed-message v-if="inkData.deleted_at" class="w-full md:w-2/5 mb-6" @restore="restore">
                 This ink has been deleted.
             </trashed-message>
