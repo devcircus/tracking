@@ -38,8 +38,8 @@ class FetchSummaryByDate
     public function run(string $date): Collection
     {
         return CacheForeverService::call('summary', function() use ($date) {
-            return $this->types->all()->keyBy('type')->toBase()->only(['prototype', 'ninas'])->map(function ($model, $key) use ($date) {
-                $query = $this->orders->type($key)->forDate($date)->notComplete($key);
+            return $this->types->whereType(['prototype', 'ninas'])->get()->map(function ($type) use ($date) {
+                $query = $this->orders->type($type->type)->forDate($date)->notComplete($type->type);
 
                 return [
                     'summary' => $query->weeklyVouchers(),
