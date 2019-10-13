@@ -113,16 +113,17 @@ module.exports = {
         width: ['responsive'],
         margin: ['last-child', 'responsive'],
         backgroundColor: ['responsive', 'hover', 'focus', 'group-hover', 'odd'],
+        display: ['logged-in', 'logged-out', 'responsive'],
     },
     plugins: [
         require('./resources/js/lib/tailwindcss/plugins/tables')(),
+        require('./resources/js/lib/tailwindcss/plugins/variants'),
         function ({ addVariant, e }) {
             addVariant('last-child', ({ modifySelectors, separator }) => {
                 modifySelectors(({ className }) => {
-                    return `.${e(`last-child${separator}${className}`)}:last-child`
-                })
-            })
+                    return `.${e(`last-child${separator}${className}`)}:last-child`;
+                });
+            });
         },
-        require('@tailwindcss/custom-forms'),
-      ],
+    ],
 }
