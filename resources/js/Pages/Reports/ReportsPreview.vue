@@ -9,7 +9,7 @@
         <div class="bg-white rounded shadow overflow-hidden w-full py-4">
             <div class="px-4">
                 <h1 class="mb-4 font-semibold text-lg text-gray-800 uppercase">Upload Report</h1>
-                <div v-if="$page.auth.user.can.administerReports" class="mb-6 flex items-center">
+                <div v-if="can('administerReports')" class="mb-6 flex items-center">
                     <file-upload v-model="file" class="mr-8" prompt="Choose a file" button-classes="btn">
                         <icon-base view="24 24" icon-fill="fill-white" icon-name="folder-add" classes="mr-2 flex-no-shrink">
                             <folder-add />
@@ -24,7 +24,7 @@
                 </div>
                 <div v-else class="mb-8 flex items-center">
                     <span class="flex btn btn-muted cursor-not-allowed">
-                        <icon-base icon-fill="fill-gray-800" icon-name="folder-add" classes="mr-2 flex-no-shrink">
+                        <icon-base view="24 24" icon-fill="fill-gray-800" icon-name="folder-add" classes="mr-2 flex-no-shrink">
                             <folder-add />
                         </icon-base>
                         Choose a file

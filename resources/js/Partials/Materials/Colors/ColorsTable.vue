@@ -27,7 +27,7 @@
                         <span class="px-3">
                             <checkbox v-model="showTrashed" class="mb-2" label="Include deleted: " :width="4" :height="4" :checked="showTrashed" @input="hideDropdown()" />
                         </span>
-                        <inertia-link v-if="$page.auth.user.can.createColors" class="flex px-3 py-2 text-gray-700 hover:bg-blue-500 hover:text-white group" :href="route('colors.create')">
+                        <inertia-link v-if="can('createColors')" class="flex px-3 py-2 text-gray-700 hover:bg-blue-500 hover:text-white group" :href="route('colors.create')">
                             <icon-base view="24 24 " icon-fill="fill-gray-700" icon-name="add color" classes="mr-2 group-hover:fill-white">
                                 <plus />
                             </icon-base>

@@ -11,7 +11,7 @@
                         <svg class="fill-white w-6 h-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
                     </div>
                     <div slot="dropdown" class="flex flex-col justify-between mt-2 py-2 shadow-lg bg-white rounded">
-                        <div v-if="type === 'prototype' && $page.auth.user.can.administerReports" class="flex items-center px-3 py-2 text-gray-700 hover:bg-blue-500 hover:text-white group" @click="addVoucher()">
+                        <div v-if="type === 'prototype' && can('administerReports')" class="flex items-center px-3 py-2 text-gray-700 hover:bg-blue-500 hover:text-white group" @click="addVoucher()">
                             <icon-base view="24 24" icon-fill="fill-gray-700" icon-name="add fabric" classes="mr-2 group-hover:fill-white">
                                 <plus />
                             </icon-base>
@@ -93,7 +93,7 @@
                     <span v-else class="hidden lg:block lg:w-160p text-base xl:text-lg font-normal" :class="type === 'prototype' && item.art_complete ? 'text-green-700 font-semibold' : 'text-gray-800'">
                         {{ item.style }}
                     </span>
-                    <div v-if="type === 'prototype' && $page.auth.user.can.administerReports" class="text-base xl:text-lg text-gray-800 font-normal w-260p mt-3" @click.stop>
+                    <div v-if="type === 'prototype' && can('administerReports')" class="text-base xl:text-lg text-gray-800 font-normal w-260p mt-3" @click.stop>
                         <input :id="`${item.id}`"
                                v-model="info[item.id]"
                                class="border border-blue p-1 h-12 w-full"
@@ -165,7 +165,7 @@ export default {
     },
     methods: {
         showActionModal (index, item) {
-            if (! this.$page.auth.user.can.administerReports) return;
+            if (! this.can('administerReports')) return;
             switch (index) {
                 case 'rush':
                     break;
@@ -184,7 +184,7 @@ export default {
             }
         },
         addVoucher () {
-            if (! this.$page.auth.user.can.administerReports) {
+            if (! this.can('administerReports')) {
                 this.$page.warning.warning = 'Only administrators may add new vouchers.';
 
                 return;

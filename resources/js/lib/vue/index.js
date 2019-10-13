@@ -15,6 +15,7 @@ import ObjectMethods from 'Mixins/ObjectMethods';
 import { InertiaApp } from '@inertiajs/inertia-vue';
 import Snotify, { SnotifyPosition } from 'vue-snotify';
 import HandlesDropdowns from 'Mixins/HandlesDropdowns';
+import HandlesPermissions from 'Mixins/HandlesPermissions';
 import ScreenChanges from 'Mixins/HandlesScreenSizeChanges';
 
 // Use mixins
@@ -24,6 +25,7 @@ Vue.mixin(GetsErrors);
 Vue.mixin(ScreenChanges);
 Vue.mixin(ObjectMethods);
 Vue.mixin(HandlesDropdowns);
+Vue.mixin(HandlesPermissions);
 
 Vue.mixin({
     methods: {
