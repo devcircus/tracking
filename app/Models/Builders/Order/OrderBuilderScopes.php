@@ -27,13 +27,13 @@ trait OrderBuilderScopes
     /**
      * Scope the query to return only orders that are NOT complete.
      *
-     * @param  string  $type
+     * @param  string|null  $type
      */
-    public function notComplete(?string $type = 'prototype'): OrderQueryBuilder
+    public function notComplete(?string $type = null): OrderQueryBuilder
     {
         if ('prototype' === $type) {
             return $this->whereNull('print_complete');
-        } elseif ('production' === $type) {
+        } else {
             return $this->where('cut_house', 'SU');
         }
     }
