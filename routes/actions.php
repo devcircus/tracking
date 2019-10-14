@@ -106,7 +106,7 @@ Route::group(['middleware' => ['auth', 'is_artist'], 'as' => 'vouchers.', 'prefi
 
 // Artwork
 Route::group(['middleware' => ['auth'], 'as' => 'artwork.', 'prefix' => 'artwork'], function ($router) {
-    $router->get('/', Actions\Artwork\ListVouchersForArtists::class)->name('list');
+    $router->get('/', Actions\Artwork\ListArtworkVouchers::class)->name('list');
 });
 
 // Materials

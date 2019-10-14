@@ -6,7 +6,7 @@ use App\Models\Order;
 use App\Services\Report\FetchIndividualReportByDate;
 use PerfectOblivion\Services\Traits\SelfCallingService;
 
-class ListVouchersForArtistsService
+class ListArtworkVouchersService
 {
     use SelfCallingService;
 
@@ -14,7 +14,7 @@ class ListVouchersForArtistsService
     private $orders;
 
     /**
-     * Construct a new ListVouchersForArtistsService
+     * Construct a new ListArtworkVouchersService
      *
      * @param  \App\Models\Order  $orders
      */
@@ -30,7 +30,7 @@ class ListVouchersForArtistsService
     {
         if ($date = $this->orders->mostRecentReportCreatedDate()) {
             return  [
-                'reports' => FetchIndividualReportByDate::call('prototype', $date),
+                'report' => FetchIndividualReportByDate::call('prototype', $date),
                 'date' => $date,
                 'timestamp' => to_timestamp($date),
             ];
