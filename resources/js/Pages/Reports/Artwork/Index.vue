@@ -1,7 +1,7 @@
 <template>
     <layout :title="displayDate(date)">
         <div class="flex flex-col -px-4 w-full mx-auto mb-8">
-            <artists-report :vouchers="results" type="prototype" :date="date" :timestamp="timestamp" :group="true" />
+            <artists-report :vouchers="report" type="prototype" :date="date" :timestamp="timestamp" :group="true" />
         </div>
     </layout>
 </template>
@@ -17,7 +17,7 @@ export default {
         ArtistsReport,
     },
     props: {
-        results: Array,
+        report: Array,
         date: String,
         timestamp: Number,
     },
