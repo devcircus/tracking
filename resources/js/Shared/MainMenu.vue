@@ -5,7 +5,7 @@
                 <icon-base view="24 24" :width="20" :height="20" :dynamic-classes="isPath('dashboard') ? 'fill-blue-300' : 'fill-white group-hover:fill-blue-300'" icon-name="dashboard" classes="mt-1 mr-2">
                     <dashboard />
                 </icon-base>
-                <div :class="isPath('dashboard') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-xl">Dashboard</div>
+                <div :class="isPath('dashboard') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-lg lg:text-xl">Dashboard</div>
             </inertia-link>
         </div>
         <div :class="margin">
@@ -13,7 +13,7 @@
                 <icon-base :dynamic-classes="isPath('inventory') ? 'fill-blue-300' : 'fill-white group-hover:fill-blue-300'" icon-name="book" classes="mt-1 mr-2">
                     <book />
                 </icon-base>
-                <div :class="isPath('inventory') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-xl">Inventory</div>
+                <div :class="isPath('inventory') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-lg lg:text-xl">Inventory</div>
             </inertia-link>
         </div>
         <div :class="margin">
@@ -21,7 +21,7 @@
                 <icon-base :dynamic-classes="isPath('reports') ? 'fill-blue-300' : 'fill-white group-hover:fill-blue-300'" icon-name="inbox-full" classes="mt-1 mr-2">
                     <inbox-full />
                 </icon-base>
-                <div :class="isPath('reports') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-xl">Reports</div>
+                <div :class="isPath('reports') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-lg lg:text-xl">Reports</div>
             </inertia-link>
         </div>
         <div v-if="$page.auth.user.is_admin || $page.auth.user.is_artist" :class="margin">
@@ -29,7 +29,7 @@
                 <icon-base :dynamic-classes="isPath('artwork') ? 'fill-blue-300' : 'fill-white group-hover:fill-blue-300'" icon-name="pen-tool" classes="mt-1 mr-2">
                     <pen-tool />
                 </icon-base>
-                <div :class="isPath('artwork') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-xl">Artwork</div>
+                <div :class="isPath('artwork') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-lg lg:text-xl">Artwork</div>
             </inertia-link>
         </div>
         <div>
@@ -37,7 +37,7 @@
                 <icon-base :dynamic-classes="isPath('materials') ? 'fill-blue-300' : 'fill-white group-hover:fill-blue-300'" icon-name="printer" classes="mt-1 mr-2">
                     <printer />
                 </icon-base>
-                <div :class="isPath('materials') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-xl">Materials</div>
+                <div :class="isPath('materials') ? 'text-blue-200' : 'text-white group-hover:text-blue-200'" class="text-lg lg:text-xl">Materials</div>
             </inertia-link>
         </div>
     </div>
