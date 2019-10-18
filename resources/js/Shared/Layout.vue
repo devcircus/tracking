@@ -8,7 +8,7 @@
             <!-- TOP BLUE BAR -->
             <div class="flex justify-between items-center w-full px-4 py-8 bg-blue-800 ">
                 <inertia-link class="hidden lg:inline-block mt-1" :href="route('dashboard')">
-                    <logo position="left" />
+                    <logo-on-dark position="left" />
                 </inertia-link>
                 <dropdown class="block md:hidden ml-auto" width="240">
                     <div slot="trigger">
@@ -26,7 +26,7 @@
             <!-- TOP WHITE BAR -->
             <div class="flex justify-between items-center w-full text-sm md:text-base bg-white border-b shadow h-16 p-4 py-8">
                 <inertia-link class="inline-block lg:hidden mt-1" :href="route('dashboard')">
-                    <logo position="left" />
+                    <logo-on-light position="left" />
                 </inertia-link>
                 <div class="mt-1 mr-4">&nbsp;</div>
                 <dropdown v-if="$page.auth.user" class="mt-1 md:ml-auto " width="180" :nav="true">
@@ -62,29 +62,31 @@
 </template>
 
 <script>
-import Logo from '@/Shared/Logo';
 import Modal from '@/Shared/Modal';
 import User from '@/Shared/Icons/User';
 import IconBase from '@/Shared/IconBase';
 import MainMenu from '@/Shared/MainMenu';
 import UserMenu from '@/Shared/UserMenu';
 import Dropdown from '@/Shared/Dropdown';
+import LogoOnDark from '@/Shared/LogoOnDark';
 import SiteFooter from '@/Shared/SiteFooter';
+import LogoOnLight from '@/Shared/LogoOnLight';
 import Breadcrumbs from '@/Shared/Breadcrumbs';
 import FlashMessage from '@/Shared/FlashMessage';
 import CheveronDown from '@/Shared/Icons/CheveronDown';
 
 export default {
     components: {
-        Logo,
         User,
         Modal,
         IconBase,
         UserMenu,
         MainMenu,
-        SiteFooter,
-        Breadcrumbs,
         Dropdown,
+        SiteFooter,
+        LogoOnDark,
+        Breadcrumbs,
+        LogoOnLight,
         FlashMessage,
         CheveronDown,
     },

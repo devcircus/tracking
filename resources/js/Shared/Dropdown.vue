@@ -1,14 +1,17 @@
 <template>
     <div class="relative">
-        <button ref="trigger" type="button" class="elative" @click="toggle">
+        <button ref="trigger" type="button" class="relative" @click="toggle">
             <slot name="trigger" />
         </button>
-        <div v-if="show">
-            <div style="position: fixed; top: 0; right: 0; left: 0; bottom: 0; z-index: 90; background: black; opacity: .2" @click="close()" />
-            <div ref="dropdown" :style="getStyles()" @click.stop>
-                <slot name="dropdown" />
+
+        <transition name="appear">
+            <div v-if="show">
+                <div style="position: fixed; top: 0; right: 0; left: 0; bottom: 0; z-index: 90; background: transparent;" @click="close()" />
+                <div ref="dropdown" :style="getStyles()" @click.stop>
+                    <slot name="dropdown" />
+                </div>
             </div>
-        </div>
+        </transition>
     </div>
 </template>
 
