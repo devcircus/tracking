@@ -2,7 +2,7 @@
     <blank-layout>
         <div class="px-6 bg-blue-800 min-h-screen flex justify-center pt-32">
             <div class="w-full max-w-sm">
-                <logo class="block mx-auto w-full max-w-xs fill-white" height="50" />
+                <logo-on-dark class="block mx-auto w-full max-w-xs" height="50" />
                 <form class="mt-8 bg-white rounded-lg shadow-lg overflow-hidden" @submit.prevent="submit">
                     <div class="px-10 py-12">
                         <h1 class="text-center text-gray-800 font-bold text-2xl">Password Reset Request</h1>
@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import Logo from '@/Shared/Logo';
+import LogoOnDark from '@/Shared/LogoOnDark';
 import TextInput from '@/Shared/TextInput';
 import BlankLayout from '@/Shared/BlankLayout';
 import LoadingButton from '@/Shared/LoadingButton';
@@ -27,7 +27,7 @@ import LoadingButton from '@/Shared/LoadingButton';
 export default {
     components: {
         LoadingButton,
-        Logo,
+        LogoOnDark,
         TextInput,
         BlankLayout,
     },
