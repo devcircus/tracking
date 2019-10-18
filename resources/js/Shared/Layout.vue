@@ -10,6 +10,14 @@
                 <inertia-link class="mt-1" :href="route('dashboard')">
                     <logo position="left" />
                 </inertia-link>
+                <dropdown class="block md:hidden" width="240">
+                    <div slot="trigger">
+                        <svg class="fill-white w-6 h-6 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
+                    </div>
+                    <div slot="dropdown" class="mt-2 px-8 py-4 shadow-lg bg-blue-800 rounded">
+                        <main-menu display="flex flex-col" />
+                    </div>
+                </dropdown>
                 <div class="hidden md:block">
                     <main-menu display="flex flex-row" />
                 </div>
@@ -57,9 +65,9 @@ import User from '@/Shared/Icons/User';
 import IconBase from '@/Shared/IconBase';
 import MainMenu from '@/Shared/MainMenu';
 import UserMenu from '@/Shared/UserMenu';
+import Dropdown from '@/Shared/Dropdown';
 import SiteFooter from '@/Shared/SiteFooter';
 import Breadcrumbs from '@/Shared/Breadcrumbs';
-import Dropdown from '@/Shared/Dropdown';
 import FlashMessage from '@/Shared/FlashMessage';
 import CheveronDown from '@/Shared/Icons/CheveronDown';
 
