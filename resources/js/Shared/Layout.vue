@@ -7,10 +7,10 @@
         <div class="fixed top-0 w-full" style="z-index:80">
             <!-- TOP BLUE BAR -->
             <div class="flex justify-between items-center w-full px-4 py-8 bg-blue-800 ">
-                <inertia-link class="mt-1" :href="route('dashboard')">
+                <inertia-link class="hidden lg:inline-block mt-1" :href="route('dashboard')">
                     <logo position="left" />
                 </inertia-link>
-                <dropdown class="block md:hidden" width="240">
+                <dropdown class="block md:hidden ml-auto" width="240">
                     <div slot="trigger">
                         <svg class="fill-white w-6 h-6 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
                     </div>
@@ -18,13 +18,16 @@
                         <main-menu display="flex flex-col" />
                     </div>
                 </dropdown>
-                <div class="hidden md:block">
+                <div class="hidden md:block ml-auto">
                     <main-menu display="flex flex-row" />
                 </div>
             </div>
 
             <!-- TOP WHITE BAR -->
             <div class="flex justify-between items-center w-full text-sm md:text-base bg-white border-b shadow h-16 p-4 py-8">
+                <inertia-link class="inline-block lg:hidden mt-1" :href="route('dashboard')">
+                    <logo position="left" />
+                </inertia-link>
                 <div class="mt-1 mr-4">&nbsp;</div>
                 <dropdown v-if="$page.auth.user" class="mt-1 md:ml-auto " width="180" :nav="true">
                     <div slot="trigger" class="flex items-center cursor-pointer select-none group">
@@ -46,7 +49,7 @@
         </div>
 
         <!-- Main Content -->
-        <div class="flex flex-grow w-full relative mt-140p">
+        <div class="flex flex-grow w-full relative mt-160p">
             <div class="overflow-hidden px-4 py-8 lg:py-12 w-full">
                 <breadcrumbs />
                 <slot />
