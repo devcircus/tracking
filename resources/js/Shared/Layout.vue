@@ -29,7 +29,7 @@
                 <dropdown v-if="$page.auth.user" class="mt-1 md:ml-auto " width="180" :nav="true">
                     <div slot="trigger" class="flex items-center cursor-pointer select-none group">
                         <div class="flex text-blue-800 group-hover:text-blue-500 focus:text-blue-500 mr-1 whitespace-no-wrap">
-                            <span class="inline-block mt-px">{{ $page.auth.user.email }}</span>
+                            <span class="inline-block mt-1 md:mt-px">{{ $page.auth.user.email }}</span>
                             <icon-base icon-function="cheveron-down" icon-fill="fill-blue-800" classes="ml-1 group-hover:fill-blue-500">
                                 <cheveron-down />
                             </icon-base>
