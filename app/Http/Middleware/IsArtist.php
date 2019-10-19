@@ -20,7 +20,7 @@ class IsArtist
             return $next($request);
         }
 
-        $request->session()->flash('warning', 'You must be an administrator or an artist to do that!');
+        flash('warning', 'You must be an administrator or an artist to do that!');
 
         return redirect()->back();
     }

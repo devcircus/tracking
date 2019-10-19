@@ -12,7 +12,7 @@ class StoreFabricResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Fabric added successfully!');
+        flash('success', 'Fabric added successfully!');
 
         return redirect()->route('materials.list');
     }

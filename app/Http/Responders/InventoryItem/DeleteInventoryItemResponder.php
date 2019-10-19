@@ -12,7 +12,7 @@ class DeleteInventoryItemResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Item successfully deleted!');
+        flash('success', 'Item successfully deleted!');
 
         return redirect()->back(303);
     }

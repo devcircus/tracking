@@ -12,7 +12,7 @@ class StoreInkResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Ink added successfully!');
+        flash('success', 'Ink added successfully!');
 
         return redirect()->route('materials.list');
     }

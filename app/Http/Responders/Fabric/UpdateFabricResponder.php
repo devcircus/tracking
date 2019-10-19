@@ -12,7 +12,7 @@ class UpdateFabricResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Fabric updated successfully!');
+        flash('success', 'Fabric updated successfully!');
 
         return redirect()->route('fabrics.show', $this->payload->id, 303);
     }

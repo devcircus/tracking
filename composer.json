@@ -34,7 +34,7 @@
         "laravel/tinker": "^1.0",
         "maatwebsite/excel": "^3.1",
         "openpsa/ranger": "^0.4.0",
-        "perfect-oblivion/adr": "^0.3.1",
+        "perfect-oblivion/adr": "^0.3.3",
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "~4.0",
         "reinink/advanced-eloquent": "^0.2.0",

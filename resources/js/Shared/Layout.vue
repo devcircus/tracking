@@ -14,12 +14,12 @@
                     <div slot="trigger">
                         <svg class="fill-white w-6 h-6 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
                     </div>
-                    <div slot="dropdown" class="mt-2 px-8 py-4 shadow-lg bg-blue-800 rounded">
-                        <main-menu display="flex flex-col" />
+                    <div slot="dropdown" class="mt-2 py-4 shadow-lg bg-white rounded">
+                        <mobile-main-menu display="flex flex-col" />
                     </div>
                 </dropdown>
                 <div class="hidden md:block ml-auto">
-                    <main-menu display="flex flex-row" />
+                    <desktop-main-menu display="flex flex-row" />
                 </div>
             </div>
 
@@ -32,11 +32,8 @@
                 <dropdown v-if="$page.auth.user" class="mt-1 md:ml-auto " width="180" :nav="true">
                     <div slot="trigger" class="flex items-center cursor-pointer select-none group">
                         <div class="flex text-blue-800 group-hover:text-blue-500 focus:text-blue-500 mr-1 whitespace-no-wrap">
-                            <icon-base icon-function="user" :width="14" :height="14" icon-fill="fill-blue-800" classes="mr-2 group-hover:fill-blue-500">
-                                <user />
-                            </icon-base>
-                            <span class="inline">{{ $page.auth.user.name }}</span>
-                            <icon-base icon-function="cheveron-down" icon-fill="fill-blue-800" classes="ml-2 group-hover:fill-blue-500">
+                            <span class="inline-block mt-px">{{ $page.auth.user.email }}</span>
+                            <icon-base icon-function="cheveron-down" icon-fill="fill-blue-800" classes="ml-1 group-hover:fill-blue-500">
                                 <cheveron-down />
                             </icon-base>
                         </div>
@@ -63,9 +60,9 @@
 
 <script>
 import Modal from '@/Shared/Modal';
-import User from '@/Shared/Icons/User';
 import IconBase from '@/Shared/IconBase';
-import MainMenu from '@/Shared/MainMenu';
+import DesktopMainMenu from '@/Shared/DesktopMainMenu';
+import MobileMainMenu from '@/Shared/MobileMainMenu';
 import UserMenu from '@/Shared/UserMenu';
 import Dropdown from '@/Shared/Dropdown';
 import LogoOnDark from '@/Shared/LogoOnDark';
@@ -77,11 +74,9 @@ import CheveronDown from '@/Shared/Icons/CheveronDown';
 
 export default {
     components: {
-        User,
         Modal,
         IconBase,
         UserMenu,
-        MainMenu,
         Dropdown,
         SiteFooter,
         LogoOnDark,
@@ -89,6 +84,8 @@ export default {
         LogoOnLight,
         FlashMessage,
         CheveronDown,
+        MobileMainMenu,
+        DesktopMainMenu,
     },
     props: {
         title: String,

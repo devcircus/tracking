@@ -12,7 +12,7 @@ class UpdateInkResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Ink updated successfully!');
+        flash('success', 'Ink updated successfully!');
 
         return redirect()->route('inks.show', $this->payload->id, 303);
     }

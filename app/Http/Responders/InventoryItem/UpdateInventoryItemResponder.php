@@ -12,7 +12,7 @@ class UpdateInventoryItemResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Item updated successfully!');
+        flash('success', 'Item updated successfully!');
 
         return redirect()->back(303);
     }

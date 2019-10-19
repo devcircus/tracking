@@ -12,7 +12,7 @@ class RestoreInventoryItemResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Item successfully restored!');
+        flash('success', 'Item successfully restored!');
 
         return redirect()->back(303);
     }

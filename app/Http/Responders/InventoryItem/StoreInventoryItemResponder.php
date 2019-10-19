@@ -12,7 +12,7 @@ class StoreInventoryItemResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Item created successfully!');
+        flash('success', 'Item created successfully!');
 
         return redirect()->route('items.show', $this->payload->id);
     }

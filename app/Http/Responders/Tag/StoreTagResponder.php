@@ -12,7 +12,7 @@ class StoreTagResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Tag stored successfully!');
+        flash('success', 'Tag stored successfully!');
 
         return redirect()->back();
     }

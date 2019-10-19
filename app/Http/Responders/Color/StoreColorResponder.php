@@ -12,7 +12,7 @@ class StoreColorResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Color added successfully!');
+        flash('success', 'Color added successfully!');
 
         return redirect()->route('materials.list');
     }

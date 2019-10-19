@@ -12,7 +12,7 @@ class BatchUpdateInfoResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Batch update successful.');
+        flash('success', 'Batch update successful.');
 
         return redirect()->back();
     }

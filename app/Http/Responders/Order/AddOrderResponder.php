@@ -12,7 +12,7 @@ class AddOrderResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Voucher successfully added!');
+        flash('success', 'Voucher successfully added!');
 
         return redirect()->back();
     }

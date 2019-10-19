@@ -12,7 +12,7 @@ class DeleteTagResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Tag successfully deleted!');
+        flash('success', 'Tag successfully deleted!');
 
         return redirect()->back(303);
     }

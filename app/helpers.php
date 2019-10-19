@@ -1,5 +1,7 @@
 <?php
 
+use App\Flash\Flash;
+use App\Flash\Message;
 use Illuminate\Support\Carbon;
 
 if (! function_exists('redirect_if')) {
@@ -151,5 +153,26 @@ if (! function_exists('key_by_values')) {
     function key_by_values($array): array
     {
         return array_combine($array, $array);
+    }
+}
+
+if (! function_exists('flash')) {
+    /**
+     * @param string $text
+     * @param string|array $class
+     */
+    function flash(string $key = 'default', string $text = null, $class = null): Flash
+    {
+        /** @var \App\Flash\Flash $flash */
+        $flash = app(Flash::class);
+
+        if (is_null($text)) {
+            return $flash;
+        }
+
+        $message = new Message($key, $text, $class);
+        $flash->flash($message);
+
+        return $flash;
     }
 }

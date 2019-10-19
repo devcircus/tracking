@@ -6,7 +6,6 @@ use Breadcrumbs;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
@@ -93,29 +92,28 @@ class InertiaServiceProvider extends ServiceProvider
     private function shareFlashMessages(): void
     {
         Inertia::share([
-            'flash' => static function () {
-                return [
-                    'success' => Session::get('success'),
-                ];
-            },
             'success' => static function () {
+                $success = Session::get('flash_message')['success'] ?? null;
+
                 return [
-                    'success' => Session::get('success'),
+                    'message' => $success ? $success['message'] : null,
+                    'class' => $success ? $success['class'] : null,
                 ];
             },
             'warning' => static function () {
+                $warning = Session::get('flash_message')['warning'] ?? null;
+
                 return [
-                    'warning' => Session::get('warning'),
+                    'message' => $warning ? $warning['message'] : null,
+                    'class' => $warning ? $warning['class'] : null,
                 ];
             },
             'info' => static function () {
+                $info = Session::get('flash_message')['info'] ?? null;
+
                 return [
-                    'info' => Session::get('info'),
-                ];
-            },
-            'session' => static function () {
-                return [
-                    'session' => Session::get('session'),
+                    'message' => $info ? $info['message'] : null,
+                    'class' => $info ? $info['class'] : null,
                 ];
             },
         ]);

@@ -12,7 +12,7 @@ class StoreUserResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'User successfully created!');
+        flash('success', 'User successfully created!');
 
         return redirect()->route('users.list');
     }

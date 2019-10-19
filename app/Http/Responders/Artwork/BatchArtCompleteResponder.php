@@ -12,7 +12,7 @@ class BatchArtCompleteResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', "Artwork 'complete' status changed for each voucher.");
+        flash('success', "Artwork 'complete' status changed for each voucher.");
 
         return redirect()->back();
     }

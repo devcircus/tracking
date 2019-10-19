@@ -12,7 +12,7 @@ class StoreMultipleTagsResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Tags created successfully!');
+        flash('success', 'Tags created successfully!');
 
         return redirect()->back();
     }

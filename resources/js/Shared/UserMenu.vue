@@ -1,31 +1,38 @@
 <template>
-    <div class="flex flex-col py-1">
-        <inertia-link class="flex px-3 py-2 hover:bg-blue-500 hover:text-white group dropdown-item" :href="route('users.edit', $page.auth.user.id)">
-            <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="profile" classes="mr-2 group-hover:fill-white">
+    <div class="w-64 text-left bg-white rounded-lg shadow-lg">
+        <div class="flex items-center px-6 py-4">
+            <icon-base width="18" height="18" icon-fill="fill-gray-800" icon-name="profile" classes="mr-2 flex-no-shrink dropdown-item">
                 <profile />
             </icon-base>
-            My Profile
-        </inertia-link>
-        <div v-if="$page.auth.user.is_admin">
-            <inertia-link class="flex px-3 py-2 hover:bg-blue-500 hover:text-white group dropdown-item" :href="route('users.list')">
-                <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="users" classes="mr-2 group-hover:fill-white">
+            <div class="ml-4">
+                <p class="font-semibold text-gray-900 leading-none mb-2">{{ $page.auth.user.name }}</p>
+                <inertia-link class="flex text-sm text-gray-600 leading-none hover:underline dropdown-item" :href="route('users.edit', $page.auth.user.id)">
+                    View Profile
+                </inertia-link>
+            </div>
+        </div>
+        <div v-if="$page.auth.user.can.administerUsers" class="border-t-2 border-gray-200 py-1">
+            <inertia-link class="flex px-6 py-3 hover:bg-gray-200 dropdown-item" :href="route('users.list')">
+                <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="users" classes="mr-2">
                     <users />
                 </icon-base>
                 Manage Users
             </inertia-link>
-            <inertia-link class="flex px-3 py-2 hover:bg-blue-500 hover:text-white group dropdown-item" :href="route('activities.list')">
-                <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="activities" classes="mr-2 group-hover:fill-white">
+            <inertia-link class="flex px-6 py-3 hover:bg-gray-200 dropdown-item" :href="route('activities.list')">
+                <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="activities" classes="mr-2">
                     <activities />
                 </icon-base>
                 View Activities
             </inertia-link>
         </div>
-        <inertia-link class="flex px-3 py-2 hover:bg-blue-500 hover:text-white group dropdown-item" :href="route('logout')" method="post">
-            <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="logout" classes="mr-2 group-hover:fill-white">
-                <logout />
-            </icon-base>
-            Logout
-        </inertia-link>
+        <div class="border-t-2 border-gray-200 py-1">
+            <inertia-link class="flex w-full px-6 py-3 text-left leading-tight hover:bg-gray-200 dropdown-item" :href="route('logout')" method="post">
+                <icon-base width="14" height="14" icon-fill="fill-gray-800" icon-name="logout" classes="mr-2">
+                    <logout />
+                </icon-base>
+                Logout
+            </inertia-link>
+        </div>
     </div>
 </template>
 

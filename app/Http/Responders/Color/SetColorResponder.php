@@ -12,7 +12,7 @@ class SetColorResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Color values successfully set!');
+        flash('success', 'Color values successfully set!');
 
         return redirect()->back();
     }

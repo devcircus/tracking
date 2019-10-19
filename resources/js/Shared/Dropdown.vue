@@ -4,8 +4,16 @@
             <slot name="trigger" />
         </button>
 
-        <transition name="appear">
-            <div v-if="show">
+        <transition
+            enter-class="opacity-0 scale-90"
+            enter-active-class="ease-out transition-fastest"
+            enter-to-class="opacity-100 scale-100"
+            leave-class="opacity-100 scale-100"
+            leave-active-class="ease-in transition-fastest"
+            leave-to-class="opacity-0 scale-90"
+        >
+            <!-- Replace "right-0 origin-top-right" with "left-0 origin-top-left" to left-align the dropdown -->
+            <div v-if="show" class="mt-2 absolute right-0 origin-top-right">
                 <div style="position: fixed; top: 0; right: 0; left: 0; bottom: 0; z-index: 90; background: transparent;" @click="close()" />
                 <div ref="dropdown" :style="getStyles()" @click.stop>
                     <slot name="dropdown" />
