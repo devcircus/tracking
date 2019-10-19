@@ -7,17 +7,14 @@
         <div class="fixed top-0 w-full" style="z-index:80">
             <!-- TOP BLUE BAR -->
             <div class="flex justify-between items-center w-full px-4 py-8 bg-blue-800 ">
-                <inertia-link class="hidden lg:inline-block mt-1" :href="route('dashboard')">
+                <inertia-link class="inline-block md:hidden lg:inline-block mt-1" :href="route('dashboard')">
                     <logo-on-dark position="left" />
                 </inertia-link>
-                <dropdown class="block md:hidden ml-auto" width="240">
-                    <div slot="trigger">
-                        <svg class="fill-white w-6 h-6 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
+                <flyout>
+                    <div slot="flyout">
+                        <mobile-main-menu />
                     </div>
-                    <div slot="dropdown" class="mt-2 py-4 shadow-lg bg-white rounded">
-                        <mobile-main-menu display="flex flex-col" />
-                    </div>
-                </dropdown>
+                </flyout>
                 <div class="hidden md:block ml-auto">
                     <desktop-main-menu display="flex flex-row" />
                 </div>
@@ -25,7 +22,7 @@
 
             <!-- TOP WHITE BAR -->
             <div class="flex justify-between items-center w-full text-sm md:text-base bg-white border-b shadow h-16 p-4 py-8">
-                <inertia-link class="inline-block lg:hidden mt-1" :href="route('dashboard')">
+                <inertia-link class="hidden md:inline-block lg:hidden mt-1" :href="route('dashboard')">
                     <logo-on-light position="left" />
                 </inertia-link>
                 <div class="mt-1 mr-4">&nbsp;</div>
@@ -60,6 +57,7 @@
 
 <script>
 import Modal from '@/Shared/Modal';
+import Flyout from '@/Shared/Flyout';
 import IconBase from '@/Shared/IconBase';
 import DesktopMainMenu from '@/Shared/DesktopMainMenu';
 import MobileMainMenu from '@/Shared/MobileMainMenu';
@@ -75,6 +73,7 @@ import CheveronDown from '@/Shared/Icons/CheveronDown';
 export default {
     components: {
         Modal,
+        Flyout,
         IconBase,
         UserMenu,
         Dropdown,
