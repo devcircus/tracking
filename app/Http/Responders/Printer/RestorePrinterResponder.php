@@ -12,7 +12,7 @@ class RestorePrinterResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Printer successfully restored!');
+        flash('success', 'Printer successfully restored!');
 
         return redirect()->route('printers.show', $this->payload->id, 303);
     }

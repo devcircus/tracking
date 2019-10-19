@@ -12,7 +12,7 @@ class RestoreInkResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Ink successfully restored!');
+        flash('success', 'Ink successfully restored!');
 
         return redirect()->route('inks.show', $this->payload->id, 303);
     }

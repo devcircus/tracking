@@ -20,7 +20,7 @@ class IsSuperAdmin
             return $next($request);
         }
 
-        $request->session()->flash('warning', 'You must be the website owner to do that!');
+        flash('warning', 'You must be the website owner to do that!');
 
         return redirect()->back();
     }

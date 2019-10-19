@@ -12,7 +12,7 @@ class UpdateOrderResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Voucher updated successfully!');
+        flash('success', 'Voucher updated successfully!');
 
         return redirect()->back(303);
     }

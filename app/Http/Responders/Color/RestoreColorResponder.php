@@ -12,7 +12,7 @@ class RestoreColorResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Color successfully restored!');
+        flash('success', 'Color successfully restored!');
 
         return redirect()->route('colors.show', $this->payload->id, 303);
     }

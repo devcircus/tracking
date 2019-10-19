@@ -12,7 +12,7 @@ class StoreUploadResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Report generation started.');
+        flash('success', 'Report generation started.');
 
         return redirect()->back();
     }

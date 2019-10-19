@@ -12,7 +12,7 @@ class DeleteColorResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Color deleted successfully!');
+        flash('success', 'Color deleted successfully!');
 
         return redirect()->route('colors.show', $this->payload->id, 303);
     }

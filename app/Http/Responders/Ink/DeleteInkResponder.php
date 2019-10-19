@@ -12,7 +12,7 @@ class DeleteInkResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Ink deleted successfully!');
+        flash('success', 'Ink deleted successfully!');
 
         return redirect()->route('inks.show', $this->payload->id, 303);
     }

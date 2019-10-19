@@ -12,7 +12,7 @@ class UpdateColorResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Color updated successfully!');
+        flash('success', 'Color updated successfully!');
 
         return redirect()->route('colors.show', $this->payload->id, 303);
     }

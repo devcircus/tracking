@@ -12,7 +12,7 @@ class DeleteFabricResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Fabric deleted successfully!');
+        flash('success', 'Fabric deleted successfully!');
 
         return redirect()->route('fabrics.show', $this->payload->id, 303);
     }

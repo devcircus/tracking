@@ -12,7 +12,7 @@ class ReactivateTagResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Tag successfully reactivated!');
+        flash('success', 'Tag successfully reactivated!');
 
         return redirect()->back(303);
     }

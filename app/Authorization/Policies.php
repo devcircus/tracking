@@ -44,6 +44,8 @@ class Policies
 
     public const ADMINISTER_ACTIVITIES = 'administerActivities';
 
+    public const ADMINISTER_USERS = 'administerUsers';
+
     /** @var array */
     protected $policies = [];
 

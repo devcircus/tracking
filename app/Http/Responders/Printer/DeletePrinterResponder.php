@@ -12,7 +12,7 @@ class DeletePrinterResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Printer deleted successfully!');
+        flash('success', 'Printer deleted successfully!');
 
         return redirect()->route('printers.show', $this->payload->id, 303);
     }

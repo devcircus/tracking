@@ -13,7 +13,7 @@ class ArtCompleteResponder extends Responder
     public function respond(): RedirectResponse
     {
         $status = $this->payload ? 'complete' : 'not complete';
-        $this->request->session()->flash('success', "Art for this voucher is {$status}");
+        flash('success', "Art for this voucher is {$status}");
 
         return redirect()->back();
     }

@@ -12,7 +12,7 @@ class RestoreFabricResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Fabric successfully restored!');
+        flash('success', 'Fabric successfully restored!');
 
         return redirect()->route('fabrics.show', $this->payload->id, 303);
     }

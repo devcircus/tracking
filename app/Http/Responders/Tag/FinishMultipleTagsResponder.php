@@ -12,7 +12,7 @@ class FinishMultipleTagsResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Tags successfully finished!');
+        flash('success', 'Tags successfully finished!');
 
         return redirect()->back(303);
     }

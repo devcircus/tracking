@@ -12,7 +12,7 @@ class RestoreTagResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Tag successfully restored!');
+        flash('success', 'Tag successfully restored!');
 
         return redirect()->back(303);
     }

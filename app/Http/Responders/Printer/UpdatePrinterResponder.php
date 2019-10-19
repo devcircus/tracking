@@ -12,7 +12,7 @@ class UpdatePrinterResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Printer updated successfully!');
+        flash('success', 'Printer updated successfully!');
 
         return redirect()->route('printers.show', $this->payload->id, 303);
     }

@@ -25,7 +25,7 @@ class IsTarget
             return $next($request);
         }
 
-        $request->session()->flash('warning', 'You may not perform this action.');
+        flash('warning', 'You may not perform this action.');
 
         return redirect()->back();
     }

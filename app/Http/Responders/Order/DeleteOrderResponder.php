@@ -12,7 +12,7 @@ class DeleteOrderResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Voucher successfully deleted!');
+        flash('success', 'Voucher successfully deleted!');
 
         return redirect()->back(303);
     }

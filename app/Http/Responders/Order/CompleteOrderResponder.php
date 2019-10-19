@@ -12,7 +12,7 @@ class CompleteOrderResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Voucher marked as complete!');
+        flash('success', 'Voucher marked as complete!');
 
         return redirect()->back();
     }

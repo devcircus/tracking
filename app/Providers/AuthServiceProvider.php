@@ -56,6 +56,7 @@ class AuthServiceProvider extends ServiceProvider
         $reflectionClass = new ReflectionClass(Policies::class);
         resolve(Policies::class)->setPolicies($reflectionClass->getConstants());
 
+        $this->enactUserPolicies();
         $this->enactItemPolicies();
         $this->enactTagPolicies();
         $this->enactFabricPolicies();
@@ -75,6 +76,22 @@ class AuthServiceProvider extends ServiceProvider
     }
 
     /**
+     * Enact the policies for users.
+     */
+    private function enactUserPolicies(): void
+    {
+        $itemAbilities = collect($this->getPolicyNames())->filter(function ($ability) {
+            return Str::endsWith($ability, 'Users');
+        })->toArray();
+
+        foreach ($itemAbilities as $key => $policy) {
+            Gate::define($policy, function ($user) {
+                return $user->is_super_admin;
+            });
+        }
+    }
+
+    /**
      * Enact the policies for items.
      */
     private function enactItemPolicies(): void
@@ -83,7 +100,7 @@ class AuthServiceProvider extends ServiceProvider
             return Str::endsWith($ability, 'Items');
         })->toArray();
 
-        foreach($itemAbilities as $key => $policy) {
+        foreach ($itemAbilities as $key => $policy) {
             Gate::define($policy, function ($user) {
                 return $user->is_admin;
             });
@@ -95,23 +112,23 @@ class AuthServiceProvider extends ServiceProvider
      */
     private function enactTagPolicies(): void
     {
-        Gate::define(Policies::ADMINISTER_TAGS, function($user) {
+        Gate::define(Policies::ADMINISTER_TAGS, function ($user) {
             return $user->is_super_admin;
         });
 
-        Gate::define(Policies::DELETE_TAGS, function($user) {
+        Gate::define(Policies::DELETE_TAGS, function ($user) {
             return $user->is_super_admin;
         });
 
-        Gate::define(Policies::RESTORE_TAGS, function($user) {
+        Gate::define(Policies::RESTORE_TAGS, function ($user) {
             return $user->is_super_admin;
         });
 
-        Gate::define(Policies::ACTIVATE_TAGS, function($user) {
+        Gate::define(Policies::ACTIVATE_TAGS, function ($user) {
             return true;
         });
 
-        Gate::define(Policies::FINISH_TAGS, function($user) {
+        Gate::define(Policies::FINISH_TAGS, function ($user) {
             return true;
         });
     }
@@ -145,7 +162,7 @@ class AuthServiceProvider extends ServiceProvider
             return Str::endsWith($ability, 'Inks');
         })->toArray();
 
-        foreach($inkAbilities as $key => $policy) {
+        foreach ($inkAbilities as $key => $policy) {
             Gate::define($policy, function ($user) {
                 return $user->is_admin;
             });
@@ -161,7 +178,7 @@ class AuthServiceProvider extends ServiceProvider
             return Str::endsWith($ability, 'Colors');
         })->toArray();
 
-        foreach($colorAbilities as $key => $policy) {
+        foreach ($colorAbilities as $key => $policy) {
             Gate::define($policy, function ($user) {
                 return $user->is_admin;
             });
@@ -177,7 +194,7 @@ class AuthServiceProvider extends ServiceProvider
             return Str::endsWith($ability, 'Fabrics');
         })->toArray();
 
-        foreach($fabricAbilities as $key => $policy) {
+        foreach ($fabricAbilities as $key => $policy) {
             Gate::define($policy, function ($user) {
                 return $user->is_admin;
             });
@@ -193,7 +210,7 @@ class AuthServiceProvider extends ServiceProvider
             return Str::endsWith($ability, 'Printers');
         })->toArray();
 
-        foreach($printerAbilities as $key => $policy) {
+        foreach ($printerAbilities as $key => $policy) {
             Gate::define($policy, function ($user) {
                 return $user->is_admin;
             });

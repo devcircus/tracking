@@ -12,7 +12,7 @@ class StorePrinterResponder extends Responder
      */
     public function respond(): RedirectResponse
     {
-        $this->request->session()->flash('success', 'Printer added successfully!');
+        flash('success', 'Printer added successfully!');
 
         return redirect()->route('materials.list');
     }
