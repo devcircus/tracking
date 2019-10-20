@@ -34,7 +34,7 @@
             leave-to-class="translate-x-full"
             appear
         >
-            <div v-show="isOpen" class="z-10 fixed inset-y-0 right-0 max-w-xs w-full bg-white transition-transform overflow-y-auto">
+            <div v-show="isOpen" class="z-10 fixed inset-y-0 right-0 max-w-xs w-full h-340p bg-white transition-transform overflow-y-auto">
                 <div class="relative z-10 bg-white">
                     <div :class="isOpen ? 'block' : 'hidden'" class="absolute top-0 right-0 p-4">
                         <button ref="closeButton" type="button" class="text-gray-600 focus:outline-none focus:text-gray-900" aria-label="Close" @click="close">
