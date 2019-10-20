@@ -18,18 +18,24 @@ trait OrderBuilderScopes
 
     /**
      * Scope the query to return only orders that are complete.
+     *
+     * @param  string  $type
      */
-    public function complete(): OrderQueryBuilder
+    public function complete(string $type = 'prototype'): OrderQueryBuilder
     {
-        return $this->whereNotNull('print_complete');
+        if ('prototype' === $type) {
+            return $this->whereNotNull('print_complete');
+        } else {
+            return $this->where('cut_house', '!=', 'SU');
+        }
     }
 
     /**
      * Scope the query to return only orders that are NOT complete.
      *
-     * @param  string|null  $type
+     * @param  string  $type
      */
-    public function notComplete(?string $type = null): OrderQueryBuilder
+    public function notComplete(string $type = 'prototype'): OrderQueryBuilder
     {
         if ('prototype' === $type) {
             return $this->whereNull('print_complete');
