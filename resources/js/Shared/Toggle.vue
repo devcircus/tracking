@@ -1,5 +1,5 @@
 <template>
-    <button class="flex btn shadow-md rounded-full px-3 py-2 text-white text-sm hover:bg-orange-500" :class="buttonClasses" type="button" @click="buttonClicked()">
+    <button class="flex items-center btn shadow-md rounded-full px-3 py-2 text-white text-sm hover:bg-orange-500" :class="buttonClasses" type="button" @click="buttonClicked()">
         <div v-if="sending" class="spinner mr-2" />
         <icon-base v-if="value" :height="14" :width="14" icon-fill="fill-white" icon-name="checkmark" classes="mr-2">
             <checkmark />
@@ -7,7 +7,7 @@
         <icon-base v-else view="24 24" icon-fill="fill-white" icon-name="close" classes="mr-2">
             <close />
         </icon-base>
-        {{ buttonText }}
+        <span class="inline-block">{{ buttonText }}</span>
     </button>
 </template>
 
