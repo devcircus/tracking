@@ -2,6 +2,18 @@
 
 use App\Http\Actions;
 
+Route::get('/test-fetch', function () {
+    dump(request()->headers->all());
+    if (request()->hasHeader('X-Requested-By') && request()->header('X-Requested-By') === 'MY_CHROME_EXTENSION') {
+        return response()->json([
+            'data' => 'it worked',
+            'requestData' => request()->header('X-Requested-By'),
+        ], 200);
+    }
+
+    abort(404);
+})->name('cors.test');
+
 // Home
 Route::redirect('/', '/dashboard');
 Route::get('/dashboard', Actions\Dashboard\Index::class)->middleware(['auth'])->name('dashboard');
