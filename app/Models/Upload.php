@@ -23,7 +23,7 @@ class Upload extends Model
      *
      * @param  string  $date
      */
-    public function storeUpload(string $date): Upload
+    public function storeUpload(string $date): self
     {
         return $this->query()->create([
             'uploaded_at' => $date,
@@ -36,11 +36,11 @@ class Upload extends Model
      *
      * @param  string  $date
      */
-    public function reportsReady(string $date): Upload
+    public function reportsReady(string $date): self
     {
-        $upload = Upload::where('uploaded_at', $date)->first();
+        $upload = self::where('uploaded_at', $date)->first();
 
-        $upload = tap($upload, function($instance) {
+        $upload = tap($upload, function ($instance) {
             $instance->reports_created = true;
             $instance->save();
         })->fresh();
@@ -57,7 +57,7 @@ class Upload extends Model
      */
     public function uploadInProgressForDate(string $date): bool
     {
-        $upload = Upload::where('uploaded_at', $date)->first();
+        $upload = self::where('uploaded_at', $date)->first();
 
         if (! $upload) {
             return false;
@@ -71,6 +71,10 @@ class Upload extends Model
      */
     public function latestUploadInProgress(): bool
     {
-        return $this->uploadInProgressForDate(Upload::latest()->first()->uploaded_at);
+        if (! $latest = self::latest()->first()) {
+            return false;
+        }
+
+        return $this->uploadInProgressForDate($latest->uploaded_at);
     }
 }

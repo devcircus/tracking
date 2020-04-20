@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\Collection;
+use App\Models\Builders\Order\OrderQueryBuilder;
 use App\Models\Traits\FormatsOrderDates;
 use App\Services\Cache\CacheForgetService;
 use App\Services\OrderTypes\SetOrderTypes;
-use Spatie\Activitylog\Traits\LogsActivity;
-use App\Models\Builders\Order\OrderQueryBuilder;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Order extends Model
 {
@@ -77,8 +77,10 @@ class Order extends Model
 
     /**
      * Fetch the most recent date for which reports were created.
+     *
+     * @return string|null
      */
-    public function mostRecentReportCreatedDate(): string
+    public function mostRecentReportCreatedDate()
     {
         return $this->reportDates()->first();
     }
@@ -98,7 +100,7 @@ class Order extends Model
      *
      * @param  array  $data
      */
-    public function saveOrder(array $data): Order
+    public function saveOrder(array $data): self
     {
         CacheForgetService::call('reports', $data['report_created']);
         CacheForgetService::call('summary', $data['report_created']);
@@ -136,7 +138,7 @@ class Order extends Model
      *
      * @param  array  $data
      */
-    public function updateOrder(array $data): Order
+    public function updateOrder(array $data): self
     {
         CacheForgetService::call('reports', $this->report_created);
         CacheForgetService::call('summary', $this->report_created);
@@ -159,7 +161,7 @@ class Order extends Model
      *
      * @param  string|null  $date
      */
-    public function markAsComplete(?string $date = null): Order
+    public function markAsComplete(?string $date = null): self
     {
         CacheForgetService::call('reports', $this->report_created);
         CacheForgetService::call('summary', $this->report_created);
@@ -193,7 +195,7 @@ class Order extends Model
     /**
      * Delete an order.
      */
-    public function deleteOrder(): Order
+    public function deleteOrder(): self
     {
         CacheForgetService::call('reports', $this->report_created);
         CacheForgetService::call('summary', $this->report_created);
@@ -208,7 +210,7 @@ class Order extends Model
      *
      * @param  \App\Models\Order  $order
      */
-    public function setCutHouseForCompletedOrder(Order $order): void
+    public function setCutHouseForCompletedOrder(self $order): void
     {
         if (in_array('bag', $order->order_types)) {
             $order->cut_house = '34';
