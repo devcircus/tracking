@@ -113,12 +113,12 @@
         </div>
         <div v-else>
             <div v-if="inProgress">
-                <span class="border-t px-6 py-4 w-full">Generating New Report. Data will refresh shortly...</span>
+                <span class="text-xl font-semibold text-gray-800 px-6 py-4 w-full">Generating New Report. Data will refresh shortly...</span>
                 <img class="inline-block py-4" src="images/loader-on-gray.gif" />
             </div>
-            <span v-else class="border-t px-6 py-4 w-full">No reports found.</span>
+            <span v-else class="text-xl font-semibold text-gray-800 px-6 py-4 w-full">No reports found.</span>
         </div>
-        <pagination :links="results.links" :full-width="false" />
+        <pagination v-if="reports" :links="results.links" :full-width="false" />
     </layout>
 </template>
 
